@@ -1,6 +1,7 @@
 class Board extends React.Component {
     constructor(){
       super()
+      this.turn = this.turn.bind( this );
     }
 
     state = {
@@ -11,18 +12,26 @@ class Board extends React.Component {
       ]
     }
 
+    turn(row, col, event){
+      this.state.board[row][col] = event.target.value;
+      this.setState({board:this.state.board});
+    }
+
     render() {
         console.log("board", this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
-          const row = row.map( (col,colIndex) => {
+          const column = row.map( (col,colIndex) => {
             return (
-                    <span>{col} : {row}</span>
-            );
+                    <input
+                      className={`row-${rowIndex} col-${colIndex}`}
+                      value={col}
+                      onChange={(event) => { this.turn( rowIndex, colIndex, event); }}
+                      />);
 
           });
           return (
             <div className="row">
-              {row}
+              {column}
             </div>
 
           );
