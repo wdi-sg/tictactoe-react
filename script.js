@@ -16,7 +16,7 @@ class Board extends React.Component {
         const board = this.state.board.map( (row,rowIndex) => {
           const rows = row.map( (col,colIndex) => {
             return (
-                    <span>{col} : {row}</span>
+                    <span>{col} : {rowIndex}</span>
             );
 
           });
