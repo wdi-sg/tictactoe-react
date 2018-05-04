@@ -6,6 +6,11 @@ The starter code gives you a board component that outputs 3 rows and 9 spans.
 
 Add the clickable elements to make the game playable.
 
+#### http-server
+You need to be able to server the html file through your local network.
+Install `http-server` globally so that you can run the files: `npm install -g http-server`
+Run it in the directory: `http-server`
+
 #### Further
 Make the board composed of `input`s.
 
