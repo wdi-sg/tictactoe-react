@@ -14,7 +14,7 @@ class Board extends React.Component {
     render() {
         console.log("board", this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
-          const row = row.map( (col,colIndex) => {
+          const rows = row.map( (col,colIndex) => {
             return (
                     <span>{col} : {row}</span>
             );
@@ -22,7 +22,7 @@ class Board extends React.Component {
           });
           return (
             <div className="row">
-              {row}
+              {rows}
             </div>
 
           );
