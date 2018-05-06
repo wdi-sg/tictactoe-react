@@ -1,0 +1,43 @@
+.gameBackground {
+      background-color: grey;
+      width: 250px;
+      height: 270px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+}
+
+.scoreBoard {
+      background-color: black;
+      width: 250px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+}
+
+
+.clickables {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      background-color: white;
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      padding: 0;
+      margin: 0;
+}
+
+.clickables h5 {
+      height: 10px;
+}
+
+.clickables img {
+      width: 30px;
+      height: 30px;
+      margin: auto;
+}
+
+.gameBoard {
+      display: flex;
+}
