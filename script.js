@@ -1,6 +1,6 @@
 class Board extends React.Component {
     constructor(){
-      super();
+      super()
 
       this.input_row = this.input_row.bind( this );
       this.input_col = this.input_col.bind( this );
