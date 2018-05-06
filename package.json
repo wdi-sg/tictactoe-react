@@ -1,0 +1,22 @@
+{
+  "name": "tictactoe-react",
+  "version": "1.0.0",
+  "description": "Create a game of tictactoe using react.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edmundcjj/tictactoe-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  },
+  "bugs": {
+    "url": "https://github.com/edmundcjj/tictactoe-react/issues"
+  },
+  "homepage": "https://github.com/edmundcjj/tictactoe-react#readme"
+}
