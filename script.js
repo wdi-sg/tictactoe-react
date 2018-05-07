@@ -56,7 +56,7 @@ class Board extends React.Component {
                 this.setState({players:players})
                 this.reset();
             }
-            if(moves == 9){
+            else if(moves == 9){
                 alert('No winner! Draw.')
                 this.reset();
             }
