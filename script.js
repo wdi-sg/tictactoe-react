@@ -35,8 +35,8 @@ class Board extends React.Component {
         event.preventDefault();
         if(event.target.value === ''){
             this.state.token === 'x' ? 
-                this.setState({token:'o',currentPlayer:this.props.playerNames.player2}):
-                    this.setState({token:'x',currentPlayer:this.props.playerNames.player1});
+                this.setState({token:'o',currentPlayer:this.props.player2}):
+                    this.setState({token:'x',currentPlayer:this.props.player1});
 
             let index = event.target.getAttribute('data-id');
             console.log("col: " + index[0] + "; " + "row: " + index[2]);
@@ -78,14 +78,14 @@ class Board extends React.Component {
         });
 
         let currentPlayer = this.state.currentPlayer;
-        if (this.props.playerNames.player1 && currentPlayer === ''){
-            currentPlayer = this.props.playerNames.player1;
+        if (this.props.player1 && currentPlayer === ''){
+            currentPlayer = this.props.player1;
         }
 
         let player1 = this.state.players.player1;
         let player2 = this.state.players.player2;
-        if (this.props.playerNames.player1){player1.name = this.props.playerNames.player1};
-        if (this.props.playerNames.player2){player2.name = this.props.playerNames.player2};
+        if (this.props.player1){player1.name = this.props.player1};
+        if (this.props.player2){player2.name = this.props.player2};
 
         return (
           <div className="board">
@@ -136,22 +136,23 @@ class GameProject extends React.Component{
     constructor(){
         super();
         this.state = {
-            playerNames:{}
+            player1:'',
+            player2:''
         }
+    }
+
+    addPlayer1(event){
+        this.setState({player1:event.target.value});
+        event.target.value = '';
+    }
+    addPlayer2(event){
+        this.setState({player2:event.target.value});
+        event.target.value = '';
     }
 
     handleSubmit(event){
         event.preventDefault();
-        if(this.refs.player1.value != '' && this.refs.player2.value != ''){
-            let setPlayers = {
-                player1:this.refs.player1.value,
-                player2:this.refs.player2.value
-            }
-            this.setState({playerNames:setPlayers})
-            this.refs.player1.value = '';
-            this.refs.player2.value = '';
-            console.log("Names submitted");
-        }
+        console.log("Players added: " + this.state.player1 + ',' + this.state.player1)
     }
 
     render(){
@@ -161,14 +162,14 @@ class GameProject extends React.Component{
                 <div className="players">
                     <form onSubmit={this.handleSubmit.bind(this)}>
                         <label>Player 1:</label>
-                        <input type='text' ref='player1'/><br/>
+                        <input type='text' value={this.state.player1} onChange={this.addPlayer1.bind(this)}/><br/>
                         <label>Player 2:</label>
-                        <input type='text' ref='player2'/><br/>
+                        <input type='text' value={this.state.player2} onChange={this.addPlayer2.bind(this)}/><br/>
                         <input type='submit' value="Submit Names"/>
                     </form>
                 </div>
                 <p>Hint: Track scores by submitting your names</p>               
-                <Board playerNames={this.state.playerNames}/>
+                <Board player1={this.state.player1} player2={this.state.player2}/>
             </div>
         );
     }
