@@ -1,43 +1,74 @@
+
 class Board extends React.Component {
-    constructor(){
-      super()
+  constructor(){
+    super()
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  state = {
+    board: [
+    ['','',''],
+    ['','',''],
+    ['','','']
+    ],
+    x: "true",
+    o: "false"
+  }
+
+  clickHandler(event , colIndex , rowIndex){
+    var boardToPlace = this.state.board;
+      // console.log(rowIndex.rowIndex)
+      // console.log(colIndex)
+      // console.log(boardToPlace)
+      console.log( event.target.rowindex)
+      // boardToPlace[event.target.attributes.rowindex.value][event.target.attributes.colindex.value] = "o"
+      if( this.state.x == "true"){
+        boardToPlace[rowIndex][colIndex] = 'x'
+        this.setState({board:boardToPlace});
+        this.setState({x:"false"})
+        this.setState({o:"true"})
+      }
+
+      if( this.state.o == "true"){
+        boardToPlace[rowIndex][colIndex] = 'o'
+        this.setState({board:boardToPlace});
+        this.setState({o:"false"})
+        this.setState({x:"true"})
+      }
+      
     }
 
-    state = {
-      board: [
-        ['','',''],
-        ['','',''],
-        ['','','']
-      ]
-    }
 
     render() {
-        console.log("board", this.state.board);
-        const board = this.state.board.map( (row,rowIndex) => {
-          const rows = row.map( (col,colIndex) => {
+      console.log("board", this.state.board);
+      const board = this.state.board.map( (row,rowIndex) => {
+        const rows = row.map( (col,colIndex) => {
+            // console.log(rowIndex);
             return (
-                    <span>{col} : {row}</span>
-            );
+              <span>
+              <button colindex={colIndex} rowindex={rowIndex} onClick={ (event) => { this.clickHandler(event, colIndex, rowIndex) }  }>{col}</button>
+              </span>
+              );
 
           });
-          return (
-            <div className="row">
-              {rows}
-            </div>
+        return (
+          <div className="row">
+          {rows}
+          </div>
 
           );
 
-        });
+      });
 
-        return (
-          <div className="item">
-            {board}
-          </div>
+      return (
+        <div className="item">
+        {board}
+        </div>
         );
     }
-}
+  }
 
-ReactDOM.render(
+  ReactDOM.render(
     <Board/>,
     document.getElementById('root')
-);
+    );
