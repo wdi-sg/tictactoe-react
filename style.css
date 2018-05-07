@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 5px;
+    margin: 15px;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+#board {
+    display: flex;
+    width: 300px;
+    flex-wrap: wrap;
+}
+
+#game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#head {
+    text-align: center;
+    padding: 10px;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.square:hover {
+    background: rgb(105, 186, 240);
+}
