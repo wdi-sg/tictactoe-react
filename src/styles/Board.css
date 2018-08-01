@@ -1,0 +1,10 @@
+#board {
+  width: 400px;
+  height: 400px;
+  margin: 50px auto;
+  background-color: bisque;
+  color: #000;
+  border-radius: 2px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
