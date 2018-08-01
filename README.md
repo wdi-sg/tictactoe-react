@@ -16,7 +16,7 @@ We use `bind` to set the context of a method, but if we need to do the opposite 
 
 At the component:
 ```
-handleClick = (event, col) => {
+handleClick = (event, colIndex) => {
     // access to event.target here
     console.log(event);
 }
@@ -24,7 +24,7 @@ handleClick = (event, col) => {
 
 In the JSX:
 ```
-<button type="checkbox" onClick={((ev) => this.handleClick(ev, col))}/>
+<button type="checkbox" onClick={((ev) => this.handleClick(ev, colIndex))}/>
     yay
 </button>
 ```
