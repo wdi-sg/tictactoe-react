@@ -11,6 +11,24 @@ You need to be able to serve the html file through your local network.
 Install `http-server` globally so that you can run the files: `npm install -g http-server`
 Run it in the directory: `http-server`
 
+#### referencing elements
+We use `bind` to set the context of a method, but if we need to do the opposite and capture data from the clicked element we can use a traditional click event callback function:
+
+At the component:
+```
+handleClick = (event, col) => {
+    // access to event.target here
+    console.log(event);
+}
+```
+
+In the JSX:
+```
+<button type="checkbox" onClick={((ev) => this.handleClick(ev, col))}/>
+    yay
+</button>
+```
+
 #### Further
 Nest your board component within a game component. Add other components as you see fit.
 
