@@ -2,6 +2,7 @@ class Board extends React.Component {
     constructor(){
       super()
       this.clickHandler = this.clickHandler.bind(this);
+      this.generateBoard = this.generateBoard.bind(this);
       this.counter = 0;
       this.playerOne = [];
       this.playerTwo = [];
@@ -26,17 +27,17 @@ class Board extends React.Component {
     //       ]
     // }
 
-    // generateBoard(grid) {
-    //   let genBoard = [];
-    //   for (let i = 0; i < grid; i++) {
-    //     let oneRow = [];
-    //     for (let j = 0; j < grid; j++) {
-    //       oneRow.push('')
-    //     }
-    //     genBoard.push(oneRow);
-    //   }
-    //   return genBoard
-    // }
+    generateBoard(grid) {
+      let genBoard = [];
+      for (let i = 0; i < grid; i++) {
+        let oneRow = [];
+        for (let j = 0; j < grid; j++) {
+          oneRow.push('')
+        }
+        genBoard.push(oneRow);
+      }
+      this.setState( {board: genBoard} );
+    }
 
     checkMatchingArr(arr1, arr2) {
       for (var i = arr1.length; i--;) {
@@ -47,7 +48,6 @@ class Board extends React.Component {
     }
 
     generateDiagonalWinState(grid) {
-
         // generate diagonal win state
         let rightDia = [];
         let leftDia = [];
@@ -65,7 +65,7 @@ class Board extends React.Component {
         while (j < grid) {
           let cell = [];
           cell.push(j);
-          cell.push(3 - 1 - j);
+          cell.push(grid - 1 - j);
           leftDia.push(cell);
           j ++
         }
@@ -91,7 +91,7 @@ class Board extends React.Component {
             let result = direction.filter( function(number) {
               return number === j;
             });
-            if (result.length >= 3) {
+            if (result.length >= this.grid) {
               console.log('win')
             }
           }
@@ -105,7 +105,7 @@ class Board extends React.Component {
                 checkCondition ++
               }
             }
-            if (checkCondition === 3) {
+            if (checkCondition === this.grid) {
               console.log('win')
             } 
           }
@@ -142,10 +142,13 @@ class Board extends React.Component {
 
     }
 
+
     render() {
-        return (
+      let generate = () => {this.grid = this.grid + 1; this.generateBoard(this.grid)}
+      return (
           <div className="item">
             <Game board={this.state.board} clickHandler={this.clickHandler}/>
+            <button onClick={generate} >Generate Board</button>
           </div>
         );
     }
