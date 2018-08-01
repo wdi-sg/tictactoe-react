@@ -11,8 +11,6 @@ You need to be able to serve the html file through your local network.
 Install `http-server` globally so that you can run the files: `npm install -g http-server`
 Run it in the directory: `http-server`
 
-#### Further
-Make the board composed of `input`s.
 
 #### Further
 Add players and have them be able to add their name.
