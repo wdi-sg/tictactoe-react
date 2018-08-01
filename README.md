@@ -11,12 +11,8 @@ You need to be able to serve the html file through your local network.
 Install `http-server` globally so that you can run the files: `npm install -g http-server`
 Run it in the directory: `http-server`
 
-
 #### Further
-Add players and have them be able to add their name.
-
-#### Further
-Nest your board component within a game component. Add other components as yu see fit.
+Nest your board component within a game component. Add other components as you see fit.
 
 #### Further
 Detect winning states. (hard-coded is ok)
