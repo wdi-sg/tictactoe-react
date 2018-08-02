@@ -1,6 +1,7 @@
 class Board extends React.Component {
     constructor(){
       super()
+      this.placeMarker = this.placeMarker.bind(this)
     }
 
     state = {
@@ -11,20 +12,24 @@ class Board extends React.Component {
       ]
     }
 
+    placeMarker() {
+      console.log(this.state.board)
+    }
+
     render() {
         console.log("board", this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
           const rows = row.map( (col,colIndex) => {
+            console.log("colIndex: " + colIndex)
+            console.log("col: " + col)
             return (
-                    <span>{col} : {rowIndex}</span>
+                    <span onClick={this.placeMarker}>{col} : {rowIndex}</span>
             );
-
           });
           return (
             <div className="row">
               {rows}
             </div>
-
           );
 
         });
