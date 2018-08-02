@@ -7,7 +7,6 @@ class Board extends React.Component {
       this.playerOne = [];
       this.playerTwo = [];
       this.grid = 3;
-      // this.foo = this.generateBoard(this.grid);
     }
 
     state = {
@@ -18,16 +17,9 @@ class Board extends React.Component {
       ]
     }
 
-    // state = {
-    //   board2: this.foo,
-    //   board: [
-    //         ['','',''],
-    //         ['','',''],
-    //         ['','','']
-    //       ]
-    // }
-
     generateBoard(grid) {
+      grid += 1;
+      this.grid = grid;
       let genBoard = [];
       for (let i = 0; i < grid; i++) {
         let oneRow = [];
@@ -144,7 +136,7 @@ class Board extends React.Component {
 
 
     render() {
-      let generate = () => {this.grid = this.grid + 1; this.generateBoard(this.grid)}
+      let generate = () => {this.generateBoard(this.grid)}
       return (
           <div className="item">
             <Game board={this.state.board} clickHandler={this.clickHandler}/>
