@@ -13,6 +13,7 @@ class Board extends React.Component {
 
     render() {
         console.log("board", this.state.board);
+        
         const board = this.state.board.map( (row,rowIndex) => {
           const rows = row.map( (col,colIndex) => {
             return (
@@ -36,6 +37,11 @@ class Board extends React.Component {
         );
     }
 }
+
+
+
+
+
 
 ReactDOM.render(
     <Board/>,
