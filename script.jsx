@@ -4,29 +4,29 @@ class Board extends React.Component {
     }
 
     state = {
-      board: [
-        ['','',''],
-        ['','',''],
-        ['','','']
+      board: [ ['','',''], ['','',''], ['','','']
       ]
+
+
     }
+
+    // clickHandler(){
+      
+    // }
 
     render() {
         console.log("board", this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
           const rows = row.map( (col,colIndex) => {
             return (
-                    <span>{col} : {rowIndex}</span>
+              <span>{col} : {rowIndex}</span>
             );
-
           });
           return (
             <div className="row">
               {rows}
             </div>
-
           );
-
         });
 
         return (
@@ -38,6 +38,6 @@ class Board extends React.Component {
 }
 
 ReactDOM.render(
-    <Board/>,
+    <Board />,
     document.getElementById('root')
 );
