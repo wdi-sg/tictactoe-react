@@ -1,45 +1,73 @@
 class Board extends React.Component {
     
 	//testing
-    constructor(){
-      super()
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  state = {
+    board : [
+      ['__','__','__'],
+      ['__','__','__'],
+      ['__','__','__']
+    ]
+  }
+
+  handleClick(row, col) {
+    var newBoard = this.state.board;
+
+    if (newBoard[row][col] === "__") {
+        newBoard[row][col] = "X";  
+    } else if (newBoard[row][col] === "X") {
+        newBoard[row][col] = "O";
+    } else {
+        newBoard[row][col] = "__";
     }
 
-    state = {
-      board: [
-        ['','',''],
-        ['','',''],
-        ['','','']
-      ]
-    }
+    this.setState( {board : newBoard} );
+  }
 
-    render() {
-        console.log("board", this.state.board);
-        const board = this.state.board.map( (row,rowIndex) => {
-          const rows = row.map( (col,colIndex) => {
-            return (
-                    <span>{col} : {rowIndex}</span>
+  render() {
+    const board = this.state.board.map( (row,rowIndex) => {
+      const rows = row.map( (col,colIndex) => { return (
+              <span id="{colIndex},{rowIndex}" onClick={((ev) => this.handleClick(rowIndex, colIndex))}>
+                | {col}
+              </span>
             );
-
           });
-          return (
-            <div className="row">
-              {rows}
-            </div>
+      return (
+        <div className="row">
+          {rows}
+        </div>
+      );
 
-          );
+    });
 
-        });
+    return (
+      <div className="item">
+        {board}
+      </div>
+    );
+  }
+}
 
-        return (
-          <div className="item">
-            {board}
-          </div>
-        );
-    }
+class Game extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return(
+      <div>
+        <Board/>
+      </div>
+    )
+  }
+
 }
 
 ReactDOM.render(
-    <Board/>,
+    <Game />,
     document.getElementById('root')
 );
