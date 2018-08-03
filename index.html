@@ -5,10 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>tictactoe</title>
 <style>
-  .row{
-    background-color:grey;
-    margin:5px;
-    padding:5px;
+    .item {
+        margin-top: 200px;
+        margin-left: 800px;
+    }
+  .row:after{
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .square {
+    background: #fff;
+    border: 1px solid black;
+    float: left;
+    font-size: 100px;
+    font-weight: bold;
+    height: 100px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 100px;
   }
 </style>
 </head>
