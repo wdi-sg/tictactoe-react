@@ -4,13 +4,16 @@ class Names extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  state={
-    play0 : "test",
+  state = {
+
+    // player 0 and 1 names
+    play0 : "",
     play1 : ""
   }
 
+  // changes player names when name inputs changes
   handleChange(player, event) {
-    var name = event.target.value;
+    var name = event.target.value.toUpperCase();
     if (player === "play0") {
       this.setState({
         play0 : name
@@ -22,6 +25,7 @@ class Names extends React.Component {
     }
   }
 
+  // shows players names and inputs to change players names
   render() {
     return (
       <div>
@@ -49,20 +53,27 @@ class Board extends React.Component {
     ]
   }
 
+  // changes board when a cell is clicked and updates the board
   handleClick(row, col) {
     var newBoard = this.state.board;
-
     if (newBoard[row][col] === "__") {
-        newBoard[row][col] = "X";  
-    } else if (newBoard[row][col] === "X") {
+      if (this.props.turn === 0) {
+        newBoard[row][col] = "X";
+      } else {
         newBoard[row][col] = "O";
-    } else {
-        newBoard[row][col] = "__";
+      }
     }
-
+    // if (newBoard[row][col] === "__") {
+    //     newBoard[row][col] = "X";  
+    // } else if (newBoard[row][col] === "X") {
+    //     newBoard[row][col] = "O";
+    // } else {
+    //     newBoard[row][col] = "__";
+    // }
     this.setState( {board : newBoard} );
   }
 
+  // shows board
   render() {
     const board = this.state.board.map( (row,rowIndex) => {
       const rows = row.map( (col,colIndex) => {
@@ -92,13 +103,30 @@ class Board extends React.Component {
 class Game extends React.Component {
   constructor() {
     super();
+    this.changeTurn = this.changeTurn.bind(this);
   }
 
+  state = {
+
+    // turn of player 0 or 1
+    turn : 0
+  }
+
+  // changes turn of player
+  changeTurn() {
+    if (this.state.turn === 0) {
+      this.setState({ turn : 1});
+    } else {
+      this.setState({turn : 0});
+    }
+  }
+
+  // passes turn and changeTurn() into Names and Board components as props
   render() {
     return(
       <div>
-        <Names/>
-        <Board/>
+        <Names turn={this.state.turn} changeTurn={this.changeTurn}/>
+        <Board turn={this.state.turn} changeTurn={this.changeTurn}/>
       </div>
     )
   }
