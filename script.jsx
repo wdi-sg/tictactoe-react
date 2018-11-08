@@ -1,65 +1,107 @@
 class Board extends React.Component {
-    constructor(){
+	constructor() {
 
-      super()
+		super()
 
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
+		this.playerOne = {
+			name: 'Player One',
+			symbol: 'X',
+			score: 0
+		},
 
-    }
+			this.playerTwo = {
+				name: 'Player Two',
+				symbol: 'O',
+				score: 0
+			}
 
-    squareClick(something){
-        console.log( something );
-    }
+		this.state = {
 
-    render() {
-        console.log("board", this.state.board);
+			currentPlayer: this.playerOne,
+			board: [
+				['', '', ''],
+				['', '', ''],
+				['', '', '']
+			]
+		}
 
-        const board = this.state.board.map( (row,rowIndex) => {
+	}
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+	squareClick(colIndex, rowIndex) {
 
-            // make each column
-            return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
+		if (this.state.board[rowIndex][colIndex] === '') {
 
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
-            );
+			var newBoard = this.state.board;
 
-          });
+			newBoard[rowIndex][colIndex] = this.state.currentPlayer.symbol;
 
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
+			if (this.state.currentPlayer === this.playerOne) {
+				var newPlayer = this.playerTwo;
+			} else {
+				var newPlayer = this.playerOne;
+			}
 
-          );
+			this.setState({
+				board: newBoard,
+				currentPlayer: newPlayer
+			})
 
-        });
+		}
+	}
 
-        return (
-          <div className="item">
-            {board}
-          </div>
-        );
-    }
+	render() {
+		console.log("board", this.state.board);
+
+		const board = this.state.board.map((row, rowIndex) => {
+
+			// make a single row
+			const rows = row.map((col, colIndex) => {
+
+				// make each column
+				return (
+					<div
+						className="square"
+						key={colIndex}
+						onClick={() => {
+							this.squareClick(colIndex, rowIndex);
+						}}>
+						{col}
+					</div>
+				);
+
+			});
+
+			// return the complete row
+			return (
+				<div key={rowIndex} className="row">
+					{rows}
+				</div>
+
+			);
+
+		});
+
+		return (
+			<div className="item">
+				{board}
+			</div>
+		);
+	}
+}
+
+class Game extends React.Component {
+
+	render() {
+
+		return (
+			<div className="board">
+				<Board />
+			</div>
+		)
+	}
 }
 
 ReactDOM.render(
-    <Board/>,
-    document.getElementById('root')
+	<Game />,
+	document.getElementById('root')
 );

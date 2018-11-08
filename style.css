@@ -1,0 +1,29 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Consolas', 'Menlo', monospace;
+}
+
+.board {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	align-items: center;
+}
+
+.row {
+	height: 100px;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+}
+
+.square {
+	display: inline-block;
+	width: 98px;
+	height: 98px;
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
