@@ -1,43 +1,27 @@
 class Board extends React.Component {
-    constructor(){
-      super()
-    }
+  constructor() {
+    super();
+  }
 
-    state = {
-      board: [
-        ['','',''],
-        ['','',''],
-        ['','','']
-      ]
-    }
+  state = {
+    board: [['', '', ''], ['', '', ''], ['', '', '']],
+  };
 
-    render() {
-        console.log("board", this.state.board);
-        const board = this.state.board.map( (row,rowIndex) => {
-          const rows = row.map( (col,colIndex) => {
-            return (
-                    <span>{col} : {rowIndex}</span>
-            );
-
-          });
-          return (
-            <div className="row">
-              {rows}
-            </div>
-
-          );
-
-        });
-
+  render() {
+    console.log('board', this.state.board);
+    const board = this.state.board.map((row, rowIndex) => {
+      const rows = row.map((col, colIndex) => {
         return (
-          <div className="item">
-            {board}
-          </div>
+          <span>
+            {col} : {rowIndex}
+          </span>
         );
-    }
+      });
+      return <div className="row">{rows}</div>;
+    });
+
+    return <div className="item">{board}</div>;
+  }
 }
 
-ReactDOM.render(
-    <Board/>,
-    document.getElementById('root')
-);
+ReactDOM.render(<Board />, document.getElementById('root'));
