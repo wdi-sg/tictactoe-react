@@ -1,8 +1,7 @@
 class Board extends React.Component {
+
     constructor(){
-
       super()
-
       this.state = {
         board: [
           ['i','i','i'],
@@ -10,33 +9,33 @@ class Board extends React.Component {
           ['i','i','i']
         ]
       }
-
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(column, row){
+        console.log( "clicked column", column, "and row", row );
     }
+
+  //   handleClick = (event, colIndex) => {
+  //     // access to event.target here
+  //     console.log(event);
+  // }
 
     render() {
         console.log("board", this.state.board);
-
         const board = this.state.board.map( (row,rowIndex) => {
-
           // make a single row
           const rows = row.map( (col,colIndex) => {
-
+            
             // make each column
-            return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+          return (
+            <p
+              className="boo"
+              key={colIndex}
+              onClick= { () => {this.squareClick(colIndex, rowIndex);} }
+            >
+            {/* <button type="checkbox" onClick={((event) => this.handleClick(event, colIndex))}/></button> */}
+              {col} : {colIndex} : {rowIndex}
+            </p>
             );
 
           });
@@ -46,9 +45,7 @@ class Board extends React.Component {
             <div key={rowIndex} className="row">
               {rows}
             </div>
-
           );
-
         });
 
         return (
@@ -56,10 +53,8 @@ class Board extends React.Component {
             {board}
           </div>
         );
+        
     }
 }
 
-ReactDOM.render(
-    <Board/>,
-    document.getElementById('root')
-);
+ReactDOM.render(<Board/>, document.getElementById('root'));
