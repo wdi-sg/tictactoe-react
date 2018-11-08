@@ -1,4 +1,35 @@
 class Board extends React.Component {
+  render() {
+    const { board, onSquareClick } = this.props;
+
+    const boardItem = board.map((row, rowIndex) => {
+      // make a single row
+      const rows = row.map((col, colIndex) => {
+        // make each column
+        return (
+          <p
+            className="boo"
+            key={colIndex}
+            onClick={() => onSquareClick(rowIndex, colIndex)}
+          >
+            {col}
+          </p>
+        );
+      });
+
+      // return the complete row
+      return (
+        <div key={rowIndex} className="row">
+          {rows}
+        </div>
+      );
+    });
+
+    return <div className="item">{boardItem}</div>;
+  }
+}
+
+class Game extends React.Component {
   constructor() {
     super();
 
@@ -8,7 +39,7 @@ class Board extends React.Component {
     };
   }
 
-  squareClick(rowIndex, colIndex) {
+  squareClick = (rowIndex, colIndex) => {
     const board = [...this.state.board];
 
     // Do nothing if player clicks a cell that's already marked.
@@ -25,38 +56,11 @@ class Board extends React.Component {
     }
 
     this.setState({ turn, board });
-  }
+  };
 
   render() {
-    console.log('board', this.state.board);
-
-    const board = this.state.board.map((row, rowIndex) => {
-      // make a single row
-      const rows = row.map((col, colIndex) => {
-        // make each column
-        return (
-          <p
-            className="boo"
-            key={colIndex}
-            onClick={() => {
-              this.squareClick(rowIndex, colIndex);
-            }}
-          >
-            {this.state.board[rowIndex][colIndex]}
-          </p>
-        );
-      });
-
-      // return the complete row
-      return (
-        <div key={rowIndex} className="row">
-          {rows}
-        </div>
-      );
-    });
-
-    return <div className="item">{board}</div>;
+    return <Board board={this.state.board} onSquareClick={this.squareClick} />;
   }
 }
 
-ReactDOM.render(<Board />, document.getElementById('root'));
+ReactDOM.render(<Game />, document.getElementById('root'));
