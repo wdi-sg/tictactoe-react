@@ -1,6 +1,16 @@
+class Game extends React.Component {
+    render(){
+        console.log("THIS.PROPS FOR GAME MODE: ", this.props);
+        return (
+            <button className="boo" onClick={this.props.eventClick}>
+                <span>{this.props.col}</span>
+            </button>
+            )
+    }
+}
+
 class Board extends React.Component {
     constructor(){
-
       super()
       this.squareClick = this.squareClick.bind(this);
       this.state = {
@@ -18,7 +28,7 @@ class Board extends React.Component {
         // console.log( something);
         let action = this.state.board;
         let count = this.state.counter;
-        console.log("this.state is : ", this.state);
+        // console.log("this.state is : ", this.state);
         if (action[rowIndex][colIndex] === "i"){
             if (count % 2 == 0 && count < 10){
                 action[rowIndex][colIndex] = "X";
@@ -44,19 +54,8 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <button
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        <span>{col}</span>
-                    </button>
-
+                <Game col={col} key={colIndex} eventClick={()=>{this.squareClick(colIndex, rowIndex);}}/>
             );
-
           });
 
           // return the complete row
@@ -68,7 +67,7 @@ class Board extends React.Component {
           );
 
         });
-        console.log("WHAT IS BOARD HAHAHAHAHHAHA", board)
+        // console.log("WHAT IS BOARD HAHAHAHAHHAHA", board)
 
         return (
 
@@ -79,7 +78,6 @@ class Board extends React.Component {
         );
     }
 }
-
 ReactDOM.render(
     <Board/>,
     document.getElementById('root')
