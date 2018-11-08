@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.square {
+  height: 150px;
+  width: 150px;
+  background: black;
+  color: white;
+  margin: 0;
+  border: 2px solid white;
+}
