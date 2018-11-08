@@ -11,10 +11,24 @@ class Board extends React.Component {
         ]
       }
 
+      this.squareClick = this.squareClick.bind(this);
+
     }
 
-    squareClick(something){
-        console.log( something );
+
+
+    squareClick(item){
+        let itemClass = item.className.split('')
+        let rowNumber = parseInt(itemClass[0])
+        let columnNumber = parseInt(itemClass[1])
+
+        const newBoard = this.state.board.slice()
+        newBoard[rowNumber][columnNumber] = "x"
+        console.log(this.state.board[rowNumber][columnNumber])
+        this.setState( {board: newBoard} );
+        console.log(this.state.board[rowNumber][columnNumber])
+
+
     }
 
     render() {
@@ -27,25 +41,25 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <td
+                        className={rowIndex.toString()+ colIndex.toString()}
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(event.target);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col} : {rowIndex} : {colIndex}
+                    </td>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <tr key={rowIndex} className="row">
               {rows}
-            </div>
+            </tr>
 
           );
 
@@ -53,7 +67,11 @@ class Board extends React.Component {
 
         return (
           <div className="item">
-            {board}
+            <table border = "1">
+                <tbody>
+                    {board}
+                </tbody>
+            </table>
           </div>
         );
     }
