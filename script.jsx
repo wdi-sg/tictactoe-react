@@ -3,10 +3,10 @@ class GameInfo extends React.Component {
 
 		return (
 			<div>
-				<h3>{this.props.currentPlayer.symbol}'s Turn</h3>
-				<p>{this.props.playerOne.name}: {this.props.playerOne.symbol}<br />
+				<h3>{this.props.currentPlayer.name}'s Turn</h3>
+				<p>{this.props.playerOne.name}: <span className="material-icons">{this.props.playerOne.symbol}</span><br />
 					Score: {this.props.playerOne.score}</p>
-				<p>{this.props.playerTwo.name}: {this.props.playerTwo.symbol}<br />
+				<p>{this.props.playerTwo.name}: <span className="material-icons">{this.props.playerTwo.symbol}</span><br />
 					Score: {this.props.playerTwo.score}</p>
 			</div>
 		)
@@ -20,13 +20,13 @@ class Board extends React.Component {
 
 		const playerOne = { 
 			name: 'Player One',
-			symbol: 'X',
+			symbol: 'close',
 			score: 0
 		}
 
 		const playerTwo = {
 			name: 'Player Two',
-			symbol: 'O',
+			symbol: 'panorama_fish_eye',
 			score: 0
 		}
 
@@ -204,10 +204,23 @@ class Board extends React.Component {
 			// make a single row
 			const rows = row.map((col, colIndex) => {
 
-				// make each column
+				let squareClass = "square material-icons";
+
+				if (colIndex == 0) {
+					squareClass += " left";
+				} else if (colIndex == row.length - 1) {
+					squareClass += " right"
+				}
+
+				if (rowIndex == 0) {
+					squareClass += " top";
+				} else if (rowIndex == this.state.board.length - 1) {
+					squareClass += " bottom";
+				}
+
 				return (
 					<div
-						className="square"
+						className={squareClass}
 						key={colIndex}
 						onClick={() => {
 							this.squareClick(colIndex, rowIndex);
@@ -220,7 +233,7 @@ class Board extends React.Component {
 
 			// return the complete row
 			return (
-				<div key={rowIndex} className="row">
+				<div key={rowIndex} className='row'>
 					{rows}
 				</div>
 

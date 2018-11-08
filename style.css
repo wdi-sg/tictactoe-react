@@ -27,3 +27,19 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
+.left {
+	border-left: 1px solid white;
+}
+
+.right {
+	border-right: 1px solid white;
+}
+
+.top {
+	border-top: 1px solid white;
+}
+
+.bottom {
+	border-bottom: 1px solid white;
+}
