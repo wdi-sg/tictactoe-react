@@ -4,10 +4,28 @@ class Board extends React.Component {
 
     this.state = {
       board: [['', '', ''], ['', '', ''], ['', '', '']],
+      turn: 0,
     };
   }
 
-  squareClick(rowIndex, colIndex) {}
+  squareClick(rowIndex, colIndex) {
+    const board = [...this.state.board];
+
+    // Do nothing if player clicks a cell that's already marked.
+    if (board[rowIndex][colIndex]) {
+      return;
+    }
+
+    const turn = this.state.turn + 1;
+
+    if (turn % 2 === 0) {
+      board[rowIndex][colIndex] = 'O';
+    } else {
+      board[rowIndex][colIndex] = 'X';
+    }
+
+    this.setState({ turn, board });
+  }
 
   render() {
     console.log('board', this.state.board);
