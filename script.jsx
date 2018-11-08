@@ -1,23 +1,41 @@
+class GameInfo extends React.Component {
+	render () {
+		
+		return (
+			<div>
+				<h3>{this.props.currentPlayer.symbol}'s Turn</h3>
+				<p>{this.props.playerOne.name}: {this.props.playerOne.symbol}<br />
+				Score: {this.props.playerOne.score}</p>
+				<p>{this.props.playerTwo.name}: {this.props.playerTwo.symbol}<br />
+				Score: {this.props.playerTwo.score}</p>
+			</div>
+		) 
+	}
+}
+
 class Board extends React.Component {
 	constructor() {
 
 		super()
 
-		this.playerOne = {
+		const playerOne = {
 			name: 'Player One',
 			symbol: 'X',
 			score: 0
-		},
+		}
 
-			this.playerTwo = {
-				name: 'Player Two',
-				symbol: 'O',
-				score: 0
-			}
+		const playerTwo = {
+			name: 'Player Two',
+			symbol: 'O',
+			score: 0
+		}
 
 		this.state = {
 
-			currentPlayer: this.playerOne,
+			playerOne: playerOne,
+			playerTwo: playerTwo,
+			currentPlayer: playerOne,
+			isRunning: true,
 			board: [
 				['', '', ''],
 				['', '', ''],
@@ -29,16 +47,18 @@ class Board extends React.Component {
 
 	squareClick(colIndex, rowIndex) {
 
-		if (this.state.board[rowIndex][colIndex] === '') {
+		if (this.state.board[rowIndex][colIndex] === '' && this.state.isRunning) {
 
 			var newBoard = this.state.board;
 
 			newBoard[rowIndex][colIndex] = this.state.currentPlayer.symbol;
 
-			if (this.state.currentPlayer === this.playerOne) {
-				var newPlayer = this.playerTwo;
+			this.checkWin(newBoard);
+
+			if (this.state.currentPlayer === this.state.playerOne) {
+				var newPlayer = this.state.playerTwo;
 			} else {
-				var newPlayer = this.playerOne;
+				var newPlayer = this.state.playerOne;
 			}
 
 			this.setState({
@@ -49,8 +69,100 @@ class Board extends React.Component {
 		}
 	}
 
+	checkWin(board) {
+		var rows = board.length;
+		var columns = board[0].length;
+
+		var matchesToWin = 3; // don't hardcode this later
+		var offset = 2; // don't hardcore this either
+
+		// check horizontal
+		for (var y = 0; y < rows; y++) {
+			for (var x = 0; x < columns - offset; x++) {
+				if (board[y][x] === this.state.currentPlayer.symbol) {
+					var winCounter = 1;
+					for (var z = 1; z <= offset; z++) {
+						if (board[y][x + z] === this.state.currentPlayer.symbol) {
+							winCounter++;
+							if (winCounter >= matchesToWin) {
+								console.log('WIN:', this.state.currentPlayer.name);
+								this.state.isRunning = false;
+								this.state.currentPlayer.score += 1;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+	
+		//check vertical
+		for (var y = 0; y < rows - offset; y++) {
+			for (var x = 0; x < columns; x++) {
+				if (board[y][x] === this.state.currentPlayer.symbol) {
+					var winCounter = 1;
+					for (var z = 1; z <= offset; z++) {
+						if (board[y + z][x] === this.state.currentPlayer.symbol) {
+							winCounter++;
+							if (winCounter >= matchesToWin) {
+								console.log('WIN:', this.state.currentPlayer.name);
+								this.state.isRunning = false;
+								return true;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+	
+		//check diagonal down
+		for (var y = 0; y < rows - offset; y++) {
+			for (var x = 0; x < columns - offset; x++) {
+				if (board[y][x] === this.state.currentPlayer.symbol) {
+					var winCounter = 1;
+					for (var z = 1; z <= offset; z++) {
+						if (board[y + z][x + z] === this.state.currentPlayer.symbol) {
+							winCounter++;
+							if (winCounter >= matchesToWin) {
+								console.log('WIN:', this.state.currentPlayer.name);
+								this.state.isRunning = false;
+								return true;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+	
+		//check diagonal up
+		for (y = offset; y < rows; y++) {
+			for (x = 0; x < columns - offset; x++) {
+				if (board[y][x] === this.state.currentPlayer.symbol) {
+					var winCounter = 1;
+					for (z = 1; z <= offset; z++) {
+						if (board[y - z][x + z] === this.state.currentPlayer.symbol) {
+							winCounter++;
+							if (winCounter >= matchesToWin) {
+								console.log('WIN:', this.state.currentPlayer.name);
+								this.state.isRunning = false;
+								return true;
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
 	render() {
-		console.log("board", this.state.board);
 
 		const board = this.state.board.map((row, rowIndex) => {
 
@@ -84,6 +196,10 @@ class Board extends React.Component {
 		return (
 			<div className="item">
 				{board}
+				<GameInfo 
+				currentPlayer={this.state.currentPlayer} 
+				playerOne={this.state.playerOne} 
+				playerTwo={this.state.playerTwo} />
 			</div>
 		);
 	}
