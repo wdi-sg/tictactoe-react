@@ -2,6 +2,7 @@ class Board extends React.Component {
     constructor(){
 
       super()
+      this.squareClick = this.squareClick.bind( this );
 
       this.state = {
         board: [
@@ -13,8 +14,13 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick = (event, colIndex, rowIndex) => {
+        var x = colIndex.toString() + rowIndex.toString();
+        document.getElementById(x).textContent = "X";
+        console.log(event.target)
+        console.log(colIndex, rowIndex)
+
+
     }
 
     render() {
@@ -25,20 +31,19 @@ class Board extends React.Component {
           // make a single row
           const rows = row.map( (col,colIndex) => {
 
+
             // make each column
             return (
-                    <p
+                    <button
+                        onClick={(event)=>{this.squareClick(event, colIndex, rowIndex);
+                        }}
                         className="boo"
                         key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
+                        id={colIndex.toString() + rowIndex.toString()}
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                     {row} : {colIndex} : {rowIndex}
+                    </button>
             );
-
           });
 
           // return the complete row
