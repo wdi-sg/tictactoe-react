@@ -36,6 +36,7 @@ class Game extends React.Component {
     this.state = {
       board: [['', '', ''], ['', '', ''], ['', '', '']],
       turn: 0,
+      winner: '',
     };
   }
 
@@ -43,7 +44,7 @@ class Game extends React.Component {
     const board = [...this.state.board];
 
     // Do nothing if player clicks a cell that's already marked.
-    if (board[rowIndex][colIndex]) {
+    if (board[rowIndex][colIndex] || this.state.winner) {
       return;
     }
 
@@ -55,11 +56,64 @@ class Game extends React.Component {
       board[rowIndex][colIndex] = 'X';
     }
 
-    this.setState({ turn, board });
+    const winner = this.checkWinState(board);
+
+    this.setState({ turn, board, winner });
+  };
+
+  checkWinState = board => {
+    // Top row
+    if (board[0][0] === board[0][1] && board[0][0] === board[0][2]) {
+      return board[0][0];
+    }
+
+    // Middle row
+    if (board[1][0] === board[1][1] && board[1][0] === board[1][2]) {
+      return board[1][0];
+    }
+
+    // Bottom row
+    if (board[2][0] === board[2][1] && board[2][0] === board[2][2]) {
+      return board[2][0];
+    }
+
+    // Left column
+    if (board[0][0] === board[1][0] && board[0][0] === board[2][0]) {
+      return board[0][0];
+    }
+
+    // Middle column
+    if (board[0][1] === board[1][1] && board[0][1] === board[2][1]) {
+      return board[0][1];
+    }
+
+    // Right column
+    if (board[0][2] === board[1][2] && board[0][2] === board[2][2]) {
+      return board[0][2];
+    }
+
+    // Top left to bottom right diagonal
+    if (board[0][0] === board[1][1] && board[0][0] === board[2][2]) {
+      return board[0][0];
+    }
+
+    // Top right to bottom left diagonal
+    if (board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
+      return board[0][2];
+    }
+
+    return '';
   };
 
   render() {
-    return <Board board={this.state.board} onSquareClick={this.squareClick} />;
+    const { board, winner } = this.state;
+
+    return (
+      <div>
+        <Board board={board} onSquareClick={this.squareClick} />
+        {winner && <p className="winner">Winner: {winner}</p>}
+      </div>
+    );
   }
 }
 
