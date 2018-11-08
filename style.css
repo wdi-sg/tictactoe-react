@@ -13,7 +13,7 @@ body {
 
 .row {
 	height: 100px;
-	width: 300px;
+	width: auto;
 	display: flex;
 	justify-content: center;
 }

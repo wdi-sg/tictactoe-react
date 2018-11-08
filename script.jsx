@@ -14,11 +14,11 @@ class GameInfo extends React.Component {
 }
 
 class Board extends React.Component {
-	constructor() {
+	constructor(props) {
 
-		super()
+		super(props) // passes this.props into the constructor
 
-		const playerOne = { // this is a class variable with a getter and not a setter??
+		const playerOne = { 
 			name: 'Player One',
 			symbol: 'X',
 			score: 0
@@ -33,23 +33,25 @@ class Board extends React.Component {
 		this.win = this.win.bind(this);
 		this.newGame = this.newGame.bind(this);
 
+		var gameBoard = [];
+		for (let i = 0; i < this.props.rows; i++) {
+			let newRow = [];
+			for (let y = 0; y < this.props.columns; y++) {
+				newRow.push('');
+			}	
+			gameBoard.push(newRow);
+		}
+
 		this.state = {
 
 			playerOne: playerOne,
 			playerTwo: playerTwo,
 			currentPlayer: playerOne,
 			isRunning: true,
-			board: [
-				['', '', ''],
-				['', '', ''],
-				['', '', '']
-			]
+			board: gameBoard,
+			squaresClicked: 0
 		}
 
-	}
-
-	getPlayerOne() {
-		console.log(playerOne);
 	}
 
 	squareClick(colIndex, rowIndex) {
@@ -69,6 +71,12 @@ class Board extends React.Component {
 				currentPlayer: newPlayer
 			})
 
+			this.state.squaresClicked += 1;
+			
+			if (this.state.squaresClicked === this.props.rows * this.props.columns) {
+				this.state.isRunning = false;
+			}
+
 		}
 	}
 
@@ -76,20 +84,14 @@ class Board extends React.Component {
 		console.log('WIN:', this.state.currentPlayer.name);
 		this.state.isRunning = false;
 		this.state.currentPlayer.score += 1;
-		
-		// this.setState({
-		// 	playerOne: this.state.playerOne,
-		// 	playerTwo: this.state.playerTwo
-		// })
-
 	}
 
 	checkWin(board) {
 		var rows = board.length;
 		var columns = board[0].length;
 
-		var matchesToWin = 3; // don't hardcode this later
-		var offset = 2; // don't hardcore this either
+		var matchesToWin = (this.props.rows < this.props.columns ? this.props.rows : this.props.columns); // takes the shorter of rows and columns
+		var offset = matchesToWin - 1; 
 
 		// check horizontal
 		for (var y = 0; y < rows; y++) {
@@ -174,13 +176,18 @@ class Board extends React.Component {
 	}
 
 	newGame() {
+		
+		var newBoard = this.state.board;
+		for (let i in newBoard) {
+			for (let y in newBoard) {
+				newBoard[i][y] = '';
+			}
+		}
+
 		this.setState ({
 			isRunning: true,
-			board: [
-				['', '', ''],
-				['', '', ''],
-				['', '', '']
-			]
+			board: newBoard,
+			squaresClicked: 0
 		})
 	}
 
@@ -189,7 +196,7 @@ class Board extends React.Component {
 		var newGameButton = <span />
 
 		if (!this.state.isRunning) {
-			newGameButton = <button onClick={this.newGame}>Hey</button> 
+			newGameButton = <button onClick={this.newGame}>New Game</button> 
 			}
 
 		const board = this.state.board.map((row, rowIndex) => {
@@ -240,7 +247,7 @@ class Game extends React.Component {
 
 		return (
 			<div className="board">
-				<Board />
+				<Board rows={3} columns={3} />
 			</div>
 		)
 	}
