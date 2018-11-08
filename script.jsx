@@ -16,26 +16,21 @@ class Board extends React.Component {
 
     squareClick(colIndex, rowIndex){
         // console.log( something);
-        let action = this.state.board[rowIndex][colIndex];
+        let action = this.state.board;
+        let count = this.state.counter;
         console.log("this.state is : ", this.state);
-        if (this.state.counter % 2 ==0 && this.state.counter < 10){
-            let currentValue = this.state.counter + 1;
-            action = "x"
-            // this.state.board[rowIndex][colIndex] = "X";
-
+        if (action[rowIndex][colIndex] === "i"){
+            if (count % 2 == 0 && count < 10){
+                action[rowIndex][colIndex] = "X";
+            }
+            else {
+                action[rowIndex][colIndex] = "O";
+            }
+            count += 1;
             this.setState({
-                counter: currentValue,
-                boardVal: action
-            })
-        }
-        else if (this.state.counter < 10){
-            this.state.board[rowIndex][colIndex] = "O";
-            let currentValue = this.state.counter + 1;
-
-            this.setState({
-                counter: currentValue,
-                boardVal: action
-            })
+                counter: count,
+                board: action
+            });
         }
     }
 
