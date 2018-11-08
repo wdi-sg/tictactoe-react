@@ -8,11 +8,27 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        turn: 0
       }
 
       this.squareClick = this.squareClick.bind(this);
+      this.circleClick = this.circleClick.bind(this);
 
+    }
+
+    playerTurn(item){
+        let currentTurn = this.state.turn + 1;
+        console.log("current turn:" , this.state.turn)
+        this.setState( { turn: currentTurn } )
+        console.log("current turn:" , this.state.turn)
+        console.log(item)
+
+        //alternate turns
+        if (this.state.turn % 2 === 0){
+            this.squareClick(item)
+        }else
+            this.circleClick(item)
     }
 
 
@@ -24,6 +40,20 @@ class Board extends React.Component {
 
         const newBoard = this.state.board.slice()
         newBoard[rowNumber][columnNumber] = "x"
+        console.log(this.state.board[rowNumber][columnNumber])
+        this.setState( {board: newBoard} );
+        console.log(this.state.board[rowNumber][columnNumber])
+
+
+    }
+
+        circleClick(item){
+        let itemClass = item.className.split('')
+        let rowNumber = parseInt(itemClass[0])
+        let columnNumber = parseInt(itemClass[1])
+
+        const newBoard = this.state.board.slice()
+        newBoard[rowNumber][columnNumber] = "o"
         console.log(this.state.board[rowNumber][columnNumber])
         this.setState( {board: newBoard} );
         console.log(this.state.board[rowNumber][columnNumber])
@@ -45,7 +75,7 @@ class Board extends React.Component {
                         className={rowIndex.toString()+ colIndex.toString()}
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(event.target);
+                            this.playerTurn(event.target);
                         }}
 
                     >
