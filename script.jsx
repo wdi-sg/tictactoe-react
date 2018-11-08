@@ -26,14 +26,14 @@ class Board extends React.Component {
         if (this.state.counter % 2 == 0 && currentBoard[rowIndex][colIndex] == "i" ){
             currentBoard[rowIndex][colIndex] = "O";
             this.setState({board: currentBoard});
-            // this.arrayOne.push({board: currentBoard})
+            // this.arrayOne.push({board: currentBoard}) put for what?
             ++this.state.counter
             console.log("playerOne", this.array)
             console.log("o",this.setState({board: currentBoard}))
         } else if (currentBoard[rowIndex][colIndex] == "i"){
             currentBoard[rowIndex][colIndex] = "X";
             this.setState({board: currentBoard})
-            //this.arrayTwo.push({board: currentBoard})
+            //this.arrayTwo.push({board: currentBoard}) ?? put for what?
             ++this.state.counter
             console.log("playerTwo", this.array)
             console.log("x",this.setState({board: currentBoard}))
