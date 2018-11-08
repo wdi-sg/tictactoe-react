@@ -4,10 +4,10 @@ body {
   width: 100%;
 }
 
-.grid {
+/* .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
+} */
 
 .square {
   height: 150px;
