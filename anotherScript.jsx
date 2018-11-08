@@ -48,5 +48,5 @@ class Board extends React.Component {
 
 ReactDOM.render(
   <Board />,
-  document.getElementById('root')
+  document.getElementById('secondRoot')
 );
