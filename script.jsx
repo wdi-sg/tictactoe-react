@@ -2,19 +2,41 @@ class Board extends React.Component {
     constructor(){
 
       super()
-
+      this.squareClick = this.squareClick.bind(this);
       this.state = {
         board: [
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        counter: 0
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(colIndex, rowIndex){
+        // console.log( something);
+        let action = this.state.board[rowIndex][colIndex];
+        console.log("this.state is : ", this.state);
+        if (this.state.counter % 2 ==0 && this.state.counter < 10){
+            let currentValue = this.state.counter + 1;
+            action = "x"
+            // this.state.board[rowIndex][colIndex] = "X";
+
+            this.setState({
+                counter: currentValue,
+                boardVal: action
+            })
+        }
+        else if (this.state.counter < 10){
+            this.state.board[rowIndex][colIndex] = "O";
+            let currentValue = this.state.counter + 1;
+
+            this.setState({
+                counter: currentValue,
+                boardVal: action
+            })
+        }
     }
 
     render() {
@@ -27,16 +49,17 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
+                    <button
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        <span>{col}</span>
+                    </button>
+
             );
 
           });
@@ -50,10 +73,13 @@ class Board extends React.Component {
           );
 
         });
+        console.log("WHAT IS BOARD HAHAHAHAHHAHA", board)
 
         return (
+
           <div className="item">
             {board}
+            <span>Current Turn number: {this.state.counter}</span>
           </div>
         );
     }
