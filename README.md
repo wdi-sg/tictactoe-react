@@ -1,48 +1,44 @@
-# tictactoe-react
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Create a game of tictactoe using react.
+## Available Scripts
 
-The starter code gives you a board component that outputs 3 rows and 9 spans.
+In the project directory, you can run:
 
-Add the clickable elements to make the game playable.
+### `npm start`
 
-#### http-server
-You need to be able to serve the html file through your local network.
-Install `http-server` globally so that you can run the files: `npm install -g http-server`
-Run it in the directory: `http-server`
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-#### referencing elements
-We use `bind` to set the context of a method, but if we need to do the opposite and capture data from the clicked element we can use a traditional click event callback function:
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-At the component:
-```
-handleClick = (event, colIndex) => {
-    // access to event.target here
-    console.log(event);
-}
-```
+### `npm test`
 
-In the JSX:
-```
-<button type="checkbox" onClick={((ev) => this.handleClick(ev, colIndex))}/>
-    yay
-</button>
-```
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### Further
-Nest your board component within a game component. Add other components as you see fit.
+### `npm run build`
 
-#### Further
-Detect winning states. (hard-coded is ok)
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-#### Further
-Add a score
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-#### Further
-Make the columns and rows dynamic
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### Further
-Make the winning state dynamic (3,4,5 in a row)
+### `npm run eject`
 
-#### Further
-Make a computer player
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
