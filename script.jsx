@@ -8,13 +8,57 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        turn: 0
       }
+
+      this.squareClick = this.squareClick.bind(this);
+      this.circleClick = this.circleClick.bind(this);
 
     }
 
-    squareClick(something){
-        console.log( something );
+    playerTurn(item){
+        let currentTurn = this.state.turn + 1;
+        console.log("current turn:" , this.state.turn)
+        this.setState( { turn: currentTurn } )
+        console.log("current turn:" , this.state.turn)
+        console.log(item)
+
+        //alternate turns
+        if (this.state.turn % 2 === 0){
+            this.squareClick(item)
+        }else
+            this.circleClick(item)
+    }
+
+
+
+    squareClick(item){
+        let itemClass = item.className.split('')
+        let rowNumber = parseInt(itemClass[0])
+        let columnNumber = parseInt(itemClass[1])
+
+        const newBoard = this.state.board.slice()
+        newBoard[rowNumber][columnNumber] = "x"
+        console.log(this.state.board[rowNumber][columnNumber])
+        this.setState( {board: newBoard} );
+        console.log(this.state.board[rowNumber][columnNumber])
+
+
+    }
+
+        circleClick(item){
+        let itemClass = item.className.split('')
+        let rowNumber = parseInt(itemClass[0])
+        let columnNumber = parseInt(itemClass[1])
+
+        const newBoard = this.state.board.slice()
+        newBoard[rowNumber][columnNumber] = "o"
+        console.log(this.state.board[rowNumber][columnNumber])
+        this.setState( {board: newBoard} );
+        console.log(this.state.board[rowNumber][columnNumber])
+
+
     }
 
     render() {
@@ -27,25 +71,25 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <td
+                        className={rowIndex.toString()+ colIndex.toString()}
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.playerTurn(event.target);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col} : {rowIndex} : {colIndex}
+                    </td>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <tr key={rowIndex} className="row">
               {rows}
-            </div>
+            </tr>
 
           );
 
@@ -53,7 +97,11 @@ class Board extends React.Component {
 
         return (
           <div className="item">
-            {board}
+            <table border = "1">
+                <tbody>
+                    {board}
+                </tbody>
+            </table>
           </div>
         );
     }
