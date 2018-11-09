@@ -41,8 +41,8 @@ class Board extends React.Component {
     }
   
     render() {
-        let xScore = 'X number of wins: ' + this.state.xScore;
-        let oScore = 'O number of wins: ' + this.state.oScore;
+        let xScore = this.state.xScore;
+        let oScore = this.state.oScore;
         const winner = calculateWinner(this.state.squares);
         let status;
         if (winner) {
@@ -53,15 +53,19 @@ class Board extends React.Component {
                 xScore = xScore + 1;
             } else {
                 oScore = oScore + 1;
-            }
+            } 
+            this.setState ({
+                xScore : xScore,
+                oScore : oScore
+            });
         } else {
             status = 'The next player is ' + (this.state.xIsNext ? 'X' : 'O');
         } 
-        
+                
       return (
         <div>
-            <div className="scoreboard">{xScore}</div>
-            <div className="scoreboard">{oScore}</div>
+            <div className="scoreboard">xScore: {this.state.xScore}</div>
+            <div className="scoreboard">oScore: {this.state.oScore}</div>
             <br></br>
             <div className="status">{status}</div>
 
