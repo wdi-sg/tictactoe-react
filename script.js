@@ -5,8 +5,8 @@ class Board extends React.Component {
         this.state= {
             squares: Array(9).fill(null),
             xIsNext: true,
-            xScore: '',
-            oScore: ''
+            xScore: 0,
+            oScore: 0
         }
     }
 // In React, however, it is a convention to use on[Event] names for props which represent events 
@@ -24,9 +24,7 @@ class Board extends React.Component {
             // Each time a player moves, xIsNext (a boolean) will be flipped to determine 
             // which player goes next and the game’s state will be saved. We’ll update the 
             // Board’s handleClick function to flip the value of xIsNext
-            xIsNext: !this.state.xIsNext,
-            xScore: this.state.xScore,
-            oScore: this.state.oScore
+            xIsNext: !this.state.xIsNext
         });
     }
     // squareClick(column, row){
@@ -50,7 +48,7 @@ class Board extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner;
             //how to restart game?
-            this.state.squares.reset;
+            this.state.squares = Array(9).fill(null);
             if (winner == 'X') {
                 xScore = xScore + 1;
             } else {
