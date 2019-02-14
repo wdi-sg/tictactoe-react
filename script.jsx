@@ -64,12 +64,18 @@ class Board extends React.Component {
                 return this.state.playerXMoves.includes(cell)
             })){
                 alert("X Won!")
+                this.endGame()
             } else if (victory.every(cell => {
                 return this.state.playerOMoves.includes(cell)
             })){
                 alert("O Won!")
+                this.endGame()
             }
         })
+    }
+
+    endGame(){
+        this.setState({ board: null });
     }
 
     occupyCell(cell){
