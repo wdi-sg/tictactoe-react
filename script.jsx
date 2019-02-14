@@ -1,21 +1,32 @@
 class Board extends React.Component {
     constructor(){
         super();
+        this.turnTaken = this.turnTaken.bind(this)
         this.state = {
             board: [
-                ['i','i','i'],
-                ['i','i','i'],
-                ['i','i','i']
-            ]
+                ['','',''],
+                ['','',''],
+                ['','','']
+            ],
+            turns: 0
         }
     }
 
-    squareClick(something){
-        console.log( something );
+    turnTaken(cell){
+        console.log(cell)
+        this.cellOccupied(cell)
+        this.setState({ turns: this.state.turns + 1 })
+    }
+
+    cellOccupied(cell){
+        let currentBoard = this.state.board;
+        currentBoard[cell.row][cell.col] = 'Y'
+        this.setState({ board: currentBoard })
     }
 
     render() {
-        console.log("board", this.state.board);
+        
+        console.log(this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
         // make a single row
             const rows = row.map( (col,colIndex) => {
@@ -24,9 +35,14 @@ class Board extends React.Component {
                     <p 
                         className="btn btn-outline-primary mr-2"
                         key={colIndex}
-                        onClick={()=>{ this.squareClick(colIndex) }}
+                        onClick={() => { 
+                            this.turnTaken({
+                                col: colIndex,
+                                row: rowIndex
+                            }) 
+                        }}
                     >
-                        [{colIndex}][{rowIndex}]
+                        {this.state.board[rowIndex][colIndex]}
                     </p>
                 );
             });
