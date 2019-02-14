@@ -1,0 +1,9 @@
+.row{
+	background-color:grey;
+	margin:5px;
+	padding:5px;
+}
+
+.cell{
+	background-color:white;
+}

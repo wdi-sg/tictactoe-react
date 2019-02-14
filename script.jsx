@@ -28,7 +28,7 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className="cell"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex);
