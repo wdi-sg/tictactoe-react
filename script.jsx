@@ -32,18 +32,27 @@ class Board extends React.Component {
   }
 
   victory() {
-    var diagOne = [this.state.board[0][0], this.state.board[1][1], this.state.board[2][2]]
-    var diagTwo = [this.state.board[0][2], this.state.board[1][1], this.state.board[2][0]]
+    let diagOne = [this.state.board[0][0], this.state.board[1][1], this.state.board[2][2]]
+    let diagTwo = [this.state.board[0][2], this.state.board[1][1], this.state.board[2][0]]
+    let horOne = [this.state.board[0][0], this.state.board[1][0], this.state.board[2][0]]
+    let horTwo = [this.state.board[0][1], this.state.board[1][1], this.state.board[2][1]]
+    let horThree = [this.state.board[0][2], this.state.board[1][2], this.state.board[2][2]]
     for (let i = 0; i < 3; ++i) {
-      if (this.state.board[i].every(this.cross) == true || diagOne.every(this.cross) == true || diagTwo.every(this.cross) == true) {
+      if (this.state.board[i].every(this.cross) == true || diagOne.every(this.cross) == true || 
+      diagTwo.every(this.cross) == true || horOne.every(this.cross) || horTwo.every(this.cross) ||
+      horThree.every(this.cross)) {
         this.setState({
           game: false
         })
+        console.log('X Wins')
         // return true;
-      } else if (this.state.board[i].every(this.circle) == true || diagOne.every(this.circle) == true || diagTwo.every(this.circle) == true) {
+      } else if (this.state.board[i].every(this.circle) == true || diagOne.every(this.circle) == true || 
+      diagTwo.every(this.circle) == true || horOne.every(this.circle) || horTwo.every(this.circle) ||
+      horThree.every(this.circle)) {
         this.setState({
           game: false
         })
+        console.log('O Wins')
         // return true;
       }
       // return false;
