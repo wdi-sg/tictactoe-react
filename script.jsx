@@ -3,11 +3,13 @@ class Board extends React.Component {
     super()
 
     this.playerOne = {
-      symbol: 'O'
+      symbol: 'O',
+      computer: false
     }
 
     this.playerTwo = {
-      symbol: 'X'
+      symbol: 'X',
+      computer: true
     }
 
     this.state = {
@@ -16,34 +18,66 @@ class Board extends React.Component {
         [' ', ' ', ' '],
         [' ', ' ', ' ']
       ],
-      currentPlayer: this.playerOne 
+      currentPlayer: this.playerOne,
+      game: true
     }
+  }
 
+  cross(value) {
+    return value == 'X';
+  }
+
+  circle(value) {
+    return value == 'O';
+  }
+
+  victory() {
+    var diagOne = [this.state.board[0][0], this.state.board[1][1], this.state.board[2][2]]
+    var diagTwo = [this.state.board[0][2], this.state.board[1][1], this.state.board[2][0]]
+    for (let i = 0; i < 3; ++i) {
+      if (this.state.board[i].every(this.cross) == true || diagOne.every(this.cross) == true || diagTwo.every(this.cross) == true) {
+        this.setState({
+          game: false
+        })
+        // return true;
+      } else if (this.state.board[i].every(this.circle) == true || diagOne.every(this.circle) == true || diagTwo.every(this.circle) == true) {
+        this.setState({
+          game: false
+        })
+        // return true;
+      }
+      // return false;
+    }
+  }
+
+  reset() {
+    this.setState({
+      game: true
+    })
   }
 
   squareClick(colIndex, rowIndex) {
-    console.log("colIndex: " + colIndex,"rowIndex: " + rowIndex);
-    if (this.state.board[rowIndex][colIndex] == ' ') {
-      var newBoard = this.state.board;
+    if (this.state.game == true) {
+      if (this.state.board[rowIndex][colIndex] == ' ') {
+        var newBoard = this.state.board;
 
-      console.log("symbol: " + this.state.currentPlayer.symbol)
-      newBoard[rowIndex][colIndex] = this.state.currentPlayer.symbol
+        newBoard[rowIndex][colIndex] = this.state.currentPlayer.symbol
 
-      let nextPlayer;
-      if (this.state.currentPlayer == this.playerOne) {
-        nextPlayer = this.playerTwo;
-      } else {
-        nextPlayer = this.playerOne;
+        let nextPlayer;
+        if (this.state.currentPlayer == this.playerOne) {
+          nextPlayer = this.playerTwo;
+        } else {
+          nextPlayer = this.playerOne;
+        }
+        this.setState({
+          board: newBoard,
+          currentPlayer: nextPlayer
+        })
       }
-      this.setState({
-        board: newBoard,
-        currentPlayer: nextPlayer
-      })
     }
   }
 
   render() {
-    console.log("board", this.state.board);
 
     const board = this.state.board.map((row, rowIndex) => {
 
@@ -55,6 +89,7 @@ class Board extends React.Component {
           <p className="square" key={colIndex} 
             onClick={() => {
               this.squareClick(colIndex, rowIndex);
+              this.victory();
             }}
           >
             {col}
