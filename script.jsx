@@ -97,6 +97,6 @@ class Board extends React.Component {
 // }
 
 ReactDOM.render(
-        <Board/>,
+    <Board/>,
     document.getElementById('root')
 );
