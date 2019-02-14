@@ -22,23 +22,25 @@ class Board extends React.Component {
             // make each column
                 return (
                     <p 
-                        className="boo"
+                        className="btn btn-outline-primary mr-2"
                         key={colIndex}
                         onClick={()=>{ this.squareClick(colIndex) }}
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        [{colIndex}][{rowIndex}]
                     </p>
                 );
             });
             return (
-                <div key={rowIndex} className="row">
+                <div key={rowIndex} className="text-center">
                     {rows}
                 </div>
             );
         });
         return (
-            <div className="item">
-                {board}
+            <div className="container w-50 h-50 mt-5">
+                <div>
+                    {board}
+                </div>
             </div>
         );
     }
