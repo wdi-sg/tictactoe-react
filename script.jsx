@@ -4,7 +4,7 @@ class Board extends React.Component {
         this.turnTaken = this.turnTaken.bind(this)
         this.state = {
             turns: 0,
-            length: 3,
+            length: 5,
             playerXMoves: [],
             playerOMoves: [] 
         }
@@ -91,24 +91,33 @@ class Board extends React.Component {
     }
 
     render() {
+        let width = 1 / this.state.length * 100;
+        let height = 1 / this.state.length * 100;
+        const styles ={
+            width: width + '%',
+            height: height + '%'
+        }
+        
         const board = this.state.board.map((cell,cellIndex) => {
             return (
-                <p 
-                    className="btn btn-outline-primary mr-2 mb-2 pt-5"
-                    style={{ width: 100, height: 100 }}
+                <div 
+                    className="btn btn-outline-primary mb-2 pt-5"
                     key={cellIndex}
+                    style={styles}
                     onClick={() => { 
-                        this.turnTaken({ cellIndex: cellIndex }) 
+                        if (this.state.board[cellIndex]===''){
+                            this.turnTaken({ cellIndex: cellIndex }) 
+                        } else {
+                            alert('That cell is taken!')
+                        }
                     }}>
                     {cell}
-                </p>
+                </div>
             )
         });
         return (
-            <div className="container w-50 h-50 mt-5">
-                <div>
-                    {board}
-                </div>
+            <div className="container mt-5 h-100">
+                {board}
             </div>
         );
     }
