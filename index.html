@@ -3,20 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Economica|Josefin+Sans" rel="stylesheet">
   <title>tictactoe</title>
 <style>
-  .row{
-    background-color:grey;
-    margin:5px;
-    padding:5px;
+  body {
+    font-family: "Economica";
   }
-  .boo{
 
-    background-color:white;
+  .row{
+   display: flex;
+  }
+
+  .box{
+    font-family: "Josefin Sans";
+    font-size: 16vh;
+    border: 1px solid white;
+    width: 18vh;
+    height: 18vh;
+    background-color:rgb(246, 203, 203);
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+
+  .box:hover {
+    background-color: rgb(197, 209, 226);
+    cursor: pointer;
+    color: white;
   }
 </style>
 </head>
 <body>
+<h1>TicTacToe</h1>
 <div id="root"></div>
 <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
