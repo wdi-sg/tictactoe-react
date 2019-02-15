@@ -1,16 +1,13 @@
 class Board extends React.Component {
     constructor(){
-
-      super()
-
-      this.state = {
+        super()
+        this.state = {
         board: [
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
         ]
-      }
-
+        }
     }
 
     squareClick(something){
@@ -19,26 +16,18 @@ class Board extends React.Component {
 
     render() {
         console.log("board", this.state.board);
-
+        let boxNum = 0;
         const board = this.state.board.map( (row,rowIndex) => {
-
-          // make a single row
           const rows = row.map( (col,colIndex) => {
-
-            // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
+                    <p className = "boo"
+                        id = {boxNum++}
+                        key = {colIndex}
+                        onClick = { () => {
+                            this.squareClick(id);
                         }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    >{boxNum}</p>
             );
-
           });
 
           // return the complete row
@@ -46,9 +35,7 @@ class Board extends React.Component {
             <div key={rowIndex} className="row">
               {rows}
             </div>
-
           );
-
         });
 
         return (
