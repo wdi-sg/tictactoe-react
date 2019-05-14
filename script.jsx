@@ -1,4 +1,11 @@
 class Square extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            value: null,
+        };
+    }
+
     render() {
         console.log("We have generated squares...", this.props.value);
         return (
