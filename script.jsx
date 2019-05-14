@@ -31,19 +31,19 @@ class Board extends React.Component {
             <div>
                 <div className="status">{status}</div>
                 <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
+                    {this.renderSquare(0)}  {/* NW */}
+                    {this.renderSquare(1)}  {/* NN */}
+                    {this.renderSquare(2)}  {/* NE */}
                 </div>
                 <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
+                    {this.renderSquare(3)}   {/* WW */}
+                    {this.renderSquare(4)}   {/* CEN */}
+                    {this.renderSquare(5)}   {/* EE */}
                 </div>
                 <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
+                    {this.renderSquare(6)}  {/* SW */}
+                    {this.renderSquare(7)}  {/* SS */}
+                    {this.renderSquare(8)}  {/* SE */}
                 </div>
             </div>
         );
