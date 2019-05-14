@@ -1,0 +1,66 @@
+body {
+	display: flex;
+	margin: 10px auto;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+h1 {
+	font-size: 50px;
+	margin-bottom: 15px;
+	font-family: 'Gochi Hand', cursive;
+}
+
+
+/*styling for tic tac toe game board*/
+table {
+	border-spacing: 0px;
+}
+
+td {
+	width: 120px;
+	height: 120px;
+	font-size: 100px;
+	text-align: center;
+	border: 2px solid black;
+	font-family: 'Gochi Hand', cursive;
+}
+
+tr:nth-child(1) > td:nth-child(1){
+  border-top: 0px;
+  border-left: 0px;
+}
+
+tr:nth-child(1) > td:nth-child(2){
+  border-top: 0px;
+}
+
+tr:nth-child(1) > td:nth-child(3){
+  border-top: 0px;
+  border-right: 0px;
+}
+
+
+tr:nth-child(2) > td:nth-child(1){
+  border-left: 0px;
+}
+
+tr:nth-child(2) > td:nth-child(3){
+  border-right: 0px;
+}
+
+
+tr:nth-child(3) > td:nth-child(1){
+  border-bottom: 0px;
+  border-left: 0px;
+}
+
+tr:nth-child(3) > td:nth-child(2){
+  border-bottom: 0px;
+}
+
+tr:nth-child(3) > td:nth-child(3){
+  border-bottom: 0px;
+  border-right: 0px;
+}

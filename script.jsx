@@ -1,16 +1,14 @@
 class Board extends React.Component {
     constructor(){
-
       super()
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['','',''],
+          ['','',''],
+          ['','','']
         ]
       }
-
     }
 
     squareClick(something){
@@ -20,46 +18,36 @@ class Board extends React.Component {
     render() {
         console.log("board", this.state.board);
 
-        const board = this.state.board.map( (row,rowIndex) => {
-
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
-
+        const board = this.state.board.map( (row, rowIndex) => {
+          // make each row
+          const rows = row.map( (col, colIndex) => {
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <td onClick = {() => { this.squareClick(rowIndex, colIndex); }}>
+                        { col }
+                    </td>
             );
-
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
+            <tr>
+              { rows }
+            </tr>
           );
-
         });
 
         return (
-          <div className="item">
-            {board}
-          </div>
+          <table>
+            <tbody>
+                { board }
+            </tbody>
+          </table>
         );
     }
 }
 
 ReactDOM.render(
     <Board/>,
-    document.getElementById('root')
+    document.getElementById('gameBoard')
 );
