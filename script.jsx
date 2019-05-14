@@ -8,22 +8,24 @@ class Board extends React.Component {
     };
   }
 
-  squareClick(col, row) {
+  squareClick(col, row, value) {
     console.log(col + "-" + row);
     console.log(this.state.board[row][col]);
-    if (this.state.turn === "X") {
-      //place X on board
-      this.state.board[row][col] = this.state.turn;
-      //change turn
-      this.state.turn = "O";
-    } else if (this.state.turn === "O") {
-      //place O on board
-      this.state.board[row][col] = this.state.turn;
-      //change turn
-      this.state.turn = "X";
+    if (value === "i") {
+      if (this.state.turn === "X") {
+        //place X on board
+        this.state.board[row][col] = this.state.turn;
+        //change turn
+        this.state.turn = "O";
+      } else if (this.state.turn === "O") {
+        //place O on board
+        this.state.board[row][col] = this.state.turn;
+        //change turn
+        this.state.turn = "X";
+      }
+      let newState = this.state;
+      this.setState(newState);
     }
-    let newState = this.state;
-    this.setState(newState);
   }
 
   render() {
@@ -35,12 +37,13 @@ class Board extends React.Component {
         // make each column
         return (
           <div
-            className="boo"
+            className="boo d-flex justify-content-center align-items-center"
             key={colIndex}
             onClick={() => {
-              this.squareClick(colIndex, rowIndex);
+              this.squareClick(colIndex, rowIndex, col);
             }}>
-            {col} : {colIndex} : {rowIndex}
+            {col}
+            {/* : {colIndex} : {rowIndex} */}
           </div>
         );
       });
@@ -48,7 +51,7 @@ class Board extends React.Component {
       // return the complete row
       return (
         <div key={rowIndex} className="row">
-          <div className="col d-flex justify-content-between">{rows}</div>
+          <div className="col d-flex justify-content-center">{rows}</div>
         </div>
       );
     });
