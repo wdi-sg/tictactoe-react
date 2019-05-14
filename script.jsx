@@ -66,12 +66,16 @@ class Game extends React.Component {
             history:[{
                 squares: Array(9).fill(null),
             }],
+            stepNumber: 0,
             xIsNext: true,
         };
     }
 
     handleClick(i) {
-        const history = this.state.history;
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        /* We will also replace reading this.state.history with this.state.history.slice(0, this.state.stepNumber + 1).
+        This ensures that if we “go back in time” and then make a new move from that point,
+        we throw away all the “future” history that would now become incorrect.*/
         const current = history[history.length-1];
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
@@ -86,15 +90,39 @@ class Game extends React.Component {
                     }
                 ]
             ),
+            stepNumber: history.length,
+            /* The stepNumber state we’ve added reflects the move displayed to the user now. After we make a new move, we need to update stepNumber by adding stepNumber: history.length as part of the this.setState argument.
+            This ensures we don’t get stuck showing the same move after a new one has been made.*/
             xIsNext: !this.state.xIsNext, //flip this boolean value
         });
         //Keeping the state of all squares in the Board component will allow it to determine the winner in the future.
     }
 
+    jumpTo(step){
+        this.setState({
+            stepNumber: step,
+            xIsNext: (step % 2) === 0,
+        });
+    }
+
     render() {
         const history = this.state.history;
-        const current = history[history.length-1];
+        /* modify the Game component’s render method from always rendering the last move to
+        rendering the currently selected move according to stepNumber. If we click on any step in the game’s history,
+        the tic-tac-toe board should immediately update to show what the board looked like after that step occurred. */
+        const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
+
+        const moves = history.map((step, move)=>{
+            const desc = move ?
+            'Go to move #' + move :
+            'Go to game start';
+            return (
+                <li key = {move}>
+                    <button onClick={()=>this.jumpTo(move)}>(Go Back in Time?)</button>
+                </li>
+            );
+        });
 
         let status;
         if (winner){
@@ -112,7 +140,7 @@ class Game extends React.Component {
                 </div>
                 <div className = "game-info">
                     <div>{status}</div>
-                    <ol>{/* TODO */}</ol>
+                    <ol>{moves}</ol>
                 </div>
             </div>
         );
