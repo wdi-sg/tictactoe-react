@@ -38,7 +38,7 @@ corresponding to the 9 squares:
 
     handleClick(i){
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             squares: squares,
             xIsNext: !this.state.xIsNext, //flip this boolean value
