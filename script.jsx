@@ -9,11 +9,40 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i']
         ],
-        counter: 1
+        counter: 1,
+        winningArrays: [
+            ['0,0','0,1','0,2'],
+            ['1,0','1,1','1,2'],
+            ['2,0','2,1','2,2'],
+            ['0,0','1,0','2,0'],
+            ['0,1','1,1','2,1'],
+            ['0,2','1,2','2,2'],
+            ['0,0','1,1','2,2'],
+            ['0,2','1,1','2,2']
+        ]
       };
     };
 
-
+    checkWin(winningArrays, currentBoard){
+        console.log("starting check");
+        // for (let set of winningArrays) {
+        //     let setWon = [];
+        //     console.log(set);
+        //     for (var i = 0; i < set.length; i++) {
+        //         if (playerMove.includes(set[i])){
+        //             console.log("Tile found: " + set[i]);
+        //             setWon.push(set[i]);
+        //             console.log("Current setWon: " + setWon);
+        //             if (setWon.length === 3) {
+        //                 console.log("this is the winning set");
+        //                 return true;
+        //             }
+        //         }
+        //     }
+        // };
+        console.log("winning conditions not met yet.");
+        return false;
+    };
 
     newRound(){
         this.state.counter++;
@@ -24,18 +53,32 @@ class Board extends React.Component {
     squareClick(colIndex, rowIndex){
         const eks = '❌';
         const ohh = '⭕';
+        const updatedBoard = this.state.board;
+        const winningArrays = this.state.winningArrays;
 
-        if (this.state.counter%2 == 1){
+        if (this.state.counter%2 == 1 && updatedBoard[rowIndex][colIndex] === "i"){
             console.log('X player');
+            updatedBoard[rowIndex][colIndex] = eks;
+            this.setState({ board: updatedBoard });
+            if (this.checkWin(winningArrays, updatedBoard) == true) {
+                alert('You Win!');
+                return;
+            };
+            this.newRound();
+        }
+        else if (this.state.counter%2 == 0 && updatedBoard[rowIndex][colIndex] === "i"){
+            console.log('O player');
+            updatedBoard[rowIndex][colIndex] = ohh;
+            this.setState({ board: updatedBoard });
+            if (this.checkWin(winningArrays, updatedBoard) == true) {
+                alert('You Win!');
+                return;
+            };
+            this.newRound();
         }
         else {
-            console.log('O player');
+            alert("Please select an empty tile.")
         };
-
-        const updatedBoard = this.state.board;
-        updatedBoard[rowIndex][colIndex] = eks;
-        this.setState({ board: updatedBoard });
-        this.newRound();
     }
 
     render() {
@@ -54,9 +97,8 @@ class Board extends React.Component {
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
-
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col} : {rowIndex} : {colIndex}
                     </p>
             );
 
@@ -81,20 +123,8 @@ class Board extends React.Component {
     }
 };
 
-class Start extends React.Component {
-
-    render() {
-        return(
-            <div className="startButton">
-                <button>Start</button>
-            </div>
-        );
-    }
-};
-
 ReactDOM.render(
     <div>
-        <Start/>
         <Board/>
     </div>,
     document.getElementById('root')
