@@ -2,11 +2,14 @@ class Square extends React.Component {
     //delete costructor from the square component since square no longer keeps track of the game state, but board is.
     render() {
         console.log("We have generated/clicked on square...", this.props.value);
-        //By calling this.setState from an onClick handler in the Square’s render method, we tell React to re-render that Square whenever its <button> is clicked.
+        /*By calling this.setState from an onClick handler in the Square’s render method,
+        we tell React to re-render that Square whenever its <button> is clicked. */
+        /*In React, it’s conventional to use on[Event] names for props which represent events,
+        and handle[Event] for the methods which handle the events. */
         return (
             <button
             className="square"
-            onClick={() => this.props.onClick()}
+                onClick={() => this.props.onClick()}
             >
                 {this.props.value}
             </button>
@@ -31,14 +34,23 @@ corresponding to the 9 squares:
         squares: Array(9).fill(null),
     }
 }
+
+    handleClick(i){
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+    }
+
     renderSquare(i) {
         /* Now we’re passing down two props from Board to Square: value and onClick.
         We could not set it at the Square component; if we did, we would not be able to pass it back up to the board.
         Since state is considered to be private to a component that defines it, we cannot update the Board’s state directly from Square.*/
-        return <Square
-            value={this.state.squares[i]}
-            onClick={()=>this.handleClick(i)}
-        />;
+        return (
+            <Square
+                value={this.state.squares[i]}
+                onClick={()=>this.handleClick(i)}
+            />
+        );
     }
 
     render() {
