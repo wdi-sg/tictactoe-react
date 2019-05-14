@@ -10,11 +10,16 @@ class Board extends React.Component {
           ['i','i','i']
         ]
       }
-
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(col,row){
+      let boardArr = this.state.board;
+
+      boardArr[col][row] = '⭕';
+
+      this.setState({board:boardArr})
+
+      console.log( "im boardArr: " + boardArr );
     }
 
     render() {
@@ -31,11 +36,11 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex,colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
@@ -58,6 +63,9 @@ class Board extends React.Component {
         );
     }
 }
+
+
+
 
 ReactDOM.render(
     <Board/>,
