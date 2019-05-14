@@ -1,31 +1,47 @@
 class Square extends React.Component{
 
 }
-
-class ScoreBoard extends React.Component{
+class Score extends React.Component{
+    constructor(){
+        super()
+        this.playerOneScore = 0;
+        this.playerTwoScore = 0;
+    }
     render(){
-        console.log('hello');
-        return{
-
+        console.log('WHO WON?', this.props.winningPlayer)
+        if(this.props.winningPlayer == 'X' && this.props.boardState){
+            this.playerOneScore++;
+        }else if(this.props.winningPlayer == 'O' && this.props.boardState){
+            this.playerTwoScore++;
         }
+        return (
+            <div>
+            <h3>Score Board</h3>
+            <h4>Player One: {this.playerOneScore}</h4>
+            <h4>Player Two:{this.playerTwoScore}</h4>
+            </div>
+        );
     }
 }
 
+//child of game class
 class Board extends React.Component {
+
     constructor(){
-    super()
-    this.turn = 0;
-    this.playerOneScore = 0;
-    this.playerTwoScore = 0;
+        super();
+        this.turn = 0;
+        this.playerOneScore = 0;
+        this.playerTwoScore = 0;
+        this.winner = null;
+        this.boardState = false;
 
-    this.state = {
-        board: [
-          ['-','-','-'],
-          ['-','-','-'],
-          ['-','-','-']
-        ]
-    }
-
+        this.state = {
+            board: [
+              ['-','-','-'],
+              ['-','-','-'],
+              ['-','-','-']
+            ]
+        }
     }
 
     clicker(event,colIndex,rowIndex){
@@ -33,6 +49,7 @@ class Board extends React.Component {
         let ouu = 'O';
         let boardSize = this.state.board.length;
         // console.log(this.turn)
+        //conditions to allow onclick logic to change this.state.board
         if(this.turn%2 == 0 && this.state.board[colIndex][rowIndex] === '-'){
 
             this.state.board[colIndex][rowIndex] = eks;
@@ -40,7 +57,7 @@ class Board extends React.Component {
 
             this.turn++ ;
 
-            this.checkWinState(this.turn,colIndex,rowIndex,eks,boardSize);
+            this.boardState = this.checkWinState(this.turn,colIndex,rowIndex,eks,boardSize);
         } else if (this.turn%2 == 1 && this.state.board[colIndex][rowIndex] === '-'){
 
             this.state.board[colIndex][rowIndex] = ouu;
@@ -48,24 +65,27 @@ class Board extends React.Component {
 
             this.turn++ ;
 
-            this.checkWinState(this.turn,colIndex,rowIndex,ouu,boardSize);
+            this.boardState = this.checkWinState(this.turn,colIndex,rowIndex,ouu,boardSize);
+        }
+        console.log(this.boardState);
+        if(this.boardState){
+            console.log('GAME WOULD RESTART NOW')
+            this.restartBoard();
         }
     }
 
     checkWinState(turn,colIndex,rowIndex,playerSymbol,boardSize){
         let n = boardSize;
         console.log('checking...');
-        // console.log(turn);
-        // console.log(colIndex+ ' ' +rowIndex);
-        // console.log(playerSymbol);
-        //check col game win condition
+
         for(let i = 0; i < n ;i++){
             if(this.state.board[colIndex][i] !== playerSymbol)
                 break;
             if (i === n-1){
                 // console.log('somebody wins')
                 alert(`${playerSymbol} won`);
-                this.restartBoard();
+                this.winner = playerSymbol;
+                return true;
             }
         }
         //check row game win condition
@@ -74,7 +94,8 @@ class Board extends React.Component {
                 break;
             if(i === n-1){
                 alert(`${playerSymbol} won`);
-                this.restartBoard();
+                this.winner = playerSymbol;
+                return true;
             }
         }
         //check diag
@@ -84,26 +105,31 @@ class Board extends React.Component {
                     break;
                 if(i == n-1){
                     alert(`${playerSymbol} won`);
-                    this.restartBoard();
+                    this.winner = playerSymbol;
+                    return true;
                 }
             }
         }
         //check reverse diag
-        if(colIndex+colIndex === n-1){
+
+        if(colIndex+rowIndex === n-1){
             for(let i = 0; i < n; i++){
                 if(this.state.board[i][(n-1)-i] !== playerSymbol)
                     break;
                 if(i == n-1){
                     alert(`${playerSymbol} won`);
-                    this.restartBoard();
+                    this.winner = playerSymbol;
+                    return true;
                 }
             }
         }
         //check draw state
         if(turn == (Math.pow(n,2))){
             alert(`This is a DRAW`);
-            this.restartBoard();
+            return true;
         }
+
+        return false;
     }
 
     restartBoard(){
@@ -118,45 +144,57 @@ class Board extends React.Component {
     }
 
     render() {
-        console.log("board", this.state.board);
-        //doing a nested loop
+
+        // console.log("board", this.state.board);
+        //doing a nested loop, col and rows
         const board = this.state.board.map( (row,rowIndex) => {
-
           // make a single row
-          const rows = row.map( (col,colIndex) => {
-            let startBox = ' ';
-            // make each column
+            const rows = row.map( (col,colIndex) => {
+                // make each column
+                return (
+                        <button type="checkbox" className="box" key={colIndex} onClick={((ev)=> this.clicker(ev,colIndex, rowIndex))}>
+                            {this.state.board[colIndex][rowIndex]}
+                        </button>
+                );
+            });
+              // return the complete row
             return (
-                    <button type="checkbox" className="box" key={colIndex} onClick={((ev)=> this.clicker(ev,colIndex, rowIndex))}>
-                        {this.state.board[colIndex][rowIndex]}
-                    </button>
-
+                <div key={rowIndex} className="row">
+                  {rows}
+                </div>
             );
-
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
-          );
-
         });
+        console.log('at board', this.winner);
+        console.log('at state', this.boardState);
 
         return (
           <div className="item">
             {board}
             <div>
-                Score Board
+                <Score turn={this.turn} winningPlayer={this.winner} boardState={this.boardState}/>
             </div>
           </div>
         );
     }
 }
+//parent
+class Game extends React.Component{
+    constructor(){
+        super();
+    }
+    render(){
+
+
+        return(
+            <div className="game">
+                <Board/>
+            </div>
+
+        );
+    }
+}
 
 ReactDOM.render(
-    <Board/>,
+    <Game/>,
     document.getElementById('root')
 );
