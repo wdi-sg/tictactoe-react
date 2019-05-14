@@ -12,7 +12,7 @@ Install `http-server` globally so that you can run the files: `npm install -g ht
 Run it in the directory: `http-server`
 
 #### referencing elements
-We use `bind` to set the context of a method, but if we need to do the opposite and capture data from the clicked element we can use a traditional click event callback function:
+We need to capture data from the clicked element- we can use a traditional click event callback function:
 
 At the component:
 ```
