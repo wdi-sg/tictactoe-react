@@ -8,18 +8,28 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        turn: "true"
       }
+
     }
 
     squareClick(col,row){
       let boardArr = this.state.board;
+      let turnArr = this.state.turn;
 
-      boardArr[col][row] = '⭕';
-
-      this.setState({board:boardArr})
-
-      console.log( "im boardArr: " + boardArr );
+      if(this.state.turn === "true") {
+        boardArr[col][row] = '⭕';
+        this.setState({board:boardArr});
+        turnArr = "false";
+        this.setState({turn:turnArr});
+        
+      } else {
+        boardArr[col][row] = '❌';
+        this.setState({board:boardArr});
+        turnArr = "true";
+        this.setState({turn:turnArr});
+      }
     }
 
     render() {
