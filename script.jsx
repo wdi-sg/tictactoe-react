@@ -38,6 +38,18 @@ class Board extends React.Component {
 
     }
 
+    playAgain() {
+
+        squaresPlayed = 0;
+
+        this.setState({ board: [
+                                  [' ',' ',' '],
+                                  [' ',' ',' '],
+                                  [' ',' ',' ']
+                                ]
+                     })
+    }
+
     render() {
         console.log("board", this.state.board);
 
@@ -56,17 +68,21 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
+
+
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
+
+                <div key={rowIndex} className="row">
+                  {rows}
+                </div>
+
 
           );
 
@@ -75,6 +91,7 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            <button onClick={()=>{this.playAgain()}}>PLAY AGAIN</button>
           </div>
         );
     }

@@ -32,10 +32,10 @@ In the JSX:
 #### Further
 Nest your board component within a game component. Add other components as you see fit.
 
-#### Further
+#### Further ✅
 Detect winning states. (hard-coded is ok)
 
-#### Further
+#### Further ✅
 Add a score
 
 #### Further
