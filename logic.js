@@ -1,8 +1,7 @@
-
 // check for winning matches based on user input
-var checkForMatch = function (y, x, player, gameboard) {
+var checkForMatch = function (clickedY, clickedX, player, gameboard) {
     let matchFound = false;
-    let winningCombinationBasedOnUserInput = getWinningCombinationBasedOnUserInput(y,x);
+    let winningCombinationBasedOnUserInput = getWinningCombinationBasedOnUserInput(clickedY, clickedX);
 
     // check if user input matches one of the possibilities
     for (let i = 0; i < winningCombinationBasedOnUserInput.length; i++) {
@@ -22,17 +21,35 @@ var checkForMatch = function (y, x, player, gameboard) {
             break;
         }
     }
+
+    checkGameIsDraw(matchFound, gameboard);
 }
 
+// check if the board is completely filled and determined if it is a draw
+var checkGameIsDraw = function (matchFound, gameboard) {
+    let filled = true;
+
+    for (let a = 0; a < gameboard.length; a++) {
+        for (let b = 0; b < gameboard[a].length; b++) {
+            if (gameboard[a][b] === "") {
+                filled = false;
+            }
+        }
+    }
+
+    if (filled === true && matchFound === false) {
+        alert("The game is a draw!");
+    }
+}
 
 // find all possible winning combination based on user input
-var getWinningCombinationBasedOnUserInput = function (y, x) {
+var getWinningCombinationBasedOnUserInput = function (clickedY, clickedX) {
     let winningCombinationBasedOnUserInput = [];
     let winningCombination = getAllWinningCombination();
 
     // find all possible winning possibilities based on user input
     for (let i = 0; i < winningCombination.length; i++) {
-        if (winningCombination[i].indexOf(y + "," + x) > -1) {
+        if (winningCombination[i].indexOf(clickedY + "," + clickedX) > -1) {
             winningCombinationBasedOnUserInput.push(winningCombination[i]);
         }
     }
