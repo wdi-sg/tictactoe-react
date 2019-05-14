@@ -5,16 +5,37 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [' ',' ',' '],
+          [' ',' ',' '],
+          [' ',' ',' ']
         ]
       }
 
     }
 
     squareClick(something){
-        console.log( something );
+
+        if (something.type === ' ') {
+
+            switch (currentPlayer) {
+                case "❌":
+                this.state.board[something.row][something.column] = "❌";
+                this.setState({ board: this.state.board });
+                currentPlayer = "⭕️";
+                squaresPlayed++;
+                checkWins(this.state.board);
+                break;
+
+                case "⭕️":
+                this.state.board[something.row][something.column] = "⭕️";
+                this.setState({ board: this.state.board });
+                currentPlayer = "❌";
+                squaresPlayed++;
+                checkWins(this.state.board);
+                break;
+            }
+        }
+
     }
 
     render() {
@@ -31,7 +52,7 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick({type: col, column: colIndex, row: rowIndex});
                         }}
 
                     >
