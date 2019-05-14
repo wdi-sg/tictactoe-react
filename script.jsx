@@ -14,7 +14,7 @@ class Board extends React.Component {
     }
 
     squareClick(something){
-        console.log( something );
+        console.log( something + "testt " );
     }
 
     render() {
