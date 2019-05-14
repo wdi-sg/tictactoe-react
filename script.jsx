@@ -9,39 +9,78 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i']
         ],
-        counter: 1,
-        winningArrays: [
-            ['0,0','0,1','0,2'],
-            ['1,0','1,1','1,2'],
-            ['2,0','2,1','2,2'],
-            ['0,0','1,0','2,0'],
-            ['0,1','1,1','2,1'],
-            ['0,2','1,2','2,2'],
-            ['0,0','1,1','2,2'],
-            ['0,2','1,1','2,2']
-        ]
+        counter: 1
       };
     };
 
-    checkWin(winningArrays, currentBoard){
+    resetGame(){
+        const resetBoard = [
+          ['i','i','i'],
+          ['i','i','i'],
+          ['i','i','i']
+        ];
+        this.setState({board: resetBoard});
+        this.setState({counter: 1});
+    }
+
+    checkWin(x, y, s){
         console.log("starting check");
-        // for (let set of winningArrays) {
-        //     let setWon = [];
-        //     console.log(set);
-        //     for (var i = 0; i < set.length; i++) {
-        //         if (playerMove.includes(set[i])){
-        //             console.log("Tile found: " + set[i]);
-        //             setWon.push(set[i]);
-        //             console.log("Current setWon: " + setWon);
-        //             if (setWon.length === 3) {
-        //                 console.log("this is the winning set");
-        //                 return true;
-        //             }
-        //         }
-        //     }
-        // };
+        let n = 3;
+        console.log('row index', x)
+        console.log('col index', y)
+        console.log('symbol', s)
+
+        let winOrnot = false;
+        //check col
+        // console.log(this.state.board)
+        for(let i = 0; i < n; i++){
+            if(this.state.board[x][i] !== s)
+                break;
+            if(i == 2){
+                winOrnot = true;
+            }
+        };
+
+        //check row
+        for(let i = 0; i < n; i++){
+            console.log("am i here")
+            if(this.state.board[i][y] !== s)
+                break;
+            if (i == 2){
+                winOrnot = true;
+            }
+        };
+
+        //check diag
+        if(x == y){
+            //we're on a diagonal
+            for(let i = 0; i < n; i++){
+                if(this.state.board[i][i] != s)
+                    break;
+                if(i == n-1){
+                    winOrnot = true;
+                }
+            }
+        }
+
+        //check anti diag (thanks rampion)
+        if(x + y == n - 1){
+            for(let i = 0; i < n; i++){
+                if(this.state.board[i][(n-1)-i] != s)
+                    break;
+                if(i == n-1){
+                    winOrnot = true;
+                }
+            }
+        }
+        //check draw
+        if(this.state.counter == 9){
+            alert('Game ends in a draw');
+            this.resetGame();
+        }
         console.log("winning conditions not met yet.");
-        return false;
+        console.log('win status', winOrnot);
+        return winOrnot;
     };
 
     newRound(){
@@ -60,8 +99,9 @@ class Board extends React.Component {
             console.log('X player');
             updatedBoard[rowIndex][colIndex] = eks;
             this.setState({ board: updatedBoard });
-            if (this.checkWin(winningArrays, updatedBoard) == true) {
+            if (this.checkWin(rowIndex, colIndex, eks) == true) {
                 alert('You Win!');
+                this.resetGame();
                 return;
             };
             this.newRound();
@@ -70,8 +110,9 @@ class Board extends React.Component {
             console.log('O player');
             updatedBoard[rowIndex][colIndex] = ohh;
             this.setState({ board: updatedBoard });
-            if (this.checkWin(winningArrays, updatedBoard) == true) {
+            if (this.checkWin(rowIndex, colIndex, ohh) == true) {
                 alert('You Win!');
+                this.resetGame();
                 return;
             };
             this.newRound();
