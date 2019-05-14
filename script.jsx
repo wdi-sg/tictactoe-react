@@ -2,11 +2,21 @@ class Square extends React.Component{
 
 }
 
+class ScoreBoard extends React.Component{
+    render(){
+        console.log('hello');
+        return{
+
+        }
+    }
+}
+
 class Board extends React.Component {
     constructor(){
     super()
     this.turn = 0;
-
+    this.playerOneScore = 0;
+    this.playerTwoScore = 0;
 
     this.state = {
         board: [
@@ -21,22 +31,29 @@ class Board extends React.Component {
     clicker(event,colIndex,rowIndex){
         let eks = 'X';
         let ouu = 'O';
+        let boardSize = this.state.board.length;
         // console.log(this.turn)
         if(this.turn%2 == 0 && this.state.board[colIndex][rowIndex] === '-'){
+
             this.state.board[colIndex][rowIndex] = eks;
             this.setState({board: this.state.board});
+
             this.turn++ ;
-            this.checkWinState(this.turn,colIndex,rowIndex,eks);
+
+            this.checkWinState(this.turn,colIndex,rowIndex,eks,boardSize);
         } else if (this.turn%2 == 1 && this.state.board[colIndex][rowIndex] === '-'){
+
             this.state.board[colIndex][rowIndex] = ouu;
             this.setState({board: this.state.board});
+
             this.turn++ ;
-            this.checkWinState(this.turn,colIndex,rowIndex,ouu);
+
+            this.checkWinState(this.turn,colIndex,rowIndex,ouu,boardSize);
         }
     }
 
-    checkWinState(turn,colIndex,rowIndex,playerSymbol){
-        let n = 3;
+    checkWinState(turn,colIndex,rowIndex,playerSymbol,boardSize){
+        let n = boardSize;
         console.log('checking...');
         // console.log(turn);
         // console.log(colIndex+ ' ' +rowIndex);
@@ -47,7 +64,8 @@ class Board extends React.Component {
                 break;
             if (i === n-1){
                 // console.log('somebody wins')
-                alert(`${playerSymbol} won`)
+                alert(`${playerSymbol} won`);
+                this.restartBoard();
             }
         }
         //check row game win condition
@@ -55,7 +73,8 @@ class Board extends React.Component {
             if(this.state.board[i][rowIndex] !== playerSymbol)
                 break;
             if(i === n-1){
-                alert(`${playerSymbol} won`)
+                alert(`${playerSymbol} won`);
+                this.restartBoard();
             }
         }
         //check diag
@@ -64,7 +83,8 @@ class Board extends React.Component {
                 if(this.state.board[i][i] !== playerSymbol)
                     break;
                 if(i == n-1){
-                    alert(`${playerSymbol} won`)
+                    alert(`${playerSymbol} won`);
+                    this.restartBoard();
                 }
             }
         }
@@ -74,14 +94,27 @@ class Board extends React.Component {
                 if(this.state.board[i][(n-1)-i] !== playerSymbol)
                     break;
                 if(i == n-1){
-                    alert(`${playerSymbol} won`)
+                    alert(`${playerSymbol} won`);
+                    this.restartBoard();
                 }
             }
         }
         //check draw state
         if(turn == (Math.pow(n,2))){
             alert(`This is a DRAW`);
+            this.restartBoard();
         }
+    }
+
+    restartBoard(){
+        const boardTemplate = [
+          ['-','-','-'],
+          ['-','-','-'],
+          ['-','-','-']
+        ];
+
+        this.setState({board: boardTemplate});
+        this.turn = 0;
     }
 
     render() {
@@ -115,6 +148,9 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            <div>
+                Score Board
+            </div>
           </div>
         );
     }
