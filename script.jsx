@@ -5,16 +5,49 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [' ',' ',' '],
+          [' ',' ',' '],
+          [' ',' ',' ']
         ]
       }
 
     }
 
     squareClick(something){
-        console.log( something );
+
+        if (something.type === ' ') {
+
+            switch (currentPlayer) {
+                case "❌":
+                this.state.board[something.row][something.column] = "❌";
+                this.setState({ board: this.state.board });
+                currentPlayer = "⭕️";
+                squaresPlayed++;
+                checkWins(this.state.board);
+                break;
+
+                case "⭕️":
+                this.state.board[something.row][something.column] = "⭕️";
+                this.setState({ board: this.state.board });
+                currentPlayer = "❌";
+                squaresPlayed++;
+                checkWins(this.state.board);
+                break;
+            }
+        }
+
+    }
+
+    playAgain() {
+
+        squaresPlayed = 0;
+
+        this.setState({ board: [
+                                  [' ',' ',' '],
+                                  [' ',' ',' '],
+                                  [' ',' ',' ']
+                                ]
+                     })
     }
 
     render() {
@@ -31,21 +64,25 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick({type: col, column: colIndex, row: rowIndex});
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
+
+
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
+
+                <div key={rowIndex} className="row">
+                  {rows}
+                </div>
+
 
           );
 
@@ -54,6 +91,7 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            <button onClick={()=>{this.playAgain()}}>PLAY AGAIN</button>
           </div>
         );
     }
