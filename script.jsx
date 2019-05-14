@@ -5,19 +5,43 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ['fuck','fuck','fuck'],
+          ['fuck','fuck','fuck'],
+          ['fuck','fuck','fuck']
+        ],
+        turn: "mother"
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+
+    squareClick(rowIndex, colIndex){
+
+
+      let winConditions = function () {
+
+      }
+
+
+      console.log( rowIndex, colIndex );
+      console.log(this.state.board[rowIndex][colIndex])
+      const dupBoard = this.state.board
+      const turn = document.getElementById('turn')
+      // this.state.board[rowIndex][colIndex] = "ur mader"
+      if (this.state.board[rowIndex][colIndex] == "fuck") {
+        if ( turn.innerHTML == "mother") {
+          dupBoard[rowIndex][colIndex] = "ur mader"
+          this.setState({ board: dupBoard, turn: "father" })
+        } else {
+          dupBoard[rowIndex][colIndex] = "ur father"
+          this.setState({ board: dupBoard, turn: "mother"  })
+        }
+      }
     }
 
     render() {
+        const turn = <div id="turn">{this.state.turn}</div>
+
         console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
@@ -31,11 +55,10 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
-
                     >
-                        {col} : {colIndex} : {rowIndex}
+                    {col}
                     </p>
             );
 
@@ -54,6 +77,7 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            {turn}
           </div>
         );
     }
