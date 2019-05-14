@@ -1,20 +1,41 @@
 class Board extends React.Component {
     constructor(){
 
-      super()
+      super();
 
       this.state = {
         board: [
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
-      }
+        ],
+        counter: 1
+      };
+    };
 
-    }
 
-    squareClick(something){
-        console.log( something );
+
+    newRound(){
+        this.state.counter++;
+        const newCount = this.state.counter;
+        this.setState({counter: newCount});
+    };
+
+    squareClick(colIndex, rowIndex){
+        const eks = '❌';
+        const ohh = '⭕';
+
+        if (this.state.counter%2 == 1){
+            console.log('X player');
+        }
+        else {
+            console.log('O player');
+        };
+
+        const updatedBoard = this.state.board;
+        updatedBoard[rowIndex][colIndex] = eks;
+        this.setState({ board: updatedBoard });
+        this.newRound();
     }
 
     render() {
@@ -31,7 +52,7 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
@@ -53,13 +74,28 @@ class Board extends React.Component {
 
         return (
           <div className="item">
+            <h2 className="counter">Round: {this.state.counter}</h2>
             {board}
           </div>
         );
     }
-}
+};
+
+class Start extends React.Component {
+
+    render() {
+        return(
+            <div className="startButton">
+                <button>Start</button>
+            </div>
+        );
+    }
+};
 
 ReactDOM.render(
-    <Board/>,
+    <div>
+        <Start/>
+        <Board/>
+    </div>,
     document.getElementById('root')
 );
