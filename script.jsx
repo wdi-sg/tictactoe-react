@@ -1,7 +1,6 @@
-class Square extends React.Component {
+//then we change the Square class into just a function...
+function Square(props) {
     //delete costructor from the square component since square no longer keeps track of the game state, but board is.
-    render() {
-        console.log("We have generated/clicked on square...", this.props.value);
         /*By calling this.setState from an onClick handler in the Square’s render method,
         we tell React to re-render that Square whenever its <button> is clicked. */
         /*In React, it’s conventional to use on[Event] names for props which represent events,
@@ -11,11 +10,12 @@ class Square extends React.Component {
             className="square"
                 onClick={() => this.props.onClick()}
             >
-                {this.props.value}
+                {props.value}  {/*then instead of this.props., now that its just a function, we only need use props. */}
             </button>
         );
-    }
-}
+    };
+
+// In React terms, the Square components are now controlled components. The Board has full control over them.
 
 class Board extends React.Component {
 /*To collect data from multiple children,
@@ -39,6 +39,7 @@ corresponding to the 9 squares:
         const squares = this.state.squares.slice();
         squares[i] = 'X';
         this.setState({squares: squares});
+        //Keeping the state of all squares in the Board component will allow it to determine the winner in the future.
     }
 
     renderSquare(i) {
