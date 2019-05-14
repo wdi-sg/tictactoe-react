@@ -32,13 +32,17 @@ corresponding to the 9 squares:
     super(props);
     this.state = {
         squares: Array(9).fill(null),
+        xIsNext: true, //Each time a player moves, xIsNext (a boolean) will be flipped to determine which player goes next and the game’s state will be saved.
     }
 }
 
     handleClick(i){
         const squares = this.state.squares.slice();
         squares[i] = 'X';
-        this.setState({squares: squares});
+        this.setState({
+            squares: squares,
+            xIsNext: !this.state.xIsNext, //flip this boolean value
+        });
         //Keeping the state of all squares in the Board component will allow it to determine the winner in the future.
     }
 
