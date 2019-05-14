@@ -3,14 +3,25 @@ class Board extends React.Component {
     super();
 
     this.state = {
-      board: [["i", "i", "i"], ["i", "i", "i"], ["i", "i", "i"]]
+      board: [["i", "i", "i"], ["i", "i", "i"], ["i", "i", "i"]],
+      turn: "X"
     };
   }
 
   squareClick(col, row) {
     console.log(col + "-" + row);
     console.log(this.state.board[row][col]);
-    this.state.board[row][col] = 0;
+    if (this.state.turn === "X") {
+      //place X on board
+      this.state.board[row][col] = this.state.turn;
+      //change turn
+      this.state.turn = "O";
+    } else if (this.state.turn === "O") {
+      //place O on board
+      this.state.board[row][col] = this.state.turn;
+      //change turn
+      this.state.turn = "X";
+    }
     let newState = this.state;
     this.setState(newState);
   }
