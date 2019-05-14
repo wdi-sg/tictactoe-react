@@ -16,6 +16,7 @@ var checkForMatch = function (y, x, player, gameboard) {
         // alert player that he have win the game
         if (matchFound === true) {
             // disable game board since there is a winner
+            player["win"]++;
             alert(player["name"] + " win!")
 
             break;
