@@ -8,9 +8,9 @@ function Square(props) {
         return (
             <button
             className="square"
-                onClick={() => this.props.onClick()}
+            onClick={props.onClick}
             >
-                {props.value}  {/*then instead of this.props., now that its just a function, we only need use props. */}
+                {props.value}
             </button>
         );
     };
