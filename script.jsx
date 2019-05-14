@@ -1,65 +1,74 @@
 class Board extends React.Component {
-    constructor(){
+    constructor() {
+        super()
 
-      super()
-
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+        this.state = {
+            board: [
+              ['','',''],
+              ['','',''],
+              ['','','']
+            ]
+        }
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(clickedY, clickedX) {
+        if (playerOne["turn"] === true) {
+            playerOne["turn"] = false;
+            playerTwo["turn"] = true;
+
+            this.state.board[clickedY][clickedX] = playerOne["symbol"];
+            this.setState( { board: this.state.board } );
+
+            checkForMatch(clickedY, clickedX, playerOne, this.state.board);
+
+        } else if (playerTwo["turn"] === true) {
+            playerTwo["turn"] = false;
+            playerOne["turn"] = true;
+
+            this.state.board[clickedY][clickedX] = playerTwo["symbol"];
+            this.setState( { board: this.state.board } );
+
+            checkForMatch(clickedY, clickedX, playerTwo, this.state.board);
+
+        }
     }
 
     render() {
-        console.log("board", this.state.board);
+        const board = this.state.board.map( (row, rowIndex) => {
+          // make each row
+            const rows = row.map( (col, colIndex) => {
+                // make each column for the row
+                if (col === "") {
+                    return (
+                        <td onClick = {(event) => { this.squareClick(rowIndex, colIndex, event); }}>{ col }</td>
+                    );
+                } else {
+                    return (
+                        <td>{ col }</td>
+                    );
+                }
+            });
 
-        const board = this.state.board.map( (row,rowIndex) => {
-
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
-
-            // make each column
+            // return the complete row
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                <tr>
+                  { rows }
+                </tr>
             );
-
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
-          );
 
         });
 
         return (
-          <div className="item">
-            {board}
-          </div>
+            <table>
+                <tbody>
+                    { board }
+                </tbody>
+            </table>
         );
     }
 }
 
 ReactDOM.render(
     <Board/>,
-    document.getElementById('root')
+    document.getElementById('gameBoard')
 );
