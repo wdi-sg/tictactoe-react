@@ -9,7 +9,7 @@ Add the clickable elements to make the game playable.
 #### http-server
 You need to be able to serve the html file through your local network.
 Install `http-server` globally so that you can run the files: `npm install -g http-server`
-Run it in the directory: `http-server`
+Run this in the directory: `http-server`
 
 #### referencing elements
 We need to capture data from the clicked element- we can use a traditional click event callback function:
