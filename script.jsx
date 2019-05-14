@@ -12,19 +12,34 @@ class Board extends React.Component {
     }
 
     squareClick(y, x) {
-        this.state.board[y][x] = "X";
-        this.setState( { board: this.state.board } );
+        if (playerOne["turn"] === true) {
+            playerOne["turn"] = false;
+            playerTwo["turn"] = true;
+
+            this.state.board[y][x] = playerOne["symbol"];
+            this.setState( { board: this.state.board } );
+
+            checkForMatch(y, x, playerOne, this.state.board);
+
+
+        } else if (playerTwo["turn"] === true) {
+            playerTwo["turn"] = false;
+            playerOne["turn"] = true;
+
+            this.state.board[y][x] = playerTwo["symbol"];
+            this.setState( { board: this.state.board } );
+
+            checkForMatch(y, x, playerTwo, this.state.board);
+        }
     }
 
     render() {
-        console.log("board", this.state.board);
-
         const board = this.state.board.map( (row, rowIndex) => {
           // make each row
           const rows = row.map( (col, colIndex) => {
             // make each column
             return (
-                    <td onClick = {() => { this.squareClick(rowIndex, colIndex); }}>
+                    <td onClick = {(event) => { this.squareClick(rowIndex, colIndex); }}>
                         { col }
                     </td>
             );
