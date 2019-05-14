@@ -11,8 +11,9 @@ class Board extends React.Component {
       }
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(y, x) {
+        this.state.board[y][x] = "X";
+        this.setState( { board: this.state.board } );
     }
 
     render() {
