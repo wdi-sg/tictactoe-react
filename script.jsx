@@ -1,8 +1,7 @@
 class Board extends React.Component {
+
     constructor(){
-
       super()
-
       this.state = {
         board: [
           ['i','i','i'],
@@ -13,13 +12,12 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(button){
+        this.props.turnPlayed();
     }
 
     render() {
-        console.log("board", this.state.board);
-
+        console.log(this.props)
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
@@ -59,7 +57,35 @@ class Board extends React.Component {
     }
 }
 
+class Game extends React.Component {
+
+    constructor(){
+        super()
+        this.state = {
+            counter : 0,
+        }
+        this.turnPlayed = this.turnPlayed.bind(this);
+    }
+
+    turnPlayed(){
+        const newCounter = this.state.counter + 1;
+        this.setState({
+            counter: newCounter
+        });
+    }
+
+    render() {
+        return (
+            <Board
+                banana={"haha"}
+                counter={this.state.counter}
+                turnPlayed={this.turnPlayed}
+            />
+        )
+    }
+}
+
 ReactDOM.render(
-    <Board/>,
+    <Game/>,
     document.getElementById('root')
 );
