@@ -8,13 +8,28 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        turn: "true"
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(col,row){
+      let boardArr = this.state.board;
+      let turnArr = this.state.turn;
+
+      if(this.state.turn === "true") {
+        boardArr[col][row] = '⭕';
+        this.setState({board:boardArr});
+        turnArr = "false";
+        this.setState({turn:turnArr});
+        
+      } else {
+        boardArr[col][row] = '❌';
+        this.setState({board:boardArr});
+        turnArr = "true";
+        this.setState({turn:turnArr});
+      }
     }
 
     render() {
@@ -31,11 +46,11 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex,colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
@@ -58,6 +73,9 @@ class Board extends React.Component {
         );
     }
 }
+
+
+
 
 ReactDOM.render(
     <Board/>,
