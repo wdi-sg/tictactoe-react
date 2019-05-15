@@ -5,11 +5,11 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['fuck','fuck','fuck'],
-          ['fuck','fuck','fuck'],
-          ['fuck','fuck','fuck']
+          ['huh','huh','huh'],
+          ['huh','huh','huh'],
+          ['huh','huh','huh']
         ],
-        turn: "mother",
+        turn: "me",
         spots: 9
       }
 
@@ -37,16 +37,16 @@ class Board extends React.Component {
       const turn = document.getElementById('turn')
       let newSpots;
       // this.state.board[rowIndex][colIndex] = "ur mader"
-      if (this.state.board[rowIndex][colIndex] == "fuck") {
-        if ( turn.innerHTML == "mother") {
-          dupBoard[rowIndex][colIndex] = "ur mader"
+      if (this.state.board[rowIndex][colIndex] == "huh") {
+        if ( turn.innerHTML == "me") {
+          dupBoard[rowIndex][colIndex] = "me"
           newSpots = this.state.spots-1
-          this.setState({ board: dupBoard, turn: "father", spots: newSpots  })
+          this.setState({ board: dupBoard, turn: "u", spots: newSpots  })
           checkForDraw(newSpots)
         } else {
-          dupBoard[rowIndex][colIndex] = "ur father"
+          dupBoard[rowIndex][colIndex] = "u"
           newSpots = this.state.spots-1
-          this.setState({ board: dupBoard, turn: "mother", spots: newSpots })
+          this.setState({ board: dupBoard, turn: "me", spots: newSpots })
           checkForDraw(newSpots)
         }
       } else {
