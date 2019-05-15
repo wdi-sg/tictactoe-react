@@ -5,9 +5,9 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['x','x','x'],
+          ['x','x','x'],
+          ['x','x','x']
         ]
       }
 
