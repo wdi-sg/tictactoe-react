@@ -21,12 +21,29 @@ class Board extends React.Component {
     }
 
     squareClick(colIndex, rowIndex){
-        this.flag = !this.flag
-        if(this.flag) {
+        this.flag = !this.flag;
 
+        if(this.flag) {
+            this.state.board[rowIndex][colIndex] = 'X';
+
+            const newState = { board: this.state.board };
+
+            this.setState(newState);
+
+            console.log(colIndex, rowIndex);
+
+        } else {
+
+            this.state.board[rowIndex][colIndex] = 'O';
+
+            const newState = { board: this.state.board };
+
+            this.setState(newState);
+
+            console.log(colIndex, rowIndex);
 
         }
-        console.log(colIndex, rowIndex);
+
     }
 
 
@@ -40,16 +57,8 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <td>
-                    <button
-                        className="col"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-                    >
-                        <div>{colIndex} : {rowIndex}</div>
-                    </button>
+                    <td onClick={()=>{ this.squareClick(colIndex, rowIndex);}}>
+                        { col }
                     </td>
             );
 
@@ -57,8 +66,8 @@ class Board extends React.Component {
 
           // return the complete row
           return (
-            <tr key={rowIndex} className="row">
-              {rows}
+            <tr>
+              { rows }
             </tr>
 
           );
@@ -66,7 +75,7 @@ class Board extends React.Component {
         });
 
         return (
-          <table className="item">
+          <table>
             {board}
           </table>
         );
