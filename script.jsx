@@ -1,21 +1,88 @@
 class Board extends React.Component {
-    constructor(){
+    constructor() {
 
-      super()
+      super();
 
       this.state = {
         board: [
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
-      }
+        ],
+        // clickedSquare: [],
+        // player1Array: [],
+        // player2Array: [],
+        counter: 1
+      };
+
+      this.playerSymbolArray = ["X","O"];
+      this.clickedSquare = [];
+      this.player1Array = [];
+      this.player2Array = [];
+      // this.counter = 1;
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(rowIndex, colIndex){
+        console.log( rowIndex, colIndex );
+        console.log("sqClick this.state", this.state);
+        
+        let clickedSquare = [rowIndex,colIndex];
+        console.log("clickedSquare",clickedSquare);
+
+        let playerSymbol = this.playerSymbol;
+
+        let player1Array = this.player1Array;
+        console.log("this.player1Array bef",this.player1Array);
+
+        let player2Array = this.player2Array;
+        console.log("this.player2Array bef",this.player2Array);
+
+        let counter = this.state.counter;
+        let board = this.state.board;
+        console.log("counter",counter);
+        
+        if (counter%2 === 1) {
+          player1Array.push(clickedSquare);
+          console.log("this.player1Array aft",this.player1Array);
+          
+          playerSymbol = this.playerSymbolArray[0];
+          console.log("P1 playerSymbol", playerSymbol);
+
+          board[rowIndex][colIndex] = playerSymbol;
+          console.log("board", board);
+
+          counter++;
+          console.log("counter",counter);
+          
+        } else {
+          player2Array.push(clickedSquare);
+          console.log("this.player2Array aft",this.player2Array);
+          
+          playerSymbol = this.playerSymbolArray[1];
+          console.log("P2 playerSymbol", playerSymbol);
+
+          board[rowIndex][colIndex] = playerSymbol;
+          console.log("board", board);
+
+          counter++;
+          console.log("counter",counter);
+        }
+
+
+
+        const newState = {
+          board: this.state.board,
+          // player1Array: player1Array,
+          // player2Array: player2Array,
+          counter: counter,
+          // clickedSquare: clickedSquare
+        }
+
+        this.setState(newState);
+
     }
+
 
     render() {
         console.log("board", this.state.board);
@@ -24,18 +91,17 @@ class Board extends React.Component {
 
           // make a single row
           const rows = row.map( (col,colIndex) => {
-
             // make each column
             return (
                     <p
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex,colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {this.state.board[rowIndex][colIndex]}
                     </p>
             );
 
@@ -58,6 +124,7 @@ class Board extends React.Component {
         );
     }
 }
+
 
 ReactDOM.render(
     <Board/>,
