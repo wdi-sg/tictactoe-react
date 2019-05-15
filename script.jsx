@@ -13,6 +13,11 @@ class Board extends React.Component {
 
     }
 
+    handleClick = (event, colIndex) => {
+    // access to event.target here
+    console.log(event);
+}
+
     squareClick(something){
         console.log( something );
     }
@@ -56,6 +61,11 @@ class Board extends React.Component {
             {board}
           </div>
         );
+        <div>
+        <button type="checkbox" onClick={((ev) => this.handleClick(ev, colIndex))}/>
+    yay
+</button>
+</div>
     }
 }
 
