@@ -1,22 +1,46 @@
 class Game extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.updateTurnCounter = this.updateTurnCounter.bind(this);
         this.state = {
             turnCounter : 0
         }
     }
 
+    updateTurnCounter() {
+        // console.log("running turncouterupdate");
+        let turnCount = this.state.turnCounter + 1;
+        this.setState({ turnCounter: turnCount });
+        // console.log(this.state,"after update");
+    }
+
     render () {
         return (
-            <div className="item">
-                <Board turnCounter = {this.state.turnCounter} />
+            <div>
+                <Board
+                    updateTurnCounter = {this.updateTurnCounter}
+                    turnCounter = {this.state.turnCounter}
+                    />
             </div>
         );
     }
 }
 
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+
+
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+
 class Board extends React.Component {
-    constructor(){
+    constructor(props){
         super();
         this.state = {
             board: [
@@ -31,16 +55,21 @@ class Board extends React.Component {
         console.log( rowIndex, colIndex );
         console.log(this.state.board[rowIndex][colIndex])
         if (this.props.turnCounter % 2 === 1 && this.state.board[rowIndex][colIndex] === ' ') {
-            console.log("hello");
-            // this.setState( { counter: currentValue } )
+            this.props.updateTurnCounter();
+
+            let updatedBoard = this.state.board;
+            updatedBoard[rowIndex][colIndex]= 'o';
+            this.setState({board: updatedBoard});
+
         } else if (this.props.turnCounter % 2 === 0 && this.state.board[rowIndex][colIndex] === ' ') {
-            console.log("hello2",this.props.turnCounter);
-            this.props.turnCounter ++
-            console.log("hello3",this.props.turnCounter);
-            // setState( {turnCounter: this.props.turnCounter})
-            // this.setState( { counter: currentValue } )
+            this.props.updateTurnCounter();
+
+            let updatedBoard = this.state.board;
+            updatedBoard[rowIndex][colIndex]= 'x'
+            this.setState({board: updatedBoard});
+
         } else {
-            console.log("here");
+            console.log("branch3",this.props.turnCounter);
         }
     }
 
@@ -74,6 +103,12 @@ class Board extends React.Component {
         );
     }
 }
+
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
 
 ReactDOM.render(
     <Game/>,
