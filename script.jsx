@@ -13,8 +13,12 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(counter){
+        let currentValue = this.state.board + 1;
+        console.log("Clicking on ", counter);
+
+        // set the state of this component
+        this.setState( { counter: currentValue } );
     }
 
     render() {
@@ -28,17 +32,12 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className="square"
                         key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
+                        onClick={()=>{this.squareClick(colIndex);}}>
                         {col} : {colIndex} : {rowIndex}
                     </p>
-            );
-
+                    );
           });
 
           // return the complete row
@@ -59,6 +58,7 @@ class Board extends React.Component {
     }
 }
 
+//
 ReactDOM.render(
     <Board/>,
     document.getElementById('root')
