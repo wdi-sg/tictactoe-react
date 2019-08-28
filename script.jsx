@@ -32,6 +32,11 @@ class Board extends React.Component {
                     if (this.checkGame()) {
                         this.setState({gameEnd: true});
                     }
+                    else {
+                        if (this.state.turn === 9) {
+                            this.setState({gameEnd: true});
+                        }
+                    }
                 }
             }
         }
@@ -85,7 +90,6 @@ class Board extends React.Component {
         //check diagonally
         for (let i=0;i<3;i++){
             totalValue = totalValue + this.state.board[i][i];
-            //console.log(totalValue);
             if (totalValue === 3) {
                 this.state.loser = "◯";
                 this.state.winner = "✕";
@@ -97,9 +101,10 @@ class Board extends React.Component {
                 return true;
             }
         }
+        totalValue = 0;
         // check reverse diagonally
         for (let i=0;i<3;i++){
-            totalValue = totalValue + this.state.board[i][3-(i+1)];
+            totalValue = totalValue + this.state.board[i][2-i];
             if (totalValue === 3) {
                 this.state.loser = "◯";
                 this.state.winner = "✕";
@@ -148,7 +153,12 @@ class Board extends React.Component {
         let message;
 
         if (this.state.gameEnd) {
-            message = <p>Game ended! {this.state.winner} won!</p>
+            if (this.state.turn === 9) {
+                message = <p>Game draw!</p>
+            }
+            else {
+                message = <p>Game ended! {this.state.winner} won!</p>
+            }
         }
         else {
             message = <CurrentTurn player={this.state.currentPlayer}/>
