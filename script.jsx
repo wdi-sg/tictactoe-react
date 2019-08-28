@@ -1,65 +1,88 @@
 class Board extends React.Component {
     constructor(){
 
-      super()
-
+      super();
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+        turn: 0,
+        player: 'X',
+        win: false
       }
-
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(row, col){
+        console.log( row, col );
+
+        // slice to get the 3 row arrays from the board array
+        let currentBoard = this.state.board.slice(0);
+
+        // get current player based on turnz. even - Player 1, odd - Player 2
+        let currentPlayer = this.state.player;
+
+        this.state.turn % 2 == 0 ? (currentPlayer = 'X') : (currentPlayer = 'O');
+
+        // mark selected square with X or O based on turn
+        currentBoard[row][col] = currentPlayer;
+
+        // increase counter
+        let currentTurnCount = this.state.turn + 1;
+
+        this.setState( { turn: currentTurnCount, board: currentBoard, player: currentPlayer } );
+
+        if (this.state.turn >= 4) {
+            if (checkWin(currentBoard)) {
+                this.setState({ win: true });
+                console.log("issa win!")
+            }
+        }
     }
 
     render() {
-        console.log("board", this.state.board);
-
-        const board = this.state.board.map( (row,rowIndex) => {
+        const board = this.state.board.map( (row, rowIndex) => {
 
           // make a single row
-          const rows = row.map( (col,colIndex) => {
+          const rows = row.map( (col, colIndex) => {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <td
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col}
+                    </td>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <tr key={rowIndex}>
               {rows}
-            </div>
+            </tr>
 
           );
 
         });
 
         return (
-          <div className="item">
-            {board}
-          </div>
+          <table>
+                <tbody>
+                    {board}
+                </tbody>
+          </table>
         );
     }
 }
 
 ReactDOM.render(
     <Board/>,
-    document.getElementById('root')
+    document.getElementById('playGame')
 );
