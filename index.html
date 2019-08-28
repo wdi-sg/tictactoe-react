@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>tictactoe</title>
 <style>
+
+  @import url('https://fonts.googleapis.com/css?family=Baloo&display=swap');
+
   body,html{
     height: 100%;
     width: 100%;
@@ -14,6 +17,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    font-family: 'Baloo', cursive;
   }
   .board{
     display: flex;
@@ -26,7 +30,7 @@
     max-width: 700px;
   }
   .row{
-    background-color:grey;
+    background-color:#ddd;
     margin:0px;
     padding:0px;
     width: 360px;
@@ -41,10 +45,11 @@
     height: 120px;
     display: flex;
     background-color:white;
-    border: 1px solid grey;
-    font-size: 30px;
+    border: 1px solid #ddd;
+    font-size: 60px;
     justify-content: center;
     align-items: center;
+    text-transform: uppercase;
 
   }
 </style>
