@@ -1,5 +1,4 @@
 
-
 class Board extends React.Component {
     constructor(){
 
@@ -19,7 +18,6 @@ class Board extends React.Component {
 
     squareClick(col, row, value) {
       console.log("x:" + col + "," + "y:" + row);
-      console.log(this.state.board[row][col]);
       if (value === " ") {
         if (this.state.playerXTurn === true) {
           //place X on board
@@ -72,11 +70,30 @@ class Board extends React.Component {
         });
 
         return (
-
+          <div>
+            <DisplayTurn playerXTurn = {this.state.playerXTurn}/>
             <div className="board">
               {board}
             </div>
+          </div>
         );
+    }
+}
+
+class DisplayTurn extends React.Component{
+    render(){
+      let message = "";
+      console.log('in DisplayTurn' );
+      console.log(this);
+      if(this.props.playerXTurn === true){
+        message = 'It\'s Player X\'s turn';
+      } else if (this.props.playerXTurn === false) {
+        message = 'It\'s Player O\'s turn';
+      }
+
+      return(
+        <h1>{message}</h1>
+      );
     }
 }
 
