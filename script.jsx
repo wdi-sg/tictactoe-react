@@ -1,32 +1,46 @@
 
 
 //CREATE A CLASS FOR EACH SQUARE
-class Square extends React.Component {
-
-    constructor() {
-        super()
-    }
-
-    clickHandler() {
-        console.log('click!')
-    }
-
-//create 1 button
-    render() {
-        return (
-            <button className = "squareButtons" onClick={() => this.clickHandler}>
-                {this.props.value}
-            </button>
-        );
-    }
+function Square(props) {
+  return (
+    <button className="squareButtons"
+    onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 //CREATE A CLASS FOR ALL THE BOARDS >> which call the individual square above
 class Board extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            squares: Array(9).fill(null),
+            playersTurn : 1
+        }
+    }
+
+    handleClick(i){
+        const squares = this.state.squares.slice();
+
+        if (this.state.playersTurn%2 == 1){
+        squares[i] = 'X';
+        this.setState({squares: squares});
+        } else if (this.state.playersTurn%2 == 0){
+            squares[i] = 'O';
+            this.setState({squares: squares});
+        }
+        this.state.playersTurn++;
+    }
+
     //I want to render each square within each has its own index >> which is why renderSquare(i)
     renderSquare(i) {
-        return <Square value={i}/>
+       return (
+            <Square
+            value={this.state.squares[i]}
+            onClick={() =>{this.handleClick(i)}}/>
+      );
     }
 
     //Multiply each square to the rows
