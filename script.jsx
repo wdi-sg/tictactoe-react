@@ -33,15 +33,20 @@ class Board extends React.Component {
                 this.setState({board: newBoard, player: newPlayer,})
             }
         } else {
-            console.log("currently player o");
             let newBoard = this.state.board;
+            if (newBoard[rowIndex][colIndex] == "o"){
+                alert("it's O alr");
+            } else {
+                console.log("currently player o");
+                let newBoard = this.state.board;
             //change board to O
-            newBoard[rowIndex][colIndex] = "o"
-            console.log (newBoard);
+                newBoard[rowIndex][colIndex] = "o"
+                console.log (newBoard);
             //switch player to X
-            let newPlayer = this.state.player;
-            newPlayer ="x";
-            this.setState({board: newBoard, player: newPlayer,})
+                let newPlayer = this.state.player;
+                newPlayer ="x";
+                this.setState({board: newBoard, player: newPlayer,})
+            }
         }
     }
 
@@ -63,9 +68,7 @@ class Board extends React.Component {
                         }}
 
                     >
-
                         {this.state.board[rowIndex][colIndex]}
-
 
                     </p>
             );
