@@ -3,39 +3,61 @@ class Board extends React.Component {
 
       super()
 
+
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0]
+        ],
+        turn: 1
       }
-
+    // this.state.newBoard = 0;
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(colIndex, rowIndex){
+        if (this.state.turn %2===1 && this.state.board[colIndex][rowIndex]===0){
+            this.state.board[colIndex][rowIndex] = "X";
+            var newbie = {board : this.state.board
+            };
+            this.setState(newbie);
+
+        } else if (this.state.turn %2===0 && this.state.board[colIndex][rowIndex]===0){
+            this.state.board[colIndex][rowIndex] = "O";
+            var newbie = {board : this.state.board
+            };
+            this.setState(newbie);
+        }
+        this.state.turn++;
     }
+
+        //console.log(colIndex)
+        // let newBoard = this.state.board;
+        // newBoard = [colIndex][rowIndex] =+ 1;
+        // console.log(newBoard)
+
+
+    // console.log("clicking", currentValue);
+
+      // set the state of this component
+   // this.setState( { counter: currentValue } );
 
     render() {
-        console.log("board", this.state.board);
+        // console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
-
+            //console.log("row ", row)
           // make a single row
           const rows = row.map( (col,colIndex) => {
-
+            //console.log("col ", col)
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
+                    <p className="boo" key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(colIndex, rowIndex);
                         }}
-
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {this.state.board[colIndex][rowIndex]}
                     </p>
             );
 
