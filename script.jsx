@@ -8,13 +8,15 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        playerXTurn : true;
       }
 
     }
 
     squareClick(something){
         console.log( something );
+        
     }
 
     render() {
@@ -27,16 +29,10 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <div className="box" key={colIndex} x={colIndex} y={rowIndex} onClick={()=>{
+                            this.squareClick(colIndex);}}>
+                        {col} : X{colIndex} : Y{rowIndex}
+                    </div>
             );
 
           });
@@ -52,7 +48,7 @@ class Board extends React.Component {
         });
 
         return (
-          <div className="item">
+          <div className="board">
             {board}
           </div>
         );
@@ -61,5 +57,5 @@ class Board extends React.Component {
 
 ReactDOM.render(
     <Board/>,
-    document.getElementById('root')
+    document.getElementById('app')
 );
