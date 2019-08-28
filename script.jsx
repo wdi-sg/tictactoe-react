@@ -1,5 +1,41 @@
 class Board extends React.Component {
-    constructor(){
+    render() {
+        const board = this.props.board.map( (row, rowIndex) => {
+
+          // make a single row
+          const rows = row.map( (col, colIndex) => {
+
+            // make each column - each square is a td
+            return (
+                    <td
+                        key={colIndex}
+                        onClick={()=> this.props.squareClick(rowIndex, colIndex)}
+                    >
+                        {col}
+                    </td>
+            );
+          });
+
+          // return the complete row
+          return (
+            <tr key={rowIndex}>
+              {rows}
+            </tr>
+          );
+        });
+
+        return (
+          <table>
+                <tbody>
+                    {board}
+                </tbody>
+          </table>
+        );
+    }
+}
+
+class Game extends React.Component {
+    constructor() {
 
       super();
       this.state = {
@@ -12,9 +48,9 @@ class Board extends React.Component {
         player: 'X',
         win: false
       }
-    }
+    };
 
-    squareClick(row, col){
+    squareClick = (row, col) => {
         console.log( row, col );
 
         // slice to get the 3 row arrays from the board array
@@ -39,50 +75,22 @@ class Board extends React.Component {
                 console.log("issa win!")
             }
         }
-    }
+    };
 
     render() {
-        const board = this.state.board.map( (row, rowIndex) => {
+    let header = <p>Here We Toe Again</p>;
+    if (this.state.win) header = <p>{this.state.player} wins!</p>;
 
-          // make a single row
-          const rows = row.map( (col, colIndex) => {
-
-            // make each column
-            return (
-                    <td
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(rowIndex, colIndex);
-                        }}
-
-                    >
-                        {col}
-                    </td>
-            );
-
-          });
-
-          // return the complete row
-          return (
-            <tr key={rowIndex}>
-              {rows}
-            </tr>
-
-          );
-
-        });
-
-        return (
-          <table>
-                <tbody>
-                    {board}
-                </tbody>
-          </table>
-        );
-    }
+    return (
+      <div>
+        <div className="header">{header}</div>
+        <Board board={this.state.board} squareClick={this.squareClick} />
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-    <Board/>,
+    <Game/>,
     document.getElementById('playGame')
 );

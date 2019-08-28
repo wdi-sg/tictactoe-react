@@ -1,15 +1,3 @@
-let playerOne = {
-    name: "Player One",
-    symbol: "X",
-    turn: true
-}
-
-let playerTwo = {
-    name: "Player Two",
-    symbol: "O",
-    turn: false
-}
-
 const checkWin = (board) => {
   if (checkHorizontal(board)) return true;
   if (checkVertical(board)) return true;
