@@ -5,20 +5,47 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+        previous: "black"
       }
+      
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(e){
+      if(this.state.previous === "black" ){
+        if ( e.target.innerHTML === ""){
+         e.target.innerHTML = "X";
+         e.target.value = 1;
+         this.setState({board: this.state.board,previous: "white"});
+        }
+
+      }else if (this.state.previous === "white"){
+        if ( e.target.innerHTML === ""){
+         e.target.innerHTML = "O";
+         e.target.value = 2;
+
+         this.setState({board: this.state.board,previous: "black"});
+
+        }
+       
+       
     }
+  }
+
+  checkWin(){
+
+
+  }
+      
+
 
     render() {
         console.log("board", this.state.board);
+        console.log(this.state.board[0])
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -28,14 +55,16 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
+
+                        value = {0}
                         className="boo"
                         key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
+                        onClick={(e)=>{
+                            this.squareClick(e);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                       {this.state.board[colIndex][rowIndex]}
                     </p>
             );
 
