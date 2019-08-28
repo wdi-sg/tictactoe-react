@@ -5,16 +5,35 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        counter : 0
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(colIndex, rowIndex){
+        console.log( "clicked", colIndex, rowIndex );
+        if(this.state.board[colIndex][rowIndex]){
+            console.log("Spot is filled");
+        } else {
+            if(this.state.counter % 2 === 0){
+                this.state.board[colIndex][rowIndex] = "X";
+                this.setState(this.state.board);
+                this.state.counter += 1;
+
+            } else {
+                this.state.board[colIndex][rowIndex] = "O";
+                console.log(this.state.board);
+                this.setState(this.state.board);
+                this.state.counter += 1;
+            }
+        }
+
+
+
     }
 
     render() {
@@ -31,12 +50,10 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    >{col}</p>
             );
 
           });
