@@ -27,7 +27,7 @@ h2 {
     background-color: white;
     margin: 0px;
     padding: 0px;
-    min-height: 200px;
+    height: 200px;
 }
 
 .column {
@@ -38,4 +38,14 @@ h2 {
     height: 200px;
     display:inline-block;
     border: 1px blue solid;
+}
+.tile {
+    width: 200px;
+    height: 200px;
+    float:left;
+    font-size: 3em;
+}
+
+.tile:focus {
+  outline: none;
 }
