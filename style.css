@@ -1,0 +1,21 @@
+.row{
+    background-color:grey;
+    margin:5px;
+    padding:5px;
+    display:flex;
+    justify-content: space-around;
+    width:600px;
+}
+
+.boo{
+    background-color:white;
+    width:200px;
+    height:200px;
+    font-size:200px;
+    margin:0;
+    border:1px solid black;
+}
+
+.winning-msg{
+    font-size:50px;
+}
