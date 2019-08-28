@@ -1,15 +1,4 @@
 
-class TurnDisplay extends React.Component {
-
-    render() {
-        return (
-          <div>
-            <p> Hello {this.props.playerXTurn ? 'Player o\'s Turn' : 'Player x\'s Turn'}</p>
-          </div>
-        );
-    }
-}
-
 
 class Board extends React.Component {
     constructor(){
@@ -28,24 +17,30 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something){
-        console.log( something );
-        if (this.state.playerXTurn === true){
+    squareClick(col, row, value) {
+      console.log("x:" + col + "," + "y:" + row);
+      console.log(this.state.board[row][col]);
+      if (value === " ") {
+        if (this.state.playerXTurn === true) {
+          //place X on board
           console.log('player x turn');
-          console.log(this.state.currentSymbol);
+          this.state.board[row][col] = this.state.currentSymbol;
+          //change turn
           this.setState({
             playerXTurn : false,
             currentSymbol : 'o'
           });
-        } else {
+        } else if (this.state.playerXTurn === false) {
+          //place o on board
           console.log('player o turn');
-          console.log(this.state.currentSymbol);
+          this.state.board[row][col] = this.state.currentSymbol;
+          //change turn
           this.setState({
             playerXTurn : true,
             currentSymbol : 'x'
           });
         }
-
+      }
     }
 
     render() {
@@ -59,7 +54,7 @@ class Board extends React.Component {
             // make each column
             return (
                     <div className="box" key={colIndex} x={colIndex} y={rowIndex} onClick={()=>{
-                            this.squareClick(colIndex);}}>
+                            this.squareClick(colIndex, rowIndex, col);}}>
                         {col}
                     </div>
             );
@@ -77,12 +72,10 @@ class Board extends React.Component {
         });
 
         return (
-          <div>
-            <TurnDisplay/>
+
             <div className="board">
               {board}
             </div>
-          </div>
         );
     }
 }
