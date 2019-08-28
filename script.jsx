@@ -7,7 +7,8 @@ class Board extends React.Component {
         board: [],
         win: false,
         winner:null,
-        gameStart:false
+        gameStart:false,
+        boardSize:null
       }
 
     }
@@ -124,31 +125,85 @@ class Board extends React.Component {
 
     squareClick(e,colIndex,rowIndex){
         let sym = null
-        if(this.count%2 === 0){
-            this.state.board[colIndex][rowIndex] = "X"
-            sym = "X"
+        if(this.state.board[colIndex][rowIndex] === null){
+            if(this.count%2 === 0){
+                this.state.board[colIndex][rowIndex] = "X"
+                sym = "X"
+            }else{
+                this.state.board[colIndex][rowIndex] = "O"
+                sym = "O"
+            }
+            let newState = {
+                board:this.state.board
+            }
+            this.setState(newState)
+            this.checkWin(sym)
+            this.count++;
+            this.aiTurn();
         }else{
-            this.state.board[colIndex][rowIndex] = "O"
-            sym = "O"
+            console.log("do nothing")
         }
-        console.log(e.target)
+
+
+    }
+
+    aiTurn(){
+        console.log("AI TURN")
+        let emptyIndices = []
+        for(let i=0;i<this.state.boardSize;i++){
+            for(let j=0;j<this.state.boardSize;j++){
+                if(this.state.board[i][j] === null){
+                    emptyIndices.push([i,j])
+                }
+            }
+        }
+
+        let emptySpaceSize = emptyIndices.length
+        let aiChoice = emptyIndices[Math.floor(Math.random()*emptySpaceSize)]
+
+        let sym = null
+        if(this.state.board[aiChoice[0]][aiChoice[1]] === null){
+            if(this.count%2 === 0){
+                this.state.board[aiChoice[0]][aiChoice[1]] = "X"
+                sym = "X"
+            }else{
+                this.state.board[aiChoice[0]][aiChoice[1]] = "O"
+                sym = "O"
+            }
+            let newState = {
+                board:this.state.board
+            }
+            this.setState(newState)
+            this.checkWin(sym)
+            this.count++
+        }else{
+            console.log("do nothing")
+        }
+
+    }
+
+    resetGame(){
         let newState = {
-            board:this.state.board
+            board: [],
+            win: false,
+            winner:null,
+            gameStart:false,
+            boardSize:null
+
         }
         this.setState(newState)
-        this.checkWin(sym)
-        this.count++
     }
 
     startGame(){
-        let boardSize = parseInt(this.refs.boardInput.value)
-        for(let i=0;i<boardSize;i++){
-            this.state.board.push(Array(boardSize).fill(null))
+        let size = parseInt(this.refs.boardInput.value)
+        for(let i=0;i<size;i++){
+            this.state.board.push(Array(size).fill(null))
         }
         console.log(this.state.board)
         let newState = {
             gameStart:true,
-            board:this.state.board
+            board:this.state.board,
+            boardSize:size
 
         }
         this.setState(newState)
@@ -199,7 +254,7 @@ class Board extends React.Component {
 
         return (
           <div className="item">
-
+            <button onClick={()=>{this.resetGame()}}>Reset</button>
             {display}
             {this.state.win && <p className="winning-msg">{this.state.winner} WINSSSSSS</p>}
           </div>
