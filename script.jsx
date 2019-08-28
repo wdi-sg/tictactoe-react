@@ -4,20 +4,15 @@ class Board extends React.Component {
       super()
       this.count = 0
       this.state = {
-        board: [
-          ['','',''],
-          ['','',''],
-          ['','','']
-        ],
+        board: [],
         win: false,
-        winner:null
+        winner:null,
+        gameStart:false
       }
 
     }
 
     checkWin(sym){
-        console.log("IN CHECKWIN")
-        let x = sym
 
         let arr = this.state.board
         var checkHorizontal = function(arr,sym){
@@ -112,12 +107,12 @@ class Board extends React.Component {
         }
 
         let result = [checkHorizontal(arr,sym),checkVertical(arr,sym),checkX(arr,sym)]
+        console.log(result)
         if(result.includes(true)){
             this.state.win = true
             this.state.winner = sym
         }
 
-        console.log(this.state.win)
 
         let newState = {
             win:this.state.win,
@@ -134,7 +129,7 @@ class Board extends React.Component {
             sym = "X"
         }else{
             this.state.board[colIndex][rowIndex] = "O"
-            "O"
+            sym = "O"
         }
         console.log(e.target)
         let newState = {
@@ -145,42 +140,67 @@ class Board extends React.Component {
         this.count++
     }
 
+    startGame(){
+        let boardSize = parseInt(this.refs.boardInput.value)
+        for(let i=0;i<boardSize;i++){
+            this.state.board.push(Array(boardSize).fill(null))
+        }
+        console.log(this.state.board)
+        let newState = {
+            gameStart:true,
+            board:this.state.board
+
+        }
+        this.setState(newState)
+    }
+
     render() {
+        let display = null
+        if(this.state.gameStart === false){
+            display = <div>
+                <p>Please input the board size</p>
+                <input type="number" ref="boardInput" />
+                <button type="submit" onClick={()=>{this.startGame()}}>Submit</button>
 
-        const board = this.state.board.map( (row,rowIndex) => {
+            </div>
+        }else{
+            display = this.state.board.map( (row,rowIndex) => {
 
-          // make a single row
-            const rows = row.map( (col,colIndex) => {
+              // make a single row
+                const rows = row.map( (col,colIndex) => {
 
-                // make each column
+                    // make each column
+                    return (
+                            <p
+                                className="boo"
+                                key={colIndex}
+                                onClick={(e)=>{
+                                    this.squareClick(e,colIndex,rowIndex);
+                                }}
+
+                            >
+                            {this.state.board[colIndex][rowIndex]}
+                            </p>
+                    );
+
+                });
+
+              // return the complete row
                 return (
-                        <p
-                            className="boo"
-                            key={colIndex}
-                            onClick={(e)=>{
-                                this.squareClick(e,colIndex,rowIndex);
-                            }}
+                    <div key={rowIndex} className="row">
+                        {rows}
+                    </div>
 
-                        >
-                        {this.state.board[colIndex][rowIndex]}
-                        </p>
                 );
 
             });
+        }
 
-          // return the complete row
-            return (
-                <div key={rowIndex} className="row">
-                    {rows}
-                </div>
-
-            );
-
-        });
 
         return (
           <div className="item">
-            {board}
+
+            {display}
             {this.state.win && <p className="winning-msg">{this.state.winner} WINSSSSSS</p>}
           </div>
         );
