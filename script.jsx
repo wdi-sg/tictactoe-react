@@ -1,3 +1,16 @@
+
+class TurnDisplay extends React.Component {
+
+    render() {
+        return (
+          <div>
+            <p> Hello {this.props.playerXTurn ? 'Player o\'s Turn' : 'Player x\'s Turn'}</p>
+          </div>
+        );
+    }
+}
+
+
 class Board extends React.Component {
     constructor(){
 
@@ -5,18 +18,34 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [' ',' ',' '],
+          [' ',' ',' '],
+          [' ',' ',' ']
         ],
-        playerXTurn : true;
+        playerXTurn : true,
+        currentSymbol : 'x'
       }
 
     }
 
     squareClick(something){
         console.log( something );
-        
+        if (this.state.playerXTurn === true){
+          console.log('player x turn');
+          console.log(this.state.currentSymbol);
+          this.setState({
+            playerXTurn : false,
+            currentSymbol : 'o'
+          });
+        } else {
+          console.log('player o turn');
+          console.log(this.state.currentSymbol);
+          this.setState({
+            playerXTurn : true,
+            currentSymbol : 'x'
+          });
+        }
+
     }
 
     render() {
@@ -31,7 +60,7 @@ class Board extends React.Component {
             return (
                     <div className="box" key={colIndex} x={colIndex} y={rowIndex} onClick={()=>{
                             this.squareClick(colIndex);}}>
-                        {col} : X{colIndex} : Y{rowIndex}
+                        {col}
                     </div>
             );
 
@@ -48,12 +77,16 @@ class Board extends React.Component {
         });
 
         return (
-          <div className="board">
-            {board}
+          <div>
+            <TurnDisplay/>
+            <div className="board">
+              {board}
+            </div>
           </div>
         );
     }
 }
+
 
 ReactDOM.render(
     <Board/>,
