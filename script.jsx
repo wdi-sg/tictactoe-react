@@ -5,16 +5,44 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+        player: "x"
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(colIndex, rowIndex){
+        console.log( colIndex );
+        console.log( rowIndex );
+        if (this.state.player == "x") {
+            console.log("currently player x");
+            //change board to x
+            let newBoard = this.state.board;
+            if (newBoard[rowIndex][colIndex] == "x") {
+                alert("it's already X!")
+            } else {
+                newBoard[rowIndex][colIndex] = "x"
+                console.log (newBoard);
+            // change player to O
+                let newPlayer = this.state.player;
+                newPlayer = "o";
+                console.log (newPlayer)
+                this.setState({board: newBoard, player: newPlayer,})
+            }
+        } else {
+            console.log("currently player o");
+            let newBoard = this.state.board;
+            //change board to O
+            newBoard[rowIndex][colIndex] = "o"
+            console.log (newBoard);
+            //switch player to X
+            let newPlayer = this.state.player;
+            newPlayer ="x";
+            this.setState({board: newBoard, player: newPlayer,})
+        }
     }
 
     render() {
@@ -31,11 +59,14 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+
+                        {this.state.board[rowIndex][colIndex]}
+
+
                     </p>
             );
 
@@ -53,13 +84,18 @@ class Board extends React.Component {
 
         return (
           <div className="item">
+            <div className ="player">current player:{this.state.player} </div>
             {board}
           </div>
         );
     }
 }
 
+
+
+
 ReactDOM.render(
+
     <Board/>,
     document.getElementById('root')
 );
