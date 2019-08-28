@@ -1,0 +1,18 @@
+/*.gameArea {
+	background-color:black;
+	width: 220px;
+}
+
+.row{
+	margin:5px;
+	padding:5px;
+	display: block;
+	width: 220px;
+}
+
+.cell{
+	background-color:white;
+	margin: 20px;
+	padding: 10px;
+	display: inline-block;
+}*/
