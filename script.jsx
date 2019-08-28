@@ -1,3 +1,15 @@
+
+class CurrentPlayer extends React.Component {
+    render() {
+        return(
+            <div>
+                <h2>Current Player: {this.props.pizza}</h2>
+            </div>
+        )
+    }
+}
+
+
 class Board extends React.Component {
     constructor(){
 
@@ -21,12 +33,12 @@ class Board extends React.Component {
         let newBoard = this.state.board;
         let currentPlayer = this.state.player;
 
-        if (newBoard[rowIndex][columnIndex] === "" && currentPlayer%2 === 1) {
+        if (newBoard[rowIndex][columnIndex] === "" && currentPlayer === 1) {
             newBoard[rowIndex][columnIndex] = "X"
-            currentPlayer = currentPlayer + 1
-        } else if (newBoard[rowIndex][columnIndex] === "" && currentPlayer%2 === 0){
+            currentPlayer = 2
+        } else if (newBoard[rowIndex][columnIndex] === "" && currentPlayer === 2){
             newBoard[rowIndex][columnIndex] = "O"
-            currentPlayer = currentPlayer + 1
+            currentPlayer = 1
         }
 
         console.log(newBoard)
@@ -66,6 +78,8 @@ class Board extends React.Component {
 
         return (
           <div className="item">
+            <h1 className="header">Tic Tac Toe</h1>
+            <CurrentPlayer pizza={this.state.player} />
             {board}
           </div>
         );
