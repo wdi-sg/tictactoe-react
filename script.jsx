@@ -40,9 +40,9 @@ class Game extends React.Component {
       super();
       this.state = {
         board: [
-          ['','',''],
-          ['','',''],
-          ['','','']
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
         ],
         turn: 0,
         player: 'X',

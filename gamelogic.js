@@ -8,12 +8,15 @@ const checkWin = (board) => {
 
 function checkHorizontal(board) {
   let result = [];
+
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board.length; col++) {
       result.push(board[row][col]);
     }
     console.log(result);
-    if (result.every((element, i, arr) => element === arr[0])) return true;
+
+    //every tests if every elements in an array pass the test implemented by the provided function
+    if (result.every((element, i, arr) => element === arr[0] && (element))) return true;
     result = [];
   }
 }
@@ -25,7 +28,7 @@ function checkVertical(board) {
       result.push(board[row][col]);
     }
     console.log(result);
-    if (result.every((element, i, arr) => element === arr[0])) return true;
+    if (result.every((element, i, arr) => element === arr[0] && (element))) return true;
     result = [];
   }
 }
@@ -36,7 +39,7 @@ function checkDownDiag(board) {
     result.push(board[i][i]);
   }
   console.log(result);
-  if (result.every((element, i, arr) => element === arr[0])) return true;
+  if (result.every((element, i, arr) => element === arr[0] && (element))) return true;
   result = [];
 }
 
@@ -46,6 +49,6 @@ function checkUpDiag(board) {
     result.push(board[board.length - 1 - i][i]);
   }
   console.log(result);
-  if (result.every((element, i, arr) => element === arr[0])) return true;
+  if (result.every((element, i, arr) => element === arr[0] && (element))) return true;
   result = [];
 }
