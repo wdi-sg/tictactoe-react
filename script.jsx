@@ -1,3 +1,4 @@
+        let count = 0;
 class Board extends React.Component {
     constructor(){
 
@@ -5,16 +6,42 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
         ]
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(columnIndex, rowIndex){
+        // console.log( columnIndex );
+        // console.log( rowIndex );
+
+
+
+        console.log("count "+count);
+
+
+
+        if (this.state.board[rowIndex][columnIndex]){
+            console.log("Square is filled")
+
+        } else {
+
+            if (count % 2 == 0) {
+            this.state.board[rowIndex][columnIndex] = "X"
+                this.setState(this.state);
+                count += 1;
+
+            } else if (count % 2 != 0) {
+            this.state.board[rowIndex][columnIndex] = "O"
+                this.setState(this.state);
+                count += 1;
+            }
+
+        }
+
     }
 
     render() {
@@ -31,12 +58,12 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                        this.squareClick(colIndex,rowIndex);
                         }}
-
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
+
             );
 
           });
