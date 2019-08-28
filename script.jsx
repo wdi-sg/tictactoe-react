@@ -39,9 +39,9 @@ class Board extends React.Component {
                 }
             }
             if(checkCounter === arr.length)
-                return true
+                return true;
             else
-                return false
+                return false;
         }
 
         //check vertical wins
@@ -66,9 +66,9 @@ class Board extends React.Component {
                 }
             }
             if(checkCounter === arr.length)
-                return true
+                return true;
             else
-                return false
+                return false;
         }
 
         //check diagonal win
@@ -111,42 +111,41 @@ class Board extends React.Component {
         let result = [checkHorizontal(arr,sym),checkVertical(arr,sym),checkX(arr,sym)]
         console.log(result)
         if(result.includes(true)){
-            this.state.win = true
-            this.state.winner = sym
-        }
-
-
-        let newState = {
+            this.state.win = true;
+            this.state.winner = sym;
+            alert(this.state.winner + " Wins!");
+            window.location.reload();
+        } else {
+            let newState = {
             win:this.state.win,
             winner:this.state.winner
+            }
+            this.setState(newState);
         }
-
-        this.setState(newState)
     }
 
     squareClick(colIndex, rowIndex){
         console.log( "clicked", colIndex, rowIndex );
-        let sym = null
-        if(this.state.board[colIndex][rowIndex]){
-            console.log("Spot is filled");
-        } else {
-            if(this.state.counter % 2 === 0){
-                this.state.board[colIndex][rowIndex] = "X";
-                sym = "X";
-                this.setState(this.state.board);
-                this.state.counter += 1;
 
+            let sym = null;
+            if(this.state.board[colIndex][rowIndex]){
+                console.log("Spot is filled");
             } else {
-                this.state.board[colIndex][rowIndex] = "O";
-                sym = "O";
-                console.log(this.state.board);
-                this.setState(this.state.board);
-                this.state.counter += 1;
+                if(this.state.counter % 2 === 0){
+                    this.state.board[colIndex][rowIndex] = "X";
+                    sym = "X";
+                    this.setState(this.state.board);
+                    this.state.counter += 1;
+
+                } else {
+                    this.state.board[colIndex][rowIndex] = "O";
+                    sym = "O";
+                    console.log(this.state.board);
+                    this.setState(this.state.board);
+                    this.state.counter += 1;
+                }
+                this.checkWin(sym);
             }
-            this.checkWin(sym)
-        }
-
-
 
     }
 
@@ -185,7 +184,7 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
-            {this.state.win && <p className="winning-msg">{this.state.winner} Wins!</p>}
+            {this.state.win && <div className="winning-msg">{this.state.winner} Wins!</div>}
           </div>
         );
     }
