@@ -2,20 +2,43 @@ class Board extends React.Component {
     constructor(){
 
       super()
-
       this.state = {
         board: [
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
-      }
+        ],
 
+        counter : 0,
+
+      };
+
+    this.squareClick = this.squareClick.bind(this)
+
+
+    };
+
+    squareClick(rowIndex, colIndex){
+
+        let currentBoard = this.state.board
+        if (this.state.counter % 2 == 0 && currentBoard[rowIndex][colIndex] == "i" ){
+            currentBoard[rowIndex][colIndex] = "O";
+            this.setState({board: currentBoard});
+            // this.arrayOne.push({board: currentBoard}) put for what?
+            ++this.state.counter
+            console.log("o",this.setState({board: currentBoard}))
+        } else if (currentBoard[rowIndex][colIndex] == "i"){
+            currentBoard[rowIndex][colIndex] = "X";
+            this.setState({board: currentBoard})
+            ++this.state.counter
+            console.log("x",this.setState({board: currentBoard}))
+        };
+
+        console.log("Counter",this.state.counter);
+        console.log( "rows and columns",rowIndex, colIndex);
     }
 
-    squareClick(something){
-        console.log( something );
-    }
+
 
     render() {
         console.log("board", this.state.board);
@@ -27,23 +50,16 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <button onClick={()=>{this.squareClick(rowIndex, colIndex);}} >
+                        {col}
+                    </button>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div className="row">
               {rows}
             </div>
 
@@ -52,7 +68,7 @@ class Board extends React.Component {
         });
 
         return (
-          <div className="item">
+          <div>
             {board}
           </div>
         );
