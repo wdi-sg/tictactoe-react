@@ -1,20 +1,35 @@
 class Board extends React.Component {
     constructor(){
-
       super()
-
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
     }
 
-    squareClick(something){
-        console.log( something );
+    state = {
+        board: [
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+        turn: 1
+    }
+
+    squareClick(colIndex, rowIndex){
+        var showBoard = this.state.board;
+
+        if (this.state.turn%2 === 1 && showBoard[rowIndex][colIndex] === ""){
+            showBoard[rowIndex][colIndex] = "✘";
+            var updateBoard = {
+                board: showBoard
+            }
+            this.setState(updateBoard);
+
+        } else if (this.state.turn%2 == 0 && showBoard[rowIndex][colIndex] === ""){
+            showBoard[rowIndex][colIndex] = "Ö";
+            var updateBoard = {
+                board: showBoard
+            }
+            this.setState(updateBoard);
+        }
+         this.state.turn++;
     }
 
     render() {
@@ -27,32 +42,24 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <span className="boo p-5 m-1" key={colIndex}
+                        onClick={()=>{this.squareClick(colIndex, rowIndex);
+                        }} >
+                        {col}
+                    </span>
             );
-
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className="row justify-content-around py-2">
               {rows}
             </div>
-
           );
-
         });
 
         return (
-          <div className="item">
+          <div className="item col-6 mx-auto my-4">
             {board}
           </div>
         );
@@ -60,6 +67,9 @@ class Board extends React.Component {
 }
 
 ReactDOM.render(
-    <Board/>,
+    <div>
+        <h1 className = "text-center my-3">Ticky Tacky Toe </h1>
+        <Board/>
+    </div>,
     document.getElementById('root')
 );
