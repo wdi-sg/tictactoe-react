@@ -1,0 +1,9 @@
+<button
+ className="boo"
+ key={colIndex}
+ onClick={()=>{
+ this.squareClick(colIndex);
+ }}
+>
+{col}
+</button>
