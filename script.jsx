@@ -9,18 +9,44 @@ class Board extends React.Component {
           ['','',''],
           ['','','']
         ],
-        previous: "black"
+        previous: "black",
+        win: false,
+        winner: ''
       }
       
 
     }
+    checkWin(){
+      let checkedBoard = this.state.board;
+      let sum = 0;
+      for (let i =0; i < 3; i ++){
+        for (let j =0; j < 3; j++){
+          sum += checkedBoard[i][j].value
 
+        }
+      }
+      if(sum === 3){
+        this.setState({winner: "X",win: true})
+        return true;
+      } else if( sum === 6){
+        this.setState({winner: "O", winner: true})
+        return true;
+      } else {
+        return false;
+      }
+    }
+  
     squareClick(e){
+      
+      
       if(this.state.previous === "black" ){
         if ( e.target.innerHTML === ""){
          e.target.innerHTML = "X";
          e.target.value = 1;
+
+         console.log(e.target.checked);
          this.setState({board: this.state.board,previous: "white"});
+         
         }
 
       }else if (this.state.previous === "white"){
@@ -30,23 +56,33 @@ class Board extends React.Component {
 
          this.setState({board: this.state.board,previous: "black"});
 
+
         }
        
        
     }
+   
   }
 
   checkWin(){
+    let checkedBoard = this.state.board;
+    let sum = 0;
+    for (let i =0; i < 3; i ++){
+      for (let j =0; j < 3; j++){
+        sum += checkedBoard[i][j].value
 
-
+      }
+    }
+    if(sum === 3){
+      this.setState({winner: "X"})
+    } else if( sum === 6)
+      this.setState({winner: "O"})
   }
-      
-
+  
 
     render() {
         console.log("board", this.state.board);
-        console.log(this.state.board[0])
-
+        
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
@@ -65,6 +101,7 @@ class Board extends React.Component {
 
                     >
                        {this.state.board[colIndex][rowIndex]}
+
                     </p>
             );
 
@@ -83,6 +120,7 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            <p> The winner is: {this.state.winner}</p>
           </div>
         );
     }
