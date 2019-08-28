@@ -6,7 +6,7 @@
   <title>tictactoe</title>
 <style>
 
-  @import url('https://fonts.googleapis.com/css?family=Baloo&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Knewave&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
 
   body,html{
@@ -18,13 +18,22 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    font-family: 'Baloo', cursive;
+    font-family: 'Knewave', cursive;
+  }
+
+  h1,h2,h3,h4,h5,h6{
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
   }
 
   h1{
-    text-align: center;
-    font-family: 'Lexend Deca', sans-serif;
+    color: #333;
+    margin: 0;
+  }
+
+  h2{
     color: #888;
+    margin: 0;
   }
 
   .board{
@@ -52,13 +61,26 @@
     width: 120px;
     height: 120px;
     display: flex;
-    background-color:white;
-    border: 1px solid #ddd;
+    background-color:#ddd;
+    border: 1px solid white;
     font-size: 60px;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
 
+  }
+
+  .game-display{
+    margin-bottom: 30px;
+    margin-top: -50px;
+  }
+
+  .playerX{
+    color: #E84747;
+  }
+
+  .playerO{
+    color: #1E4891;
   }
 </style>
 </head>

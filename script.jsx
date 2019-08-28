@@ -11,7 +11,8 @@ class Board extends React.Component {
           [' ',' ',' ']
         ],
         playerXTurn : true,
-        currentSymbol : 'x'
+        currentSymbol : 'x',
+        roundCounter: 1
       }
 
     }
@@ -22,7 +23,7 @@ class Board extends React.Component {
         if (this.state.playerXTurn === true) {
           //place X on board
           console.log('player x turn');
-          this.state.board[row][col] = this.state.currentSymbol;
+          this.state.board[row][col] = <span className="playerX">{this.state.currentSymbol}</span>;
           //change turn
           this.setState({
             playerXTurn : false,
@@ -31,7 +32,7 @@ class Board extends React.Component {
         } else if (this.state.playerXTurn === false) {
           //place o on board
           console.log('player o turn');
-          this.state.board[row][col] = this.state.currentSymbol;
+          this.state.board[row][col] = <span className="playerO">{this.state.currentSymbol}</span>;
           //change turn
           this.setState({
             playerXTurn : true,
@@ -71,7 +72,7 @@ class Board extends React.Component {
 
         return (
           <div>
-            <DisplayTurn playerXTurn = {this.state.playerXTurn}/>
+            <DisplayTurn playerXTurn = {this.state.playerXTurn} round={this.state.roundCounter}/>
             <div className="board">
               {board}
             </div>
@@ -92,7 +93,10 @@ class DisplayTurn extends React.Component{
       }
 
       return(
-        <h1>{message}</h1>
+        <div className="game-display">
+          <h1>Round {this.props.round}</h1>
+          <h2>{message}</h2>
+        </div>
       );
     }
 }
