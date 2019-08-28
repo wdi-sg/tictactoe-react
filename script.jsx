@@ -1,8 +1,6 @@
 class Board extends React.Component {
     constructor(){
-
       super()
-
       this.state = {
         board: [
           ['i','i','i'],
@@ -28,7 +26,7 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className="column"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex);
@@ -52,7 +50,7 @@ class Board extends React.Component {
         });
 
         return (
-          <div className="item">
+          <div className="board">
             {board}
           </div>
         );
