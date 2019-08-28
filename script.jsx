@@ -148,37 +148,42 @@ class Board extends React.Component {
     }
 
     aiTurn(){
+
         console.log("AI TURN")
-        let emptyIndices = []
-        for(let i=0;i<this.state.boardSize;i++){
-            for(let j=0;j<this.state.boardSize;j++){
-                if(this.state.board[i][j] === null){
-                    emptyIndices.push([i,j])
+        let currentState = this.state;
+        setTimeout(() => {
+            let emptyIndices = [];
+            for(let i=0;i<currentState.boardSize;i++){
+                for(let j=0;j<currentState.boardSize;j++){
+                    if(currentState.board[i][j] === null){
+                        emptyIndices.push([i,j])
+                    }
                 }
             }
-        }
 
-        let emptySpaceSize = emptyIndices.length
-        let aiChoice = emptyIndices[Math.floor(Math.random()*emptySpaceSize)]
+            let emptySpaceSize = emptyIndices.length
+            let aiChoice = emptyIndices[Math.floor(Math.random()*emptySpaceSize)]
 
-        let sym = null
-        if(this.state.board[aiChoice[0]][aiChoice[1]] === null){
-            if(this.count%2 === 0){
-                this.state.board[aiChoice[0]][aiChoice[1]] = "X"
-                sym = "X"
+            let sym = null
+            if(currentState.board[aiChoice[0]][aiChoice[1]] === null){
+                if(this.count%2 === 0){
+                    currentState.board[aiChoice[0]][aiChoice[1]] = "X"
+                    sym = "X"
+                }else{
+                    currentState.board[aiChoice[0]][aiChoice[1]] = "O"
+                    sym = "O"
+                }
+                let newState = {
+                    board:currentState.board
+                }
+                this.setState(newState)
+                this.checkWin(sym)
+                this.count++
             }else{
-                this.state.board[aiChoice[0]][aiChoice[1]] = "O"
-                sym = "O"
+                console.log("do nothing")
             }
-            let newState = {
-                board:this.state.board
-            }
-            this.setState(newState)
-            this.checkWin(sym)
-            this.count++
-        }else{
-            console.log("do nothing")
-        }
+        },1000)
+
 
     }
 
