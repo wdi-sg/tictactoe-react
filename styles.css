@@ -15,22 +15,33 @@ h2 {
     justify-content: center;
     align-content: center;
 }
+#results {
+    text-align: center;
+}
+.game {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-width: 400px;
+}
 
 .board {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    min-width: 600px;
+    min-width: 300px;
 }
 
 .row {
     background-color: white;
     margin: 0px;
     padding: 0px;
-    height: 200px;
+    height: 100px;
 }
 
-.column {
+/* .column {
     margin:0;
     padding:0;
     background-color: white;
@@ -38,12 +49,18 @@ h2 {
     height: 200px;
     display:inline-block;
     border: 1px blue solid;
-}
+} */
+
 .tile {
-    width: 200px;
-    height: 200px;
+    background-color: white;
+    margin: 0px;
+    padding: 0px;
+    width: 100px;
+    height: 100px;
     float:left;
-    font-size: 3em;
+    font-size: 4em;
+    border: 1px blue solid;
+    display:inline-block;
 }
 
 .tile:focus {

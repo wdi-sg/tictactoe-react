@@ -1,4 +1,3 @@
-
 ///////////////////////////////////
 // ╔╦╗╦╔═╗  ╔╦╗╔═╗╔╦╗  ╔╦╗╔═╗╔═╗ //
 //  ║ ║║     ║ ╠═╣ ║    ║ ║ ║║╣  //
@@ -7,9 +6,6 @@
 //           mah ck              //
 ///////////////////////////////////
 
-
-const p1Token = "⭕";
-const p2Token = "❌";
 const winningCombo = [
     [0, 1, 2],
     [3, 4, 5],
@@ -27,78 +23,113 @@ var playerWinningCount = {
     draw: 0
 }
 
+const xArr = [];
+const oArr = [];
+let xTurn = true;
+let gameOver = false;
+
+function checkWinner(gameArr, player) {
+    for (let i =0; i< winningCombo.length; i++) {
+        let count = 0;
+        for (let j=0; j < gameArr.length; j++){
+            if (winningCombo[i].includes(gameArr[j])) {
+                count++;
+            }
+            if (count >= 3) {
+                gameOver = true;
+                console.log(player + " wins!");
+                let element = (<h2>{player + " wins!"}</h2>);
+                ReactDOM.render(
+                    element,
+                    document.getElementById('results')
+                );
+            }
+        }
+    }
+    return true;
+}
 
 class Tile extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            value: null
-        };
+            value: "",
+        }
     }
+    drawToken(index) {
+        if (!gameOver) {
+            if (xTurn) {
+                this.setState({value: "❌"})
+                xArr.push(index);
+                checkWinner(xArr,"❌");
+            } else {
+                this.setState({value: "⭕"})
+                oArr.push(this.props.index);
+                checkWinner(oArr,"⭕");
+            }
+            xTurn = !xTurn;
+        }
 
-    drawToken() {
-        console.log("clicked!")
-        return ( this.setState( {value: p1Token} ) );
     }
-
     render() {
         return (
-            <button className="tile" onClick={ ()=> {
-                {this.drawToken()}
-            }}>{this.state.value}
+            <button className = "tile"
+            onClick={()=>this.drawToken(this.props.index)}
+            >
+            { this.state.value }
             </button>
         );
     }
 }
 
-
 class Board extends React.Component {
-    constructor(){
-      super()
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+    constructor() {
+        super();
     }
-
-    render() {
-        console.log("logging board info => ", this.state.board);
-
-        const board = this.state.board.map( (row,rowIndex) => {
-
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
-
-            // make each column
-            return (
-                    <p className="column" key={colIndex} >
-                        <Tile />
-                    </p>
-            );
-
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-          );
-        });
-
+    renderTiles(i) {
         return (
-          <div className="board">
-            {board}
-          </div>
+            <Tile index={i} />
+        );
+    }
+    render() {
+        return (
+            <div>
+                <div className="row">
+                    {this.renderTiles(0)}
+                    {this.renderTiles(1)}
+                    {this.renderTiles(2)}
+                </div>
+                <div className="row">
+                    {this.renderTiles(3)}
+                    {this.renderTiles(4)}
+                    {this.renderTiles(5)}
+                </div>
+                <div className="row">
+                    {this.renderTiles(6)}
+                    {this.renderTiles(7)}
+                    {this.renderTiles(8)}
+                </div>
+            </div>
+        );
+    }
+}
+
+class Game extends React.Component {
+    constructor() {
+        super();
+    }
+    render() {
+        return (
+            <div className="game">
+                <div className="board" >
+                    <Board />
+                </div>
+            </div>
         );
     }
 }
 
 ReactDOM.render(
-    <Board/>,
+    <Game /> ,
     document.getElementById('root')
 );
