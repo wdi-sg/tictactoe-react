@@ -1,4 +1,9 @@
 
+function checkWin(board){
+      console.log('in check win');
+      console.log(board);
+}
+
 class Board extends React.Component {
     constructor(){
 
@@ -17,13 +22,14 @@ class Board extends React.Component {
 
     }
 
+
     squareClick(col, row, value) {
       console.log("x:" + col + "," + "y:" + row);
       if (value === " ") {
         if (this.state.playerXTurn === true) {
           //place X on board
           console.log('player x turn');
-          this.state.board[row][col] = <span className="playerX">{this.state.currentSymbol}</span>;
+          this.state.board[row][col] = this.state.currentSymbol
           //change turn
           this.setState({
             playerXTurn : false,
@@ -32,15 +38,17 @@ class Board extends React.Component {
         } else if (this.state.playerXTurn === false) {
           //place o on board
           console.log('player o turn');
-          this.state.board[row][col] = <span className="playerO">{this.state.currentSymbol}</span>;
+          this.state.board[row][col] = this.state.currentSymbol
           //change turn
           this.setState({
             playerXTurn : true,
             currentSymbol : 'x'
           });
         }
+        checkWin(this.state.board);
       }
     }
+
 
     render() {
         console.log("board", this.state.board);
@@ -49,13 +57,18 @@ class Board extends React.Component {
 
           // make a single row
           const rows = row.map( (col,colIndex) => {
-
+            var symbolClasses;
+            if (col === 'o') {
+              symbolClasses = "playerO";
+            } else if (col === 'x'){
+              symbolClasses = "playerX";
+            }
             // make each column
             return (
-                    <div className="box" key={colIndex} x={colIndex} y={rowIndex} onClick={()=>{
-                            this.squareClick(colIndex, rowIndex, col);}}>
-                        {col}
-                    </div>
+                <div className="box" key={colIndex} x={colIndex} y={rowIndex} onClick={()=>{
+                        this.squareClick(colIndex, rowIndex, col);}}>
+                    <span className={symbolClasses}> {col}</span>
+                </div>
             );
 
           });
