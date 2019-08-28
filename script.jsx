@@ -1,16 +1,14 @@
 class Board extends React.Component {
     constructor(){
+        super()
 
-      super()
-
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+        this.state = {
+            board: [
+              [0,1,2],
+              [3,4,5],
+              [6,7,8]
+            ]
+        }
     }
 
     squareClick(something){
@@ -22,37 +20,26 @@ class Board extends React.Component {
 
         const board = this.state.board.map( (row,rowIndex) => {
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+            // make a single row
+            const rows = row.map( (grid,colIndex) => {
+                // make each grid
+                return (
+                    <div className="num-grid" key={colIndex} onClick={()=>{ this.squareClick(colIndex); }} >
+                        {grid} : {colIndex} : {rowIndex}
+                    </div>
+                );
+            });
 
-            // make each column
+            // return the complete row
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                <div key={rowIndex} className="row-board d-flex justify-content-around align-items-center mx-auto">
+                  {rows}
+                </div>
             );
-
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
-          );
-
         });
 
         return (
-          <div className="item">
+          <div className="board my-2">
             {board}
           </div>
         );
