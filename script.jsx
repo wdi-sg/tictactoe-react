@@ -29,6 +29,7 @@ class Board extends React.Component {
     }
     setBoard(){
         let board = [];
+        console.log("row: ", rows)
         let rows = this.state.rows;
         let cols = this.state.rows;
         for(let i=0;i<rows;i++){
@@ -37,6 +38,7 @@ class Board extends React.Component {
                 board[i].push('');
             }
         }
+        console.log("board in setboard ", board)
         this.setState({board: board})
     }
 
@@ -173,20 +175,26 @@ class Board extends React.Component {
         this.checkRows();
     }
 
-    componentDidMount(){
-        this.setBoard();
-    }
+    // componentDidMount(){
+    //     this.setBoard();
+    // }
 
     // componentDidUpdate(){
     //     this.setBoard();
     // }
 
+
     inputHandler(event){
         // ()=>{
-            console.log(event.target.value);
-            this.setState({rows: event.target.value});
-            console.log("state rows:"+this.state.rows);
-            this.setBoard();
+            // this.setState({rows: event.target.value})
+            // console.log(event.target.value);
+            // let board = this.setBoard()
+            // console.log("boarddddddd: ", board)
+            this.setState({rows: event.target.value}, function(){
+                this.setBoard();
+            });
+            // console.log("state rows:"+this.state.rows);
+            // this.setBoard();
         // }
     }
     // inputHandler(event){
