@@ -20,10 +20,24 @@ class Board extends React.Component {
           ['','','']
         ],
         turn: 'X',
-        rows: 3,
+        rows: 5,
+        textarray: [],
         xWins: 0,
         oWins: 0
       }
+      // this.inputHandler = this.inputHandler.bind(this);
+    }
+    setBoard(){
+        let board = [];
+        let rows = this.state.rows;
+        let cols = this.state.rows;
+        for(let i=0;i<rows;i++){
+            board.push([]);
+            for(let j=0;j<cols;j++){
+                board[i].push('');
+            }
+        }
+        this.setState({board: board})
     }
 
     resetBoard(){
@@ -159,7 +173,56 @@ class Board extends React.Component {
         this.checkRows();
     }
 
+    componentDidMount(){
+        this.setBoard();
+    }
 
+    // componentDidUpdate(){
+    //     this.setBoard();
+    // }
+
+    inputHandler(event){
+        // ()=>{
+            console.log(event.target.value);
+            this.setState({rows: event.target.value});
+            console.log("state rows:"+this.state.rows);
+            this.setBoard();
+        // }
+    }
+    // inputHandler(event){
+    //     //test
+    //     event.target.className = 'Hello'
+    //     console.log(event.target)
+    //     event.target.className = 'Hello again'
+    //     console.log(event.target)
+
+
+    //     let input = event.target.value;
+    //     let array = this.state.textarray;
+    //     array.push(input);
+    //     this.setState({textarray: array})
+    //     console.log(array)
+        // array.map((ele)=>{
+        //     console.log(ele.value)
+        // })
+
+
+        // if(event.target.value.includes('s')){
+        //     this.setState({text: event.target.value})
+        //     input.style.border = 'none'
+        //     console.log("state text:"+this.state.text)
+        // } else if(event.target.value.length >= 5){
+        //     this.setState({text: input.value.toUpperCase()})
+        // } else{
+        //     this.setState({text: input.value})
+        //     input.style.border = '1px solid red'
+        // }
+    // }
+
+
+    // componentDidUpdate(){
+
+    // }
 
     render() {
         console.log("board", this.state.board);
@@ -189,6 +252,7 @@ class Board extends React.Component {
 
         return (
           <div className="item">
+            <input value={this.state.rows} onChange={(event)=>{ this.inputHandler(event) }}/>
             <Score xWins={this.state.xWins} oWins={this.state.oWins}/>
             {board}
           </div>
