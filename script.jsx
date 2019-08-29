@@ -1,3 +1,15 @@
+class TurnDisplay extends React.Component {
+    render(){
+        var whichPlayer = "";
+        if (this.props.turnState%2 === 1){
+            whichPlayer = "✘"
+        } else {
+            whichPlayer = "Ö"
+        }
+        return <p className = "text-center">Hi, it is Player {whichPlayer}'s turn next</p>
+    }
+}
+
 class Board extends React.Component {
     constructor(){
       super()
@@ -5,35 +17,38 @@ class Board extends React.Component {
 
     state = {
         board: [
-          ['','',''],
-          ['','',''],
-          ['','','']
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
         ],
         turn: 1
     }
 
     squareClick(colIndex, rowIndex){
         var showBoard = this.state.board;
+        var updatedTurn = this.state.turn;
 
-        if (this.state.turn%2 === 1 && showBoard[rowIndex][colIndex] === ""){
+        if (this.state.turn%2 === 1 && showBoard[rowIndex][colIndex] === null){
             showBoard[rowIndex][colIndex] = "✘";
             var updateBoard = {
                 board: showBoard
             }
             this.setState(updateBoard);
 
-        } else if (this.state.turn%2 == 0 && showBoard[rowIndex][colIndex] === ""){
+        } else if (this.state.turn%2 == 0 && showBoard[rowIndex][colIndex] === null){
             showBoard[rowIndex][colIndex] = "Ö";
             var updateBoard = {
                 board: showBoard
             }
             this.setState(updateBoard);
         }
-         this.state.turn++;
+         updatedTurn++;
+         this.setState({turn: updatedTurn})
     }
 
     render() {
-        console.log("board", this.state.board);
+        // if showBoard.[ro]
+        //console.log(this.state.board[1][0] === "✘" && this.state.board[2][0] === "✘")
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -47,8 +62,8 @@ class Board extends React.Component {
                         }} >
                         {col}
                     </span>
-            );
-          });
+                    );
+                  });
 
           // return the complete row
           return (
@@ -58,8 +73,10 @@ class Board extends React.Component {
           );
         });
 
+
         return (
           <div className="item col-6 mx-auto my-4">
+            <TurnDisplay turnState = {this.state.turn}/>
             {board}
           </div>
         );
