@@ -11,7 +11,8 @@ class Board extends React.Component {
         ],
         currentPlayer: "",
         turn: 1,
-        gameEnd: false
+        gameEnd: false,
+        outcome: ""
       };
 
     squareClick(row, col){
@@ -35,7 +36,7 @@ class Board extends React.Component {
                 console.log("turn "+this.state.turn);
 
                 //trigger check for winner
-                if (this.state.turn >= 3){
+                if (this.state.turn > 3){
                     if(this.checkGame()) {
                         this.setState({gameEnd: true});
                     } else {
@@ -57,7 +58,22 @@ class Board extends React.Component {
         let sum = 0;
 
         //check horizontal
+        for (let i=0; i<3; i++) {
+            for (let j=0; j<3; j++){
+                sum = sum + this.state.board[i][j];
+                console.log("sum "+sum);
+            }
+            if (sum === 3) {
+                this.setState({outcome: "o wins"});
+                console.log("result "+this.state.outcome);
+            }
+            if (sum === -3) {
+                this.setState({outcome: "x wins"});
+                console.log("result "+this.state.outcome);
+            }
+        sum = 0;
 
+        }
         //check vertical
 
         //check diagonal
