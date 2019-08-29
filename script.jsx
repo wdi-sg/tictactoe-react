@@ -1,4 +1,5 @@
-        let count = 0;
+let count = 0;
+
 class Board extends React.Component {
     constructor(){
 
@@ -17,11 +18,8 @@ class Board extends React.Component {
     squareClick(columnIndex, rowIndex){
         // console.log( columnIndex );
         // console.log( rowIndex );
-
-
-
         console.log("count "+count);
-
+        console.log(this.state.board[rowIndex])
 
 
         if (this.state.board[rowIndex][columnIndex]){
@@ -39,10 +37,16 @@ class Board extends React.Component {
                 this.setState(this.state);
                 count += 1;
             }
-
         }
-
     }
+
+
+    checkWinState(){
+        if (this.state.board[rowIndex] = [X, X, X]) {
+            console.log("X wins")
+        }
+    }
+
 
     render() {
         console.log("board", this.state.board);
