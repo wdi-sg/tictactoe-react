@@ -1,3 +1,13 @@
+class Score extends React.Component {
+    render(){
+        return(
+            <div>
+                <p>Score of X : O</p>
+                <p>{this.props.xWins} : {this.props.oWins}</p>
+            </div>
+    )};
+}
+
 class Board extends React.Component {
     constructor(){
 
@@ -11,7 +21,18 @@ class Board extends React.Component {
         ],
         turn: 'X',
         rows: 3,
+        xWins: 0,
+        oWins: 0
       }
+    }
+
+    resetBoard(){
+        let board = [
+            ['','',''],
+            ['','',''],
+            ['','','']
+        ];
+        this.setState({board: board})
     }
 
     turnChange(){
@@ -27,10 +48,16 @@ class Board extends React.Component {
 
     checkWinCondition(counterX, counterO){
         let quota = this.state.rows;
-        if(counterX === 3){
+        let xWins = this.state.xWins;
+        let oWins = this.state.oWins;
+        if(counterX === quota){
             alert('X wins!');
-        } else if(counterO === 3){
-            alert('Y wins!');
+            this.setState({xWins: xWins + 1})
+            this.resetBoard();
+        } else if(counterO === quota){
+            alert('O wins!');
+            this.setState({oWins: oWins + 1})
+            this.resetBoard();
         };
     }
 
@@ -74,6 +101,52 @@ class Board extends React.Component {
         this.checkWinCondition(counterX, counterO)
     }
 
+    checkCols(){
+        let rows = this.state.rows;
+        let cols = this.state.rows;
+        let board = this.state.board;
+        let storage = [];
+        for(let i=0;i<cols;i++){
+            for(let j=0;j<rows;j++){
+                storage.push(board[j][i]);
+            };
+            let counterX = 0;
+            let counterO = 0;
+            for (let k=0;k<storage.length;k++){
+                if (storage[k] === 'X' ){
+                    counterX += 1;
+                } else if (storage[k] === 'O'){
+                    counterO += 1;
+                };
+            };
+            this.checkWinCondition(counterX, counterO)
+            storage = [];
+        };
+    }
+
+    checkRows(){
+        let rows = this.state.rows;
+        let cols = this.state.rows;
+        let board = this.state.board;
+        let storage = [];
+        for(let i=0;i<rows;i++){
+            for(let j=0;j<cols;j++){
+                storage.push(board[i][j]);
+            };
+            let counterX = 0;
+            let counterO = 0;
+            for (let k=0;k<storage.length;k++){
+                if (storage[k] === 'X' ){
+                    counterX += 1;
+                } else if (storage[k] === 'O'){
+                    counterO += 1;
+                };
+            };
+            this.checkWinCondition(counterX, counterO)
+            storage = [];
+        };
+    }
+
     squareClick(rowIndex, colIndex){
         let currentBoard = this.state.board;
         currentBoard[rowIndex][colIndex] = this.state.turn;
@@ -82,6 +155,8 @@ class Board extends React.Component {
         this.turnChange();
         this.checkDiagFromTopLeft();
         this.checkDiagFromBotLeft();
+        this.checkCols();
+        this.checkRows();
     }
 
 
@@ -114,6 +189,7 @@ class Board extends React.Component {
 
         return (
           <div className="item">
+            <Score xWins={this.state.xWins} oWins={this.state.oWins}/>
             {board}
           </div>
         );
