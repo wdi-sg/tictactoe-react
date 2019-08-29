@@ -5,19 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>tictactoe</title>
 <style>
-  .row{
-    background-color:grey;
-    margin:5px;
-    padding:5px;
-  }
-  .boo{
 
-    background-color:white;
+  @import url('https://fonts.googleapis.com/css?family=Knewave&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
+
+  body,html{
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Knewave', cursive;
+  }
+
+  body{
+    background: #eee;
+  }
+
+  h1,h2,h3,h4,h5,h6{
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
+  }
+
+  h1{
+    color: #333;
+    margin: 0;
+  }
+
+  h2{
+    color: #888;
+    margin: 0;
+  }
+
+  .board{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0
+    padding: 0;
+    max-width: 700px;
+  }
+  .row{
+    background-color:#ddd;
+    margin:0px;
+    padding:0px;
+    width: 360px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .box{
+    width: 120px;
+    height: 120px;
+    display: flex;
+    background-color:#ddd;
+    border: 1px solid #eee;
+    font-size: 60px;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+
+  }
+
+  .box:hover{
+    background-color:#e5e5e5;
+  }
+
+  .game-display{
+    margin-bottom: 30px;
+    margin-top: -50px;
+  }
+
+  .playerX{
+    color: #E84747;
+  }
+
+  .playerO{
+    color: #1E4891;
   }
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="app"></div>
 <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
