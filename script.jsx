@@ -5,9 +5,9 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['','',''],
+          ['','',''],
+          ['','','']
         ]
       }
 
@@ -15,7 +15,26 @@ class Board extends React.Component {
 
     squareClick(something){
         console.log( something );
+        if (something.type === '') {
+
+          switch "X":
+          this.state.board[something.row][something.column] = "X";
+          this.setState({this.state.board});
+          currentPlayer = "O";
+          // checkWin after all squares filled up
+          break;
+
+          switch "O";
+          this.state.board[]something.row][something.column] = "O";
+          this.setState({this.state.board});
+          currentPlayer = "X";
+          // checkWin after all squares filled up
+          break;
+        }
+        }
     }
+
+      // restart or play again
 
     render() {
         console.log("board", this.state.board);
