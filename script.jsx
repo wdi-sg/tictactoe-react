@@ -6,9 +6,9 @@ class Board extends React.Component {
       this.state = {
         count: 0,
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['','',''],
+          ['','',''],
+          ['','','']
         ]
       }
 
@@ -26,10 +26,10 @@ class Board extends React.Component {
 
         console.log(count);
 
-        if (count%2===0 && this.state.board[rowIndex][colIndex] === 'i') {
+        if (count%2===0 && this.state.board[rowIndex][colIndex] === '') {
           this.state.board[rowIndex][colIndex] = cross;
           updateCount = count+1;
-        } else if (count%2!=0 && this.state.board[rowIndex][colIndex] === 'i') {
+        } else if (count%2!=0 && this.state.board[rowIndex][colIndex] === '') {
           this.state.board[rowIndex][colIndex] = naught;
           updateCount = count+1;
         }
