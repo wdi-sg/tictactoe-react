@@ -5,16 +5,25 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        player1: [],
+        player2: [],
+        turn: 1,
+        gameEnd: false
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(rowIndex, colIndex){
+        console.log("clicked square" );
+        //if player 1, X
+        this.state.board[rowIndex][colIndex]= "X"
+        //else player 2, O
+        console.log(this.state.board);
+        this.setState(this.state.board);
     }
 
     render() {
@@ -27,15 +36,8 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
+                    <p className="boo" key={colIndex} onClick={()=>{ this.squareClick(rowIndex, colIndex);}}>
+                        {col}
                     </p>
             );
 
@@ -46,7 +48,6 @@ class Board extends React.Component {
             <div key={rowIndex} className="row">
               {rows}
             </div>
-
           );
 
         });
