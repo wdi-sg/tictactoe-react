@@ -8,13 +8,23 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        player : null
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(event){
+        console.log( event );
+        if (event.target.textContent === ""){
+            if (this.state.player === "X"){
+                this.state.player = "O";
+                event.target.textContent = this.state.player;
+            }else{
+                this.state.player = "X";
+                event.target.textContent = this.state.player;
+            }
+        }
     }
 
     render() {
