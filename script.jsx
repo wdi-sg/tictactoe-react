@@ -4,17 +4,39 @@ class Board extends React.Component {
       super()
 
       this.state = {
+        count: 0,
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['','',''],
+          ['','',''],
+          ['','','']
         ]
       }
 
     }
 
-    squareClick(something){
-        console.log( something );
+     squareClick(count, rowIndex, colIndex){
+
+        // console.log( rowIndex+":"+colIndex);
+
+        // let changeSymbol;
+        let updateCount;
+        let updateBoard;
+        const cross = 'X';
+        const naught = 'O';
+
+        console.log(count);
+
+        if (count%2===0 && this.state.board[rowIndex][colIndex] === '') {
+          this.state.board[rowIndex][colIndex] = cross;
+          updateCount = count+1;
+        } else if (count%2!=0 && this.state.board[rowIndex][colIndex] === '') {
+          this.state.board[rowIndex][colIndex] = naught;
+          updateCount = count+1;
+        }
+
+        // this.state.board[rowIndex][colIndex] = changeSymbol;
+        updateBoard = {count: updateCount, board: this.state.board}
+        this.setState(updateBoard);
     }
 
     render() {
@@ -31,11 +53,11 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(this.state.count, rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
