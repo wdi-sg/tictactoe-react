@@ -46,6 +46,17 @@ class Board extends React.Component {
          this.setState({turn: updatedTurn})
     }
 
+    clearBoard(event){
+        var resetBoard = {
+            board: [
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+            ]
+        }
+        this.setState(resetBoard);
+    }
+
     render() {
         // if showBoard.[ro]
         //console.log(this.state.board[1][0] === "✘" && this.state.board[2][0] === "✘")
@@ -77,6 +88,7 @@ class Board extends React.Component {
         return (
           <div className="item col-6 mx-auto my-4">
             <TurnDisplay turnState = {this.state.turn}/>
+             <button onClick={(event)=>{ this.clearBoard(event); }}>Clear Board</button>
             {board}
           </div>
         );
