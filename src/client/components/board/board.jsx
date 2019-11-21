@@ -2,21 +2,23 @@ import React from 'react';
 
 class Board extends React.Component {
     constructor(){
-
-      super()
-
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+        super()
+        this.state = {
+            board: [
+                [null,null,null],
+                [null,null,null],
+                [null,null,null]
+            ],
+            player: true
+        }
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(i,j){
+        console.log( i, j );
+        let changeBoard = this.state.board;
+        changeBoard[i][j] = this.state.player? "X" : "O";
+        this.setState({board:changeBoard,player:!this.state.player});
+        console.log(this.state);
     }
 
     render() {
@@ -29,16 +31,9 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <button type="checkbox" className="boo" key={colIndex} onClick={()=>{ this.squareClick(rowIndex,colIndex);}}>
+                        {col}:{rowIndex}:{colIndex}
+                    </button>
             );
 
           });
