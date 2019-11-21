@@ -7,20 +7,23 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
+          ['null','null','null'],
+          ['null','null','null'],
+          ['null','null','null']
+        ],
+        clicked: false
+      };
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(colIndex, rowIndex){
+        this.setState({clicked:!this.state.clicked})
+        console.log(colIndex, rowIndex);
+        console.log( "button clicked!" );
     }
 
     render() {
-        console.log("board", this.state.board);
+        //console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
 
