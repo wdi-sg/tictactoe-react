@@ -1,5 +1,6 @@
 import React from 'react';
-
+import styles from './style.scss'
+import { hot } from 'react-hot-loader';
 class Board extends React.Component {
     constructor(){
 
@@ -10,17 +11,23 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        player: false
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(i, j){
+      console.log(this.state.player)
+      let changeBoard = this.state.board;
+      changeBoard[i][j] = this.state.player ? "X" : "O";
+      
+      console.log(i, j)
+        this.setState({board: changeBoard, player: !this.state.player})
     }
 
     render() {
-        console.log("board", this.state.board);
+      
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -29,23 +36,23 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <div
+                        className={styles.box}
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                     {col} 
+                    </div>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className={styles.format}>
               {rows}
             </div>
 
