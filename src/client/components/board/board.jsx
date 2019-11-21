@@ -7,40 +7,49 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        move: 0,
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    handleClick(event, colIndex, rowIndex) {
+      let board = this.state.board;
+      let move = this.state.move;
+      let marker;
+
+      if (move % 2 === 0) {
+        marker = "X";
+      } else {
+        marker = "O";
+      }
+
+      move++;
+
+      if (board[rowIndex][colIndex] === null) {
+        board[rowIndex][colIndex] = marker;
+      }
+
+      event.target.disabled = true;
+
+      this.setState({board, move});
     }
-
+    
     render() {
-        console.log("board", this.state.board);
-
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
           const rows = row.map( (col,colIndex) => {
-
+            console.log("*** colIndex ***", colIndex);
             // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                    <button onClick={(e)=>{this.handleClick(e, colIndex, rowIndex)}} key={colIndex}>
+                      {col}
+                    </button>
             );
-
           });
 
           // return the complete row
@@ -48,11 +57,9 @@ class Board extends React.Component {
             <div key={rowIndex} className="row">
               {rows}
             </div>
-
           );
 
         });
-
         return (
           <div className="item">
             {board}
