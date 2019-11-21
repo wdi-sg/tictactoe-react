@@ -10,13 +10,21 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        counter: 1
+
       }
 
     }
 
     squareClick(something, something2){
-      this.state.board[something][something2]= 'x'
+     if (this.state.counter % 2 == 0) {
+        this.state.board[something][something2]= 'o'
+        }      else 
+        {
+          this.state.board[something][something2]= 'x'
+     }
+      this.state.counter ++
         console.log( something, something2 );
         console.log(this.state)
         this.setState({board: this.state.board})
