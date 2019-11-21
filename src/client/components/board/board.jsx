@@ -47,8 +47,9 @@ class Board extends React.Component {
           console.log(checkStr)
           if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
             this.state.message = "X Won!"
+            this.state.play = false;
           }else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
-            this.state.message = "O Won!"
+            this.state.message = "O Won!" 
             this.state.play = false;
           }
 
@@ -69,7 +70,8 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(rowIndex, colIndex);
+                          if (this.state.play === true) {
+                            this.squareClick(rowIndex, colIndex);}
                         }}
 
                     >
