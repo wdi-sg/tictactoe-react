@@ -1,3 +1,6 @@
+import React from 'react';
+import { hot } from 'react-hot-loader';
+
 class Board extends React.Component {
     constructor(){
 
@@ -13,8 +16,8 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something){
-        console.log( something );
+    squareClick(something, something2){
+        console.log( something, something2 );
     }
 
     render() {
@@ -31,7 +34,7 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex);
+                            this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
@@ -59,7 +62,15 @@ class Board extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <Board/>,
-    document.getElementById('root')
-);
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Welcome.</p>
+        <Board/>
+      </div>
+    );
+  }
+}
+
+export default hot(module)(App);
