@@ -3,9 +3,7 @@ import styles from './style.scss'
 
 class Board extends React.Component {
     constructor(){
-
       super()
-
       this.state = {
         board: [
           ['i','i','i'],
@@ -25,39 +23,49 @@ class Board extends React.Component {
                 this.state.board[i][j] = 'i'
             }
         }
-
         this.setState( { fpturn: true } );
+    }
+
+    winner(){
+        if(this.state.fpturn){
+            this.state.fpScore++
+            var winner = "First player wins"
+        } else {
+            this.state.spScore++
+            var winner = "First player wins"
+        }
+        alert(winner)
     }
 
     checkWin(){
         for (var i = 0; i < 3; i++){
             if(this.state.board[i][0] === this.state.board[i][1] && this.state.board[i][0] === this.state.board[i][2] && this.state.board[i][0] != 'i'){
-                alert("winner")
-                this.reset()
+                this.winner();
+                this.reset();
             }
         }
 
         //vertical
         for (var i = 0; i < 3; i++){
             if(this.state.board[0][i] === this.state.board[1][i] && this.state.board[0][i] === this.state.board[2][i] && this.state.board[0][i] != 'i'){
-                alert("winner")
-                this.reset()
+                this.winner();
+                this.reset();
             }
         }
 
         //Diagonal 1
         for (var i = 0; i < 1; i++){
             if(this.state.board[i][i] === this.state.board[i+1][i+1] && this.state.board[i][i] === this.state.board[i+2][i+2] && this.state.board[i][i] != 'i'){
-                alert("winner")
-                this.reset()
+                this.winner();
+                this.reset();
             }
         }
 
         //Diagonal 2
         for (var i = 0; i < 1; i++){
             if(this.state.board[i][i+2] === this.state.board[i+1][i+1] && this.state.board[i][i+2] === this.state.board[i+2][i] && this.state.board[i][i+2] != 'i'){
-                alert("winner")
-                this.reset()
+                this.winner();
+                this.reset();
             }
         }
     }
@@ -96,15 +104,15 @@ class Board extends React.Component {
             }
             // make each column
             return (
-                    <p
+                    <div
                         className={styles.boo}
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
                     >
-                        {col}
-                    </p>
+                        <p>{col}</p>
+                    </div>
             );
           });
 
@@ -123,9 +131,9 @@ class Board extends React.Component {
             {board}
             <div className={styles.btnDiv}>
                 <button onClick={()=>{this.reset()}} className={styles.btn}>Reset</button>
-                <p>First player: {this.state.fpScore}</p>
-                <p>Second player: {this.state.spScore}</p>
             </div>
+            <div className={styles.btnDiv}>First player: {this.state.fpScore}</div>
+            <div className={styles.btnDiv}>Second player: {this.state.spScore}</div>
           </div>
         );
     }
