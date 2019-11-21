@@ -20,7 +20,7 @@ class Board extends React.Component {
 
   squareClick(colIndex, rowIndex) {
     let {playerTurn} = this.state;
-    let currentIndex = Math.floor(rowIndex) + Math.floor(colIndex) * 3;
+    let currentIndex = Math.floor(colIndex) + Math.floor(rowIndex) * 3;
     let value;
     let result;
     if (this.state.board[rowIndex][colIndex] === "\t") {
