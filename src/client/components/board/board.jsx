@@ -47,9 +47,9 @@ class Board extends React.Component {
   chkWin(score){
     const checkStr = score.join("");
     console.log(checkStr)
-    if (/XXX|X...X...X|X....X....X|X..X..X/.test(checkStr)) {
+    if (/XXX|X...X...X|X..X..X|..X.X.X/.test(checkStr)) {
       return "Computer WON";
-    } else if (/OOO|O...O...O|O....O....O|O..O..O/.test(checkStr)) {
+    } else if (/OOO|O...O...O|O..O..O|..O.O.O/.test(checkStr)) {
       return "Player WON";
     } else {
       return undefined;
