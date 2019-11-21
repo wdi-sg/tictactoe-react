@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './style.scss';
 
 class Board extends React.Component {
     constructor(){
@@ -10,13 +11,33 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        player: 0
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    // let tictac = {
+    //     if (player) {
+    //         return "x";
+    //     } else {
+    //         return "o";
+    //     }
+    // }
+
+    squareClick(i, j){
+        console.log( i, j );
+        if (this.state.player) {
+            this.state.board[i][j] = 'x';
+            this.state.player += 1;
+        } else {
+            this.state.board[i][j] = 'o';
+            this.state.player -= 1;
+        }
+        console.log(this.state.board);
+        this.setState( {
+            board: this.state.board
+        } )
     }
 
     render() {
@@ -29,16 +50,15 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <div className="col border text-center boo"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {this.state.board[colIndex][rowIndex]}
+                    </div>
             );
 
           });
