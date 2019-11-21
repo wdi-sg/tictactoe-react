@@ -20,11 +20,17 @@ class Board extends React.Component {
         this.setState({clicked:!this.state.clicked})
         console.log(colIndex, rowIndex);
         console.log( "button clicked!" );
+        console.log(this.state.clicked);
     }
 
     render() {
         //console.log("board", this.state.board);
-
+        let userInput = "";
+        if (this.state.clicked === false) {
+            userInput = "X";
+        } else {
+            userInput = "O";
+        }
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
@@ -40,7 +46,7 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {userInput}
                     </p>
             );
 
