@@ -7,9 +7,9 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
         ],
         counter: 1
 
@@ -18,16 +18,18 @@ class Board extends React.Component {
     }
 
     squareClick(something, something2){
-     if (this.state.counter % 2 == 0) {
-        this.state.board[something][something2]= 'o'
-        }      else 
-        {
-          this.state.board[something][something2]= 'x'
-     }
-      this.state.counter ++
-        console.log( something, something2 );
-        console.log(this.state)
-        this.setState({board: this.state.board})
+      if (this.state.board[something][something2] == null) {
+          if (this.state.counter % 2 == 0) {
+            this.state.board[something][something2]= 'o'
+          } else {
+            this.state.board[something][something2]= 'x'
+          }
+          this.state.counter ++
+     
+          console.log( something, something2 );
+          console.log(this.state)
+          this.setState({board: this.state.board})
+      }
     }
 
     render() {
@@ -48,7 +50,7 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {rowIndex} : {colIndex} : {this.state.board[rowIndex][colIndex]}
+                    {rowIndex} : {colIndex} : {this.state.board[rowIndex][colIndex]}
                     </p>
             );
 
