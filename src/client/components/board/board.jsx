@@ -16,7 +16,10 @@ class Board extends React.Component {
     }
 
     squareClick(something, something2){
+      this.state.board[something][something2]= 'x'
         console.log( something, something2 );
+        console.log(this.state)
+        this.setState({board: this.state.board})
     }
 
     render() {
@@ -33,11 +36,11 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col} : {rowIndex} : {colIndex} : {this.state.board[rowIndex][colIndex]}
                     </p>
             );
 
