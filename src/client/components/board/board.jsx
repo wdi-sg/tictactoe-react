@@ -1,9 +1,5 @@
 import React from 'react';
 
-const checkWin = (x,y,z) => {
-    if (x === y && y === z) alert("Win");
-}
-
 class Board extends React.Component {
     constructor(){
         super()
@@ -13,7 +9,37 @@ class Board extends React.Component {
                 [4,5,6],
                 [7,8,9]
             ],
-            player: true
+            player: true,
+            playerScore: 0
+        }
+    }
+
+    checkWin(x,y,z){
+        if (x === y && y === z) {
+            alert("YOU WON! RESTART?");
+            if (this.state.player) {
+                this.setState({
+                    board: [
+                        [1,2,3],
+                        [4,5,6],
+                        [7,8,9]
+                    ],
+                    player: true,
+                    playerScore: this.state.playerScore + 1
+                })
+                console.log(this.state.playerScore)
+            } else {
+                this.setState({
+                    board: [
+                        [1,2,3],
+                        [4,5,6],
+                        [7,8,9]
+                    ],
+                    player: true,
+                    playerScore: this.state.playerScore - 1
+                })
+                console.log(this.state.playerScore)
+            }
         }
     }
 
@@ -21,15 +47,15 @@ class Board extends React.Component {
         let changeBoard = this.state.board;
         changeBoard[i][j] = this.state.player? "X" : "O";
         this.setState({board:changeBoard,player:!this.state.player});
-        let {board} = this.state
-        checkWin(board[0][0],board[0][1],board[0][2]);
-        checkWin(board[1][0],board[1][1],board[1][2]);
-        checkWin(board[2][0],board[2][1],board[2][2]);
-        checkWin(board[0][0],board[1][0],board[2][0]);
-        checkWin(board[0][1],board[1][1],board[2][1]);
-        checkWin(board[0][2],board[1][2],board[2][2]);
-        checkWin(board[0][0],board[1][1],board[2][2]);
-        checkWin(board[2][0],board[1][1],board[0][2]);
+        let {board} = this.state;
+        this.checkWin(board[0][0],board[0][1],board[0][2]);
+        this.checkWin(board[1][0],board[1][1],board[1][2]);
+        this.checkWin(board[2][0],board[2][1],board[2][2]);
+        this.checkWin(board[0][0],board[1][0],board[2][0]);
+        this.checkWin(board[0][1],board[1][1],board[2][1]);
+        this.checkWin(board[0][2],board[1][2],board[2][2]);
+        this.checkWin(board[0][0],board[1][1],board[2][2]);
+        this.checkWin(board[2][0],board[1][1],board[0][2]);
     }
 
     render() {
@@ -55,6 +81,7 @@ class Board extends React.Component {
 
         return (
             <div className="item">
+                <p>Score: {this.state.playerScore}</p>
                 {board}
             </div>
         );
