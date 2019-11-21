@@ -1,0 +1,27 @@
+.boo{
+	background-color: white;
+	display: inline-block;
+	width: 20vw;
+	height: 20vw;
+	margin: 1%;
+	color: black;
+	text-align: center;
+
+}
+
+.row{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: grey;
+}
+
+.btn{
+	width: 10vw;
+}
+
+.btnDiv{
+	margin-top: 2vh;
+	display: flex;
+	justify-content: center;
+}
