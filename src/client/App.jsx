@@ -9,6 +9,7 @@ class App extends React.Component {
       <div>
         <p>Welcome.</p>
         <Board/>
+
       </div>
     );
   }
