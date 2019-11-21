@@ -8,7 +8,7 @@ class Board extends React.Component {
     super();
     this.state = {
       playerTurn: true,
-      score: [".",".",".",".",".",".",".",".","."],
+      score: new Array(9).fill("."),
       result: "",
       board: [
         ["\t", "\t", "\t"],
@@ -29,14 +29,14 @@ class Board extends React.Component {
         const score = this.state.score.slice();
         score[currentIndex] = value;
         result = this.chkWin(score);
-        this.setState({playerTurn: false, score: score, result: result});
+        this.setState({playerTurn: false, score, result});
       }
       else {
         value = "X";
         const score = this.state.score.slice();
         score[currentIndex] = value;
         result = this.chkWin(score);
-        this.setState({playerTurn: true, score: score, result: result});
+        this.setState({playerTurn: true, score, result});
       }
       const newBoard = this.state.board.slice();
       newBoard[rowIndex][colIndex] = value;
@@ -71,7 +71,6 @@ class Board extends React.Component {
             onClick={() => {
               this.squareClick(colIndex, rowIndex);
             }}
-            // style={{border: "1px solid red"}}
           >
             {"\t"}{col}{"\t"}
           </p>
