@@ -15,16 +15,18 @@ class Board extends React.Component {
       ],
     }
     this.turn = 0;
+    this.stage = 0;
   }
 
   squareClick(colIndex, rowIndex) {
     console.log("Selected box:", colIndex, rowIndex);
-    if (this.turn % 2 === 0) {
+    if (this.turn % 2 === 0 && this.stage < 9) {
       this.state.board[colIndex][rowIndex] = "X"
-    } else {
+    } else if (this.turn % 2 !== 0 && this.stage < 9) {
       this.state.board[colIndex][rowIndex] = "O"
     }
     this.turn += 1;
+    this.stage += 1;
     console.log(this.state.board);
     let currentState = {
       board: this.state.board
