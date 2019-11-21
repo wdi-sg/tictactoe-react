@@ -8,7 +8,7 @@ class Board extends React.Component {
     super();
     this.state = {
       playerTurn: true,
-      score: [],
+      score: [".",".",".",".",".",".",".",".","."],
       result: "",
       board: [
         ["\t", "\t", "\t"],
@@ -20,20 +20,21 @@ class Board extends React.Component {
 
   squareClick(colIndex, rowIndex) {
     let {playerTurn} = this.state;
+    let currentIndex = Math.floor(rowIndex) + Math.floor(colIndex) * 3;
     let value;
     let result;
     if (this.state.board[rowIndex][colIndex] === "\t") {
       if (playerTurn === true) {
         value = "O";
         const score = this.state.score.slice();
-        score.push(value);
+        score[currentIndex] = value;
         result = this.chkWin(score);
         this.setState({playerTurn: false, score: score, result: result});
       }
       else {
         value = "X";
         const score = this.state.score.slice();
-        score.push(value);
+        score[currentIndex] = value;
         result = this.chkWin(score);
         this.setState({playerTurn: true, score: score, result: result});
       }
@@ -45,9 +46,10 @@ class Board extends React.Component {
 
   chkWin(score){
     const checkStr = score.join("");
-    if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+    console.log(checkStr)
+    if (/XXX|X...X...X|X....X....X|X..X..X/.test(checkStr)) {
       return "Computer WON";
-    } else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
+    } else if (/OOO|O...O...O|O....O....O|O..O..O/.test(checkStr)) {
       return "Player WON";
     } else {
       return undefined;
