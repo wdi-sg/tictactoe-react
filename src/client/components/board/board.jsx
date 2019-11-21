@@ -15,8 +15,10 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+
+
+    squareClick(event, colIndex){
+        console.log( event, colIndex );
     }
 
     render() {
@@ -33,11 +35,11 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col} : {rowIndex} : {colIndex}
                     </p>
             );
 
