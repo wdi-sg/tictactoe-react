@@ -12,7 +12,7 @@ class Board extends React.Component {
           [null,null,null]
         ],
 
-        counter: false
+        player: false
       }
 
     }
@@ -24,7 +24,7 @@ class Board extends React.Component {
         var clickO = "O"
 
         if (newBoard[something2][something] === null){
-             newBoard[something2][something] = this.state.counter? clickX : clickO;
+             newBoard[something2][something] = this.state.player? clickX : clickO;
         } else {
             alert ("Hey, that's taken!")
         }
@@ -34,12 +34,26 @@ class Board extends React.Component {
 
         let newValues = {
             board: newBoard,
-            counter: !this.state.counter
+            player: !this.state.player
         }
 
         this.setState(newValues)
 
-    }
+        let checkStr = this.state.board.toString();
+
+    if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+        let playerXwins = alert("Player X won!")
+        setTimeout(playerXwins,5000) ;
+      } else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
+        let playerOwins = alert("Player O won!")
+        setTimeout(playerOwins,5000);
+      }
+
+}
+
+
+
+
 
 
 
