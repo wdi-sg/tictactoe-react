@@ -12,21 +12,22 @@ class Board extends React.Component {
           [null,null,null]
         ],
         counter: 1,
-        player: 'x',
-        message: 'Game Start'
+        player: 'X',
+        message: 'Game Start',
+        play: true
 
       }
 
     }
 
     squareClick(something, something2){
-      if (this.state.board[something][something2] == null) {
-          if (this.state.counter % 2 == 0) {
-            this.state.board[something][something2]= 'o'
-            this.state.player = 'x'
+      if (this.state.board[something][something2] === null) {
+          if (this.state.counter % 2 === 0) {
+            this.state.board[something][something2]= 'O'
+            this.state.player = 'X'
           } else {
-            this.state.board[something][something2]= 'x'
-            this.state.player = 'o'
+            this.state.board[something][something2]= 'X'
+            this.state.player = 'O'
           }
           this.state.counter ++
           // players turn display
@@ -35,12 +36,20 @@ class Board extends React.Component {
           console.log( something, something2 );
           console.log(this.state)
           this.setState({board: this.state.board})
-          // check for winning grouping
-          
           // if no winners and game has played all places tied
-          if (this.state.counter == 10) {
+          if (this.state.counter === 10) {
             // display tied game
             this.state.message = "Tied Game"
+          }
+          // check for winning grouping (thank you terence)
+          const checkStr = this.state.board.join('');
+          console.log("sskssk")
+          console.log(checkStr)
+          if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+            this.state.message = "X Won!"
+          }else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
+            this.state.message = "O Won!"
+            this.state.play = false;
           }
 
       }
