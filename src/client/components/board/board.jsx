@@ -15,12 +15,33 @@ class Board extends React.Component {
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(rowIndex, colIndex){
+        console.log( rowIndex, colIndex );
+
+        var currentValue = 0;
+
+        if(this.state.counter === undefined) {
+            currentValue = 0;
+        } else {
+            currentValue = this.state.counter + 1;
+        }
+
+        console.log("clicking", currentValue);
+        console.log("Board", this.state.board[rowIndex][colIndex]);
+
+        this.setState({counter: currentValue});
+
+        if(currentValue % 2 === 0) {
+            this.state.board[rowIndex][colIndex] = "X";
+        } else {
+            this.state.board[rowIndex][colIndex] = "O";
+        }
     }
 
     render() {
         console.log("board", this.state.board);
+
+        // const data = {test: this.state.counter};
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -29,16 +50,18 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
+                    <button
+                        type="checkbox"
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                            this.squareClick(rowIndex, colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {/*{col} : {rowIndex} : {colIndex}*/}
+                        {this.state.board[rowIndex][colIndex]}
+                    </button>
             );
 
           });
