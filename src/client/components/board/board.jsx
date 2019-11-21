@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Board extends React.Component {
     constructor(){
 
@@ -11,39 +12,65 @@ class Board extends React.Component {
           [null,null,null],
           [null,null,null]
         ],
-        player: "X"
+        player: "X",
+        message: null,
+        xScore: 0,
+        oScore: 0
       }
 
     }
 
     squareClick(row, column){
         console.log( this.state.player );
-        if(this.state.player === "X"){
-            this.setState({player: "O"})
-        } else {
-            this.setState({player: "X"})
+        let board = this.state.board
+        let currentPlayer = this.state.player
+        // Switch player from X to O and vis versa
+        if (!board[row][column]){
+            if(currentPlayer === "X"){
+                this.setState({player: "O"})
+            } else {
+                this.setState({player: "X"})
+            }
+        // Add X or O to the board
+            board[row][column] = currentPlayer
+            this.setState({
+              board: board
+            })
         }
 
-        let board = this.state.board
-        board[row][column] = this.state.player
-        this.setState({
-          board: board
-        })
+        const refreshBoard = [
+              [null,null,null],
+              [null,null,null],
+              [null,null,null]
+            ]
 
+        let newGame = ()=>{
+            if (currentPlayer === "X"){
+                this.setState({ xScore: this.state.xScore + 1 });
+            } else {
+                this.setState({ oScore: this.state.oScore + 1 });
+            }
+            this.setState({ message: "Player "+ currentPlayer + " won and scores 1 point!" })
+            setTimeout(()=>{this.setState({ message: null })}, 3000)
+            this.setState({
+                board: refreshBoard
+            });
+        }
+
+        // Check win state
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
-                if (board[i][j] === "X" && board[i][j+1] === "X" && board[i][j+2] === "X"){
-                    alert("You won!")
+                if (board[i][j] === "X" && board[i+1][j] === "X" && board[i+2][j] === "X" || board[i][j] === "O" && board[i+1][j] === "O" && board[i+2][j] === "O"){
+                    newGame();
                 }
-                if (board[i][j] === "X" && board[i+1][j] === "X" && board[i+2][j] === "X"){
-                    alert("You won!")
+                if (board[j][i] === "X" && board[j][i+1] === "X" && board[j][i+2] === "X" || board[j][i] === "O" && board[j][i+1] === "O" && board[j][i+2] === "O"){
+                    newGame();
                 }
-                if (board[i][i] === "X" && board[i+1][i+1] === "X" && board[i+2][i+2] === "X"){
-                    alert("You won!")
-                    return
+                if (board[i][i] === "X" && board[i+1][i+1] === "X" && board[i+2][i+2] === "X" || board[i][i] === "O" && board[i+1][i+1] === "O" && board[i+2][i+2] === "O"){
+                    newGame();
                 }
-                if (board[j][i+2] === "X" && board[j+1][i+1] === "X" && board[j+2][i] === "X"){
-                    alert("You won!")
+                if (board[j][i+2] === "X" && board[j+1][i+1] === "X" && board[j+2][i] === "X" || board[j][i+2] === "O" && board[j+1][i+1] === "O" && board[j+2][i] === "O"){
+                    newGame();
                 }
             }
         }
@@ -91,7 +118,17 @@ class Board extends React.Component {
 
         return (
           <div className="item">
-            {board}
+            <h1>|Tic|Tac|Toe|</h1>
+            <h1>Player Turn: {this.state.player}</h1>
+            <h1 className="message">{this.state.message}</h1>
+            <div className="scoreBoard">
+                <h2 className="xScore">Player X Score: {this.state.xScore}</h2>
+                <button className="refresh" onClick={()=>{window.location.reload()}}><strong>Refresh Game</strong></button>
+                <h2 className="oScore">Player O Score: {this.state.oScore}</h2>
+            </div>
+            <div className="board">
+                {board}
+            </div>
           </div>
         );
     }
