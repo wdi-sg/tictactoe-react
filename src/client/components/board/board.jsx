@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './style.scss';
 
 class Board extends React.Component {
     constructor(){
@@ -8,36 +7,131 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
         ],
-        player: 0
+        player: 1
       }
+    }
+
+    restart() {
+      this.setState ( {
+        board: [
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        player: 1
+      })
+    }
+
+    // to check if Player1 wins
+    xWin(value) {
+      return value === "X";
+    }
+
+    // to check if Player2 wins
+    oWin(value) {
+      return value === "O";
+    }
+
+    // function checkWhoWon(array)
+    gameWon(check) {
+        if (check.every(this.xWin)) {
+            //player1 wins
+            alert("Player 1 wins!");
+            this.restart();
+            return;
+        } else if (check.every(this.oWin)) {
+            //player2 wins
+            alert("Player 2 wins!");
+            this.restart();
+            return;
+        }
+    }
+
+    //check results of rows
+    //.slice() elements to obtain arrays of results of columns
+    //.every() retrieved arrays if is true (i.e. all are same)
+    //check which player wins
+
+    checkResult() {
+
+      var downDiag = [];
+      var upDiag = [];
+
+      for (var i = 0; i < this.state.board.length; i++) {
+
+        //retrieve results of rows
+        var row = this.state.board[i];
+        console.log("row" + [i] + " is: " + row);
+        // check if gameWon by row
+        this.gameWon(row);
+
+        var column = [];
+
+        for (var j = 0; j < this.state.board[i].length; j++) {
+
+            // retrieve results of columns
+            var k = (this.state.board[j].slice(i, i+1)).toString();
+            column.push( k );
+
+            if ( i === j ) {
+                var down = (this.state.board[i].slice(i, i+1)).toString();
+                downDiag.push( down );
+
+                var toSlice = this.state.board[i].length-[i+1];
+                var toStopAt = this.state.board[i].length-i;
+                var up = (this.state.board[i].slice( toSlice, toStopAt)).toString();
+                upDiag.push( up );
+            }
+
+        }
+
+        console.log("column" + [i] + " is: " + column);
+        //check if gameWon by column
+        this.gameWon(column);
+
+        console.log("looping!");
+      }
+
+        console.log("downDiag is: " + downDiag);
+        this.gameWon(downDiag);
+
+        console.log("upDiag is: " + upDiag);
+        this.gameWon(upDiag);
 
     }
 
-    // let tictac = {
-    //     if (player) {
-    //         return "x";
-    //     } else {
-    //         return "o";
-    //     }
-    // }
-
-    squareClick(i, j){
+    squareClick(i, j) {
+        // check if space already taken
         console.log( i, j );
-        if (this.state.player) {
-            this.state.board[i][j] = 'x';
+        if ( this.state.board[i][j] !== null ) {
+            alert("Please pick another space.");
+            return;
+        }
+        // check which player and input tictac
+        if (this.state.player%2 === 0) {
+            this.state.board[i][j] = 'O';
             this.state.player += 1;
         } else {
-            this.state.board[i][j] = 'o';
-            this.state.player -= 1;
+            this.state.board[i][j] = 'X';
+            this.state.player += 1;
         }
+        // update board
         console.log(this.state.board);
         this.setState( {
             board: this.state.board
         } )
+        // check results
+        if (this.state.player >= 5) {
+            this.checkResult();
+        }
+        // reset if stalemate
+        if (this.state.player > 9) {
+            this.restart();
+        }
     }
 
     render() {
@@ -50,12 +144,11 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <div className="col border text-center boo"
+                    <div className="boo"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
-
                     >
                         {this.state.board[colIndex][rowIndex]}
                     </div>
@@ -65,9 +158,10 @@ class Board extends React.Component {
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
+
+                <div key={rowIndex} className="row">
+                  {rows}
+                </div>
 
           );
 
