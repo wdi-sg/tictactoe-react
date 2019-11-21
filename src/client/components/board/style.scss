@@ -1,3 +1,5 @@
+
+
 .boo{
 	background-color: white;
 	display: flex;
@@ -15,7 +17,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: grey;
+	background-color: darkgrey;
+	z-index: 2;
 }
 
 .btn{
@@ -28,4 +31,66 @@
 	display: flex;
 	justify-content: center;
 	text-align: center;
+	color: white;
+}
+
+.clicked{
+	background-color: #9EACCB;
+	position: relative;
+	box-shadow: 0px 0px 2px 2px black ;
+}
+
+
+
+.mybtn {
+	position: relative;
+	font-weight: bold;
+	font-size: 20px;
+	color: #FFF;
+	text-align: center;
+	text-decoration: none;
+	box-sizing: border-box;
+	background: linear-gradient(90deg, #03A9F4, #F441A5, #FFEB3B, #03A9F4);
+	background-size: 400%;
+	border-radius: 5px;
+	line-height: 50px;
+	z-index: 0;
+}
+
+
+
+.mybtn:hover {
+	animation: buttonpulse 10s linear infinite;
+	text-decoration: none;
+}
+
+.mybtn:before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	bottom: -10px;
+	left: -10px;
+	right: -10px;
+	background: linear-gradient(90deg, #03A9F4, #F441A5, #FFEB3B, #03A9F4);
+	background-size: 400%;
+	border-radius: 5px;
+	z-index: 1;
+	opacity: 0;
+	transition: 0.7s;
+}
+
+.mybtn:hover:before {
+	animation: buttonpulse 10s linear infinite;
+	filter: blur(30px);
+	opacity: 0.6;
+}
+
+@keyframes buttonpulse {
+	0% {
+		background-position: 0%;
+	}
+
+	100% {
+		background-position: 400%;
+	}
 }

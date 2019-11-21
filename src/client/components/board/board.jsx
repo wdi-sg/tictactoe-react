@@ -1,5 +1,7 @@
 import React from 'react';
-import styles from './style.scss'
+import classnames from 'classnames';
+import styles from './style.scss';
+const cx = classnames.bind(styles);
 
 class Board extends React.Component {
     constructor(){
@@ -32,7 +34,7 @@ class Board extends React.Component {
             var winner = "First player wins"
         } else {
             this.state.spScore++
-            var winner = "First player wins"
+            var winner = "Second player wins"
         }
         alert(winner)
     }
@@ -93,19 +95,32 @@ class Board extends React.Component {
     }
 
     render() {
+
         console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
           const rows = row.map( (col,colIndex) => {
+
             if(col === 'i'){
                 col = ''
+                var truth = false
+            } else {
+                var truth = true
             }
+
+            const display = cx(
+                styles.boo,
+                {
+                    [styles.clicked]: truth,
+                }
+            )
             // make each column
             return (
+
                     <div
-                        className={styles.boo}
+                        className={display}
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
@@ -118,10 +133,9 @@ class Board extends React.Component {
 
           // return the complete row
           return (
-            <div key={rowIndex} className={styles.row}>
-              {rows}
-            </div>
-
+                <div key={rowIndex} className={styles.row}>
+                  {rows}
+                </div>
           );
 
         });
@@ -130,7 +144,7 @@ class Board extends React.Component {
           <div className="item">
             {board}
             <div className={styles.btnDiv}>
-                <button onClick={()=>{this.reset()}} className={styles.btn}>Reset</button>
+                <button onClick={()=>{this.reset()}} className={styles.mybtn}>Reset</button>
             </div>
             <div className={styles.btnDiv}>First player: {this.state.fpScore}</div>
             <div className={styles.btnDiv}>Second player: {this.state.spScore}</div>
