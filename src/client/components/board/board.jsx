@@ -41,10 +41,10 @@ class Board extends React.Component {
 
         let checkStr = this.state.board.toString();
 
-    if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+    if (/XXX|X...X...X|X.....X.....X|X..X...X|X.X.X/.test(checkStr)) {
         let playerXwins = alert("Player X won!")
         setTimeout(playerXwins,5000) ;
-      } else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
+      } else if (/OOO|O.....O.....O|O..O...O|O.O.O/.test(checkStr)) {
         let playerOwins = alert("Player O won!")
         setTimeout(playerOwins,5000);
       }
@@ -60,6 +60,7 @@ class Board extends React.Component {
 
     render() {
         console.log("board", this.state.board);
+         console.log("board string", this.state.board.toString());
 
         const board = this.state.board.map( (row,rowIndex) => {
 
