@@ -43,12 +43,13 @@ class Board extends React.Component {
           }
           // check for winning grouping (thank you terence)
           const checkStr = this.state.board.join('');
+          
           console.log("sskssk")
           console.log(checkStr)
-          if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+          if (/XXX|X...X....X|X....X....X|X..X..X|..X.X.X/.test(checkStr)) {
             this.state.message = "X Won!"
             this.state.play = false;
-          }else if (/OOO|O...O...O|O....O....O|O..O..O|O.O.O/.test(checkStr)) {
+          }else if (/OOO|O...O....O|O....O....O|O..O..O|..O.O.O/.test(checkStr)) {
             this.state.message = "O Won!" 
             this.state.play = false;
           }
@@ -57,7 +58,7 @@ class Board extends React.Component {
     }
 
     render() {
-        console.log("board", this.state.board);
+        // console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -94,6 +95,7 @@ class Board extends React.Component {
         return (
           <div className="item"><h2>{this.state.message}</h2>
             {board}
+            <button className="refresh" onClick={()=>{window.location.reload()}}><strong>Restart Game</strong></button>
           </div>
         );
     }
