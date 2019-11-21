@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './style.scss';
 
 class Board extends React.Component {
     constructor(){
@@ -7,16 +8,32 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null, null, null],
+          [null, null, null],
+          [null, null, null]
+        ],
+        turn: true
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(col, row){
+        let newBoard = this.state.board;
+        if (newBoard[row][col] === null) {
+          newBoard[row][col] = this.state.turn ? "X" : "O";
+          let newTurn = !this.state.turn;
+          this.setState({board: newBoard, turn: newTurn});
+          this.checkWin();
+        }
+    }
+
+    checkWin() {
+      let checkStr = this.state.board.toString();
+      if (/XXX|X...X...X|X....X....X|X..X..X|X.X.X/.test(checkStr)) {
+        setTimeout(()=>{alert("player X wins")}, 100);
+      } else if (/OOO|O...O...O|O....O....O|..O..O..O|O.O.O/.test(checkStr)) {
+        setTimeout(()=>{alert("player O wins")}, 100);
+      }
     }
 
     render() {
@@ -30,14 +47,14 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className={styles.boo}
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
@@ -45,7 +62,7 @@ class Board extends React.Component {
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className={styles.row}>
               {rows}
             </div>
 
