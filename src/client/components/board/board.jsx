@@ -11,7 +11,9 @@ class Board extends React.Component {
           [null,null,null],
           [null,null,null]
         ],
-        counter: 1
+        counter: 1,
+        player: 'x',
+        message: 'Game Start'
 
       }
 
@@ -21,14 +23,26 @@ class Board extends React.Component {
       if (this.state.board[something][something2] == null) {
           if (this.state.counter % 2 == 0) {
             this.state.board[something][something2]= 'o'
+            this.state.player = 'x'
           } else {
             this.state.board[something][something2]= 'x'
+            this.state.player = 'o'
           }
           this.state.counter ++
+          // players turn display
+          this.state.message = "Player " + this.state.player + " turn"
      
           console.log( something, something2 );
           console.log(this.state)
           this.setState({board: this.state.board})
+          // check for winning grouping
+          
+          // if no winners and game has played all places tied
+          if (this.state.counter == 10) {
+            // display tied game
+            this.state.message = "Tied Game"
+          }
+
       }
     }
 
@@ -67,7 +81,7 @@ class Board extends React.Component {
         });
 
         return (
-          <div className="item">
+          <div className="item"><h2>{this.state.message}</h2>
             {board}
           </div>
         );
