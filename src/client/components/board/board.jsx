@@ -1,9 +1,5 @@
 import React from 'react';
 
-const winStates = [
-
-]
-
 const checkWin = (x,y,z) => {
     if (x === y && y === z) alert("Win");
 }
@@ -25,14 +21,15 @@ class Board extends React.Component {
         let changeBoard = this.state.board;
         changeBoard[i][j] = this.state.player? "X" : "O";
         this.setState({board:changeBoard,player:!this.state.player});
-        checkWin();
-        checkWin();
-        checkWin();
-        checkWin();
-        checkWin();
-        checkWin();
-        checkWin();
-        checkWin();
+        let {board} = this.state
+        checkWin(board[0][0],board[0][1],board[0][2]);
+        checkWin(board[1][0],board[1][1],board[1][2]);
+        checkWin(board[2][0],board[2][1],board[2][2]);
+        checkWin(board[0][0],board[1][0],board[2][0]);
+        checkWin(board[0][1],board[1][1],board[2][1]);
+        checkWin(board[0][2],board[1][2],board[2][2]);
+        checkWin(board[0][0],board[1][1],board[2][2]);
+        checkWin(board[2][0],board[1][1],board[0][2]);
     }
 
     render() {
@@ -46,7 +43,6 @@ class Board extends React.Component {
                         {col}:{rowIndex}:{colIndex}
                     </button>
                 );
-
             });
 
             // return the complete row
