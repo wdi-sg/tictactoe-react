@@ -7,17 +7,42 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+
+        counter: false
       }
 
     }
 
     squareClick(something, something2){
-        console.log( something, something2 );
+
+        let newBoard = this.state.board
+        var clickX = "X"
+        var clickO = "O"
+
+        if (newBoard[something2][something] === null){
+             newBoard[something2][something] = this.state.counter? clickX : clickO;
+        } else {
+            alert ("Hey, that's taken!")
+        }
+
+
+        console.log( something2, something );
+
+        let newValues = {
+            board: newBoard,
+            counter: !this.state.counter
+        }
+
+        this.setState(newValues)
+
     }
+
+
+
 
     render() {
         console.log("board", this.state.board);
@@ -37,7 +62,7 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
