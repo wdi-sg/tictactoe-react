@@ -20,6 +20,18 @@ class Board extends React.Component {
 
     }
 
+    refreshClick(){
+        const refreshBoard = [
+              [null,null,null],
+              [null,null,null],
+              [null,null,null]
+            ]
+        this.setState({
+            board: refreshBoard
+        });
+        this.setState({ message: null })
+    }
+
     squareClick(row, column){
         console.log( this.state.player );
         let board = this.state.board
@@ -38,23 +50,13 @@ class Board extends React.Component {
             })
         }
 
-        const refreshBoard = [
-              [null,null,null],
-              [null,null,null],
-              [null,null,null]
-            ]
-
         let newGame = ()=>{
             if (currentPlayer === "X"){
                 this.setState({ xScore: this.state.xScore + 1 });
             } else {
                 this.setState({ oScore: this.state.oScore + 1 });
             }
-            this.setState({ message: "Player "+ currentPlayer + " won and scores 1 point!" })
-            setTimeout(()=>{this.setState({ message: null })}, 3000)
-            this.setState({
-                board: refreshBoard
-            });
+            this.setState({ message: "Player "+ currentPlayer + " won and scores 1 point! \n\nClick here to refresh the board" })
         }
 
         // Check win state
@@ -116,14 +118,25 @@ class Board extends React.Component {
 
         });
 
+        let win;
+        if (this.state.message){
+            win =   <button className="refresh" onClick={()=>{this.refreshClick()}}>
+                        {this.state.message}
+                    </button>
+        } else {
+            win = null
+        }
+
         return (
           <div className="item">
             <h1>|Tic|Tac|Toe|</h1>
             <h1>Player Turn: {this.state.player}</h1>
-            <h1 className="message">{this.state.message}</h1>
+            <div className="refreshBoard">
+                {win}
+            </div>
             <div className="scoreBoard">
                 <h2 className="xScore">Player X Score: {this.state.xScore}</h2>
-                <button className="refresh" onClick={()=>{window.location.reload()}}><strong>Refresh Game</strong></button>
+                <button className="refresh" onClick={()=>{window.location.reload()}}><strong>Refresh Scores</strong></button>
                 <h2 className="oScore">Player O Score: {this.state.oScore}</h2>
             </div>
             <div className="board">
