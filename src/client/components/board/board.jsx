@@ -7,16 +7,31 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+      ],
+      player: "X",
+      message: null,
+      xScore: 0,
+      oScore: 0
     }
+  }
+    
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(row, column){
+        console.log( row, column, this.state.player);
+        let board = this.state.board;
+        let currentPlayer = this.state.player;
+        if (!board[row][column]) {
+          if (currentPlayer == "X") {
+            this.setState({player: "O"})
+          } else {
+            this.setState({player: "X"})
+          }
+        }
+        board[row][column] = currentPlayer;
+        console.log(board)
     }
 
     render() {
@@ -37,7 +52,7 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                    {this.state.board[colIndex][rowIndex]}
                     </p>
             );
 
