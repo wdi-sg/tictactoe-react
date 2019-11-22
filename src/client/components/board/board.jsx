@@ -11,7 +11,7 @@ class Board extends React.Component {
                 [4,5,6],
                 [7,8,9]
             ],
-            player: true,
+            isPlayer: true,
             playerScore: 0
         }
     }
@@ -19,14 +19,14 @@ class Board extends React.Component {
     checkWin(x,y,z){
         if (x === y && y === z) {
             alert("YOU WON! RESTART?");
-            if (this.state.player) {
+            if (this.state.isPlayer) {
                 this.setState({
                     board: [
                         [1,2,3],
                         [4,5,6],
                         [7,8,9]
                     ],
-                    player: true,
+                    isPlayer: true,
                     playerScore: this.state.playerScore + 1
                 })
                 console.log(this.state.playerScore)
@@ -37,7 +37,7 @@ class Board extends React.Component {
                         [4,5,6],
                         [7,8,9]
                     ],
-                    player: true,
+                    isPlayer: true,
                     playerScore: this.state.playerScore - 1
                 })
                 console.log(this.state.playerScore)
@@ -46,18 +46,22 @@ class Board extends React.Component {
     }
 
     squareClick(i,j){
-        let changeBoard = this.state.board;
-        changeBoard[i][j] = this.state.player? "X" : "O";
-        this.setState({board:changeBoard,player:!this.state.player});
-        let {board} = this.state;
-        this.checkWin(board[0][0],board[0][1],board[0][2]);
-        this.checkWin(board[1][0],board[1][1],board[1][2]);
-        this.checkWin(board[2][0],board[2][1],board[2][2]);
-        this.checkWin(board[0][0],board[1][0],board[2][0]);
-        this.checkWin(board[0][1],board[1][1],board[2][1]);
-        this.checkWin(board[0][2],board[1][2],board[2][2]);
-        this.checkWin(board[0][0],board[1][1],board[2][2]);
-        this.checkWin(board[2][0],board[1][1],board[0][2]);
+        if (typeof this.state.board[i][j] == "string") {
+            alert("not allowed")
+        } else {
+            let changeBoard = this.state.board;
+            changeBoard[i][j] = this.state.isPlayer? "X" : "O";
+            this.setState({board:changeBoard,isPlayer:!this.state.isPlayer});
+            let {board} = this.state;
+            this.checkWin(board[0][0],board[0][1],board[0][2]);
+            this.checkWin(board[1][0],board[1][1],board[1][2]);
+            this.checkWin(board[2][0],board[2][1],board[2][2]);
+            this.checkWin(board[0][0],board[1][0],board[2][0]);
+            this.checkWin(board[0][1],board[1][1],board[2][1]);
+            this.checkWin(board[0][2],board[1][2],board[2][2]);
+            this.checkWin(board[0][0],board[1][1],board[2][2]);
+            this.checkWin(board[2][0],board[1][1],board[0][2]);
+        }
     }
 
     render() {
