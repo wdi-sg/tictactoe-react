@@ -28,10 +28,10 @@ class Board extends React.Component {
 
         } else {
             currentValue = this.state.counter + 1;
-        }
-console.log("Board", this.state.board[event][colIndex]);
-        this.setState({ counter: currentValue });
 
+        }
+        console.log("Board", this.state.board[event][colIndex]);
+        this.setState({ counter: currentValue });
 
 
 
@@ -42,11 +42,14 @@ console.log("Board", this.state.board[event][colIndex]);
         console.log(this.state.counter);
 
 
-         if(currentValue % 2 === 0) {
+        if (currentValue % 2 === 0) {
             this.state.board[event][colIndex] = "X";
+            this.btn.setAttribute("disabled", "disabled");
+
 
         } else {
             this.state.board[event][colIndex] = "O";
+            this.btn.setAttribute("disabled", "disabled");
         }
     }
 
@@ -63,7 +66,7 @@ console.log("Board", this.state.board[event][colIndex]);
                 return (
 
 
-                    <button type ="checkbox"
+                    <button ref="btn"  type ="checkbox"
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
@@ -76,9 +79,11 @@ console.log("Board", this.state.board[event][colIndex]);
                     <h1> {col}</h1>
                     {/*  {this.state.board[rowIndex][colIndex]}*/}
                    </button>
+
                 );
 
             });
+
 
             // return the complete row
             return (
