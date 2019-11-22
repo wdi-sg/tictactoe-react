@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './style.scss';
 
 class Board extends React.Component {
     constructor(){
@@ -87,9 +88,9 @@ class Board extends React.Component {
                 }
                 if (this.state.count === 9){
                     this.noWin();
-                }
-            }
-        }
+                };
+            };
+        };
 
 
       }
@@ -109,7 +110,7 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className={styles.boo}
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
@@ -124,7 +125,7 @@ class Board extends React.Component {
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className={styles.row}>
               {rows}
             </div>
 
@@ -134,7 +135,7 @@ class Board extends React.Component {
 
         let win;
         if (this.state.message){
-            win =   <button className="refresh" onClick={()=>{this.refreshClick()}}>
+            win =   <button className={styles.refresh} onClick={()=>{this.refreshClick()}}>
                         {this.state.message}
                     </button>
         } else {
@@ -142,18 +143,18 @@ class Board extends React.Component {
         }
 
         return (
-          <div className="item">
+          <div className={styles.item}>
             <h1>|Tic|Tac|Toe|</h1>
             <h1>Player Turn: {this.state.player}</h1>
-            <div className="refreshBoard">
+            <div className={styles.refreshBoard}>
                 {win}
             </div>
-            <div className="scoreBoard">
-                <h2 className="xScore">Player X Score: {this.state.xScore}</h2>
-                <button className="refresh" onClick={()=>{window.location.reload()}}><strong>Refresh Scores</strong></button>
-                <h2 className="oScore">Player O Score: {this.state.oScore}</h2>
+            <div className={styles.scoreBoard}>
+                <h2 className={styles.xScore}>Player X Score: {this.state.xScore}</h2>
+                <button className={styles.refresh} onClick={()=>{window.location.reload()}}><strong>Refresh Scores</strong></button>
+                <h2 className={styles.oScore}>Player O Score: {this.state.oScore}</h2>
             </div>
-            <div className="board">
+            <div className={styles.board}>
                 {board}
             </div>
           </div>
