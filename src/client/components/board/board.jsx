@@ -63,19 +63,19 @@ class Board extends React.Component {
 
       for (var i = 0; i < this.state.board.length; i++) {
 
-        //retrieve results of rows
-        var row = this.state.board[i];
-        console.log("row" + [i] + " is: " + row);
-        // check if gameWon by row
-        this.gameWon(row);
+        //retrieve results of columns
+        var column = this.state.board[i];
+        console.log("column" + [i] + " is: " + column);
+        // check if gameWon by column
+        this.gameWon(column);
 
-        var column = [];
+        var row = [];
 
         for (var j = 0; j < this.state.board[i].length; j++) {
 
-            // retrieve results of columns
+            // retrieve results of row
             var k = (this.state.board[j].slice(i, i+1)).toString();
-            column.push( k );
+            row.push( k );
 
             if ( i === j ) {
                 var down = (this.state.board[i].slice(i, i+1)).toString();
@@ -89,9 +89,9 @@ class Board extends React.Component {
 
         }
 
-        console.log("column" + [i] + " is: " + column);
-        //check if gameWon by column
-        this.gameWon(column);
+        console.log("row" + [i] + " is: " + row);
+        //check if gameWon by row
+        this.gameWon(row);
 
         console.log("looping!");
       }
