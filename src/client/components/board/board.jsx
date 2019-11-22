@@ -15,7 +15,8 @@ class Board extends React.Component {
         player: "X",
         message: null,
         xScore: 0,
-        oScore: 0
+        oScore: 0,
+        count: 1
       }
 
     }
@@ -30,7 +31,22 @@ class Board extends React.Component {
             board: refreshBoard
         });
         this.setState({ message: null })
+        this.setState({count: 1})
     }
+
+    newGame(){
+        if (this.state.player === "X"){
+            this.setState({ xScore: this.state.xScore + 1 });
+        } else {
+            this.setState({ oScore: this.state.oScore + 1 });
+        }
+        this.setState({ message: "Player "+ this.state.player + " won and scores 1 point! \n\nClick here to refresh the board" })
+    }
+
+    noWin(){
+        this.setState({ message: "It's a draw! \n\nClick here to refresh the board" })
+    }
+
 
     squareClick(row, column){
         console.log( this.state.player );
@@ -45,34 +61,32 @@ class Board extends React.Component {
             }
         // Add X or O to the board
             board[row][column] = currentPlayer
+            this.setState({count: this.state.count + 1})
+            console.log(this.state.count)
             this.setState({
               board: board
             })
         }
 
-        let newGame = ()=>{
-            if (currentPlayer === "X"){
-                this.setState({ xScore: this.state.xScore + 1 });
-            } else {
-                this.setState({ oScore: this.state.oScore + 1 });
-            }
-            this.setState({ message: "Player "+ currentPlayer + " won and scores 1 point! \n\nClick here to refresh the board" })
-        }
+
 
         // Check win state
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                 if (board[i][j] === "X" && board[i+1][j] === "X" && board[i+2][j] === "X" || board[i][j] === "O" && board[i+1][j] === "O" && board[i+2][j] === "O"){
-                    newGame();
+                    this.newGame();
                 }
                 if (board[j][i] === "X" && board[j][i+1] === "X" && board[j][i+2] === "X" || board[j][i] === "O" && board[j][i+1] === "O" && board[j][i+2] === "O"){
-                    newGame();
+                    this.newGame();
                 }
                 if (board[i][i] === "X" && board[i+1][i+1] === "X" && board[i+2][i+2] === "X" || board[i][i] === "O" && board[i+1][i+1] === "O" && board[i+2][i+2] === "O"){
-                    newGame();
+                    this.newGame();
                 }
                 if (board[j][i+2] === "X" && board[j+1][i+1] === "X" && board[j+2][i] === "X" || board[j][i+2] === "O" && board[j+1][i+1] === "O" && board[j+2][i] === "O"){
-                    newGame();
+                    this.newGame();
+                }
+                if (this.state.count === 9){
+                    this.noWin();
                 }
             }
         }
