@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import styles from './board.scss';
 
 class Board extends React.Component {
     constructor(){
@@ -65,22 +67,22 @@ class Board extends React.Component {
             const rows = row.map( (col,colIndex) => {
             // make each column
                 return (
-                    <button className="boo" key={colIndex} onClick={()=>{ this.squareClick(rowIndex,colIndex);}}>
-                        {col}:{rowIndex}:{colIndex}
-                    </button>
+                    <Button className={styles.button} variant="contained" color="primary" key={colIndex} onClick={()=>{ this.squareClick(rowIndex,colIndex);}}>
+                        {col}
+                    </Button>
                 );
             });
 
             // return the complete row
             return (
-                <div key={rowIndex} className="row">
+                <div key={rowIndex}>
                     {rows}
                 </div>
             );
         });
 
         return (
-            <div className="item">
+            <div>
                 <p>Score: {this.state.playerScore}</p>
                 {board}
             </div>
