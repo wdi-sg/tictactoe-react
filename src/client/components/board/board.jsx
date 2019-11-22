@@ -7,20 +7,34 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        clicked: false
       }
-
+      this.counter = 0
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+
+    squareClick(ev, rowIndex, colIndex){
+
+        if(this.state.clicked = false) {
+
+            let symbol = this.counter % 2 === 0 ? "X" : "O";
+            this.state.board[rowIndex][colIndex] = symbol;
+            this.state.clicked = true;
+            this.setState({board:this.state.board});
+            this.setState({clicked:this.state.clicked});
+            console.log(this.state.board)
+            console.log(this.state.clicked)
+            this.counter ++;
+        }
     }
+
+
 
     render() {
-        console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -29,16 +43,16 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
+                    <button type="checkbox"
                         className="boo"
                         key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                        onClick={(ev)=>{
+                            this.squareClick(ev, rowIndex,colIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col}
+                    </button>
             );
 
           });
