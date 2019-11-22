@@ -17,7 +17,8 @@ class Board extends React.Component {
         ],
         player: false,
         win: false,
-        winner: null
+        winner: null,
+        gameStep: 0
 
       }
 
@@ -29,14 +30,16 @@ class Board extends React.Component {
       console.log(this.state.player)
       let changeBoard = this.state.board;
       changeBoard[i][j] = this.state.player ? "X" : "O";
-      console.log(changeBoard)
-      console.log(i, j)
+     this.state.gameStep ++
+     console.log(this.state.gameStep)
       this.setState({board: changeBoard, player: !this.state.player})
 
       
       for(let i = 0; i < changeBoard.length; i++) {
-       if(changeBoard[i][0] !== null || changeBoard[i][1] !==null || changeBoard[i][2] !== null ) {
-
+       if(this.state.gameStep >=5 ) {
+        if (changeBoard[0][2] === changeBoard[1][1] && changeBoard[0][2] === changeBoard[2][0]) {
+          alert("WIN")
+        }
         if(changeBoard[i][0] === changeBoard[i][1] && changeBoard[i][0] === changeBoard[i][2]) {
           alert("ROW")
         } 
