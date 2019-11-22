@@ -12,9 +12,6 @@ class Board extends React.Component {
         [null,null,null]
       ],
       player: "X",
-      message: null,
-      xScore: 0,
-      oScore: 0
     }
   }
     
