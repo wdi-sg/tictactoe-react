@@ -22,14 +22,20 @@ class Board extends React.Component {
         var playBoard = this.state.board;
         console.log(playBoard)
         console.log(playBoard[something][something2])
+        if(playBoard[something2][something] === "i")
+        {
         if(turns%2==0)
             {
                 playBoard[something2][something]= "X"
+                turns++;
             }
+        else
         if(turns%2==1){
                 playBoard[something2][something]= "O"
+                turns++;
             }
-            turns++;
+        }
+
         //console.log("clicking", currentValue);
         // set the state of this component
         console.log(this.state.board[something][something2]);
