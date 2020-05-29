@@ -12,7 +12,9 @@ class Board extends React.Component {
         ["", "", ""],
       ],
       prevMoves: [],
-      isWin: ""
+      isWin: "",
+      XScore: 0,
+      OScore: 0,
     };
 
   }
@@ -94,6 +96,8 @@ class Board extends React.Component {
     let XPat = ""; 
     let OPat = ""; 
     let isWin;
+    let XScore;
+    let OScore;
 
     // generate winning sequence
     for (let i = 0; i < boardSize; i++) {
@@ -104,10 +108,13 @@ class Board extends React.Component {
     // check for winning sequence
     if (potentialWinLines.includes(XPat)) {
       isWin = "X";
+      XScore = parseInt(this.state.XScore) + 1;
+      this.setState({ XScore: XScore});
     } else if (potentialWinLines.includes(OPat)) {
       isWin =  "O"; 
+      OScore = this.state.OScore + 1;
+      this.setState({ OScore: OScore});
     } 
-
     this.setState({ isWin: isWin });
 
   }
@@ -115,6 +122,8 @@ class Board extends React.Component {
   render() {
     console.log("board: ", this.state.board);
     console.log("previous moves: ", this.state.prevMoves);
+    console.log("x score: ", this.state.XScore);
+
 
     const board = this.state.board.map((row, rowIndex) => {
       // make a single row
@@ -154,6 +163,8 @@ class Board extends React.Component {
 
     return (
       <div>
+        <h3>X-Score: {this.state.XScore}</h3>
+        <h3>O-Score: {this.state.OScore}</h3>
         <div className="item">{board}</div>
         <div>{winMsg}</div>
         <div>
