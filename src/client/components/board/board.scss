@@ -17,6 +17,10 @@
   align-items: center;
 }
 
+.click_disabled {
+  pointer-events: none;
+}
+
 .boo:hover, .clicky:hover {
   cursor: pointer;
 }

@@ -6,17 +6,28 @@ class Board extends React.Component {
     super();
 
     this.state = {
-      board: [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""],
-      ],
+      boardSize: 3,
       prevMoves: [],
       isWin: "",
       XScore: 0,
       OScore: 0,
+      cellClass: styles.boo,
     };
 
+    let board = this.generateBoard();
+
+    this.state.board = board;
+  }
+
+  generateBoard() {
+    let board = [];
+    for (let i = 0; i < this.state.boardSize; i++) {
+      board.push([]);
+      for (let y = 0; y < this.state.boardSize; y++) {
+        board[i].push("");
+      }
+    }
+    return board;
   }
 
   squareClick(rowIndex, colIndex) {
@@ -42,18 +53,20 @@ class Board extends React.Component {
     }
 
     this.setState({ board: currentBoard, prevMoves: prevMoves });
-    this.checkWin(3);
+    this.checkWin(this.state.boardSize);
   }
 
   restartGame() {
     let prevMoves = [];
-    let currentBoard = [
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ];
+    let currentBoard = this.generateBoard();
     let isWin = "";
-    this.setState({ board: currentBoard, prevMoves: prevMoves, isWin: isWin });
+    let cellClass = styles.boo;
+    this.setState({
+      board: currentBoard,
+      prevMoves: prevMoves,
+      isWin: isWin,
+      cellClass,
+    });
   }
 
   checkWin(boardSize) {
@@ -93,11 +106,12 @@ class Board extends React.Component {
     potentialWinLines.push(str);
     str = "";
 
-    let XPat = ""; 
-    let OPat = ""; 
-    let isWin;
-    let XScore;
-    let OScore;
+    let XPat = "";
+    let OPat = "";
+    let isWin = this.state.isWin;
+    let XScore = this.state.XScore;
+    let OScore = this.state.OScore;
+    let cellClass = styles.boo;
 
     // generate winning sequence
     for (let i = 0; i < boardSize; i++) {
@@ -108,15 +122,25 @@ class Board extends React.Component {
     // check for winning sequence
     if (potentialWinLines.includes(XPat)) {
       isWin = "X";
-      XScore = parseInt(this.state.XScore) + 1;
-      this.setState({ XScore: XScore});
+      XScore += 1;
+      // this.setState({ XScore: XScore });
     } else if (potentialWinLines.includes(OPat)) {
-      isWin =  "O"; 
-      OScore = this.state.OScore + 1;
-      this.setState({ OScore: OScore});
-    } 
-    this.setState({ isWin: isWin });
+      isWin = "O";
+      OScore += 1;
+      // this.setState({ OScore: OScore });
+    }
+    if (isWin !== "") {
+      // win happens
+      cellClass = `${styles.boo} ${styles.click_disabled}`;
+    }
+    this.setState({ isWin, XScore, OScore, cellClass });
+  }
 
+  inputBoardSize(event) {
+    let boardSize = parseInt(event.target.value);
+    this.state.boardSize = boardSize;
+    let board = this.generateBoard();
+    this.setState({ boardSize, board });
   }
 
   render() {
@@ -124,14 +148,13 @@ class Board extends React.Component {
     console.log("previous moves: ", this.state.prevMoves);
     console.log("x score: ", this.state.XScore);
 
-
     const board = this.state.board.map((row, rowIndex) => {
       // make a single row
       const rows = row.map((col, colIndex) => {
         // make each column
         return (
           <div
-            className={styles.boo}
+            className={this.state.cellClass}
             key={colIndex}
             onClick={() => {
               this.squareClick(rowIndex, colIndex);
@@ -149,20 +172,27 @@ class Board extends React.Component {
         </div>
       );
     });
-    
+
     let winMsg;
     if (this.state.isWin === "X") {
-      winMsg = (
-        <p>X has won the game!</p>
-      );
+      winMsg = <p>X has won the game!</p>;
     } else if (this.state.isWin === "O") {
-      winMsg = (
-        <p>O has won the game!</p>
-      );
+      winMsg = <p>O has won the game!</p>;
     }
 
     return (
       <div>
+        <div>
+          <span>Input Board Size: </span>
+          <input
+            type="text"
+            name="boardSize"
+            // defaultValue={this.state.boardSize}
+            onBlur={(event) => {
+              this.inputBoardSize(event);
+            }}
+          />
+        </div>
         <h3>X-Score: {this.state.XScore}</h3>
         <h3>O-Score: {this.state.OScore}</h3>
         <div className="item">{board}</div>
