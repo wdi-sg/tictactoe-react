@@ -11,9 +11,10 @@
   background-color: white;
   width: 33%;
   margin: 5px;
-  text-align: center;
-  font-size: 50px;
-  padding-top: 38px;
+  font-size: 80px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
 }
 
 .boo:hover {
