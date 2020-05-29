@@ -12,7 +12,9 @@ class Board extends React.Component {
         ["", "", ""],
       ],
       prevMoves: [],
+      isWin: ""
     };
+
   }
 
   squareClick(rowIndex, colIndex) {
@@ -38,6 +40,7 @@ class Board extends React.Component {
     }
 
     this.setState({ board: currentBoard, prevMoves: prevMoves });
+    this.checkWin(3);
   }
 
   restartGame() {
@@ -47,7 +50,66 @@ class Board extends React.Component {
       ["", "", ""],
       ["", "", ""],
     ];
-    this.setState({ board: currentBoard, prevMoves: prevMoves });
+    let isWin = "";
+    this.setState({ board: currentBoard, prevMoves: prevMoves, isWin: isWin });
+  }
+
+  checkWin(boardSize) {
+    let currentBoard = this.state.board;
+    let potentialWinLines = [];
+    let str = "";
+
+    // collect row win lines
+    for (let x = 0; x < boardSize; x++) {
+      for (let y = 0; y < boardSize; y++) {
+        str = str + currentBoard[x][y];
+      }
+      potentialWinLines.push(str);
+      str = "";
+    }
+
+    // collect col win lines
+    for (let y = 0; y < boardSize; y++) {
+      for (let x = 0; x < boardSize; x++) {
+        str = str + currentBoard[x][y];
+      }
+      potentialWinLines.push(str);
+      str = "";
+    }
+
+    // collect right-down diagonal
+    for (let i = 0; i < boardSize; i++) {
+      str = str + currentBoard[i][i];
+    }
+    potentialWinLines.push(str);
+    str = "";
+
+    // collect left-down diagonal
+    for (let i = 0; i < boardSize; i++) {
+      str = str + currentBoard[i][boardSize - 1 - i];
+    }
+    potentialWinLines.push(str);
+    str = "";
+
+    let XPat = ""; 
+    let OPat = ""; 
+    let isWin;
+
+    // generate winning sequence
+    for (let i = 0; i < boardSize; i++) {
+      XPat = XPat + "X";
+      OPat = OPat + "O";
+    }
+
+    // check for winning sequence
+    if (potentialWinLines.includes(XPat)) {
+      isWin = "X";
+    } else if (potentialWinLines.includes(OPat)) {
+      isWin =  "O"; 
+    } 
+
+    this.setState({ isWin: isWin });
+
   }
 
   render() {
@@ -78,10 +140,22 @@ class Board extends React.Component {
         </div>
       );
     });
+    
+    let winMsg;
+    if (this.state.isWin === "X") {
+      winMsg = (
+        <p>X has won the game!</p>
+      );
+    } else if (this.state.isWin === "O") {
+      winMsg = (
+        <p>O has won the game!</p>
+      );
+    }
 
     return (
       <div>
         <div className="item">{board}</div>
+        <div>{winMsg}</div>
         <div>
           <button
             className={styles.clicky}
