@@ -20,8 +20,77 @@ class Board extends React.Component {
 
     }
 
+    resetClick(){
+        let happyBoard = this.state.board
+              const resetBoard2=()=>{
+            console.log("Right here")
+            happyBoard.forEach((row, rowIndex)=>{row.map((column,columnIndex)=>{console.log(happyBoard[rowIndex][columnIndex]); happyBoard[rowIndex][columnIndex]="i";})})
+            //console.log(playBoard);
+            this.setState( { board: happyBoard } );
+            this.setState( { playerOneScore: 0 } );
+            this.setState( { playerTwoScore: 0 } );
+            this.setState( { status: "Click on any box to start" } );
+        }
+        console.log("yoyoyoyoyoyoy");
+        resetBoard2();
+    }
+    threeClick(){
+         //alert("fourchan");
+         let threeBoard = [
+          ['i','i','i'],
+          ['i','i','i'],
+          ['i','i','i']
+        ]
+                    this.setState( { board: threeBoard } );
+            this.setState( { playerOneScore: 0 } );
+            this.setState( { playerTwoScore: 0 } );
+            this.setState( { status: "Click on any box to start" } );
+    }
 
+    fourClick(){
+         //alert("fourchan");
+         let fourBoard = [
+          ['i','i','i', 'i'],
+          ['i','i','i', 'i'],
+          ['i','i','i', 'i'],
+          ['i','i','i', 'i']
+        ]
+                    this.setState( { board: fourBoard } );
+            this.setState( { playerOneScore: 0 } );
+            this.setState( { playerTwoScore: 0 } );
+            this.setState( { status: "Click on any box to start" } );
+    }
 
+    fiveClick(){
+         //alert("fourchan");
+         let fiveBoard = [
+            ['i','i','i', 'i', 'i'],
+            ['i','i','i', 'i', 'i'],
+            ['i','i','i', 'i', 'i'],
+            ['i','i','i', 'i', 'i'],
+            ['i','i','i', 'i', 'i']
+        ]
+                    this.setState( { board: fiveBoard } );
+            this.setState( { playerOneScore: 0 } );
+            this.setState( { playerTwoScore: 0 } );
+            this.setState( { status: "Click on any box to start" } );
+    }
+
+    sixClick(){
+         //alert("fourchan");
+         let sixBoard = [
+            ['i','i','i', 'i', 'i', 'i'],
+            ['i','i','i', 'i', 'i', 'i'],
+            ['i','i','i', 'i', 'i', 'i'],
+            ['i','i','i', 'i', 'i', 'i'],
+            ['i','i','i', 'i', 'i', 'i'],
+            ['i','i','i', 'i', 'i', 'i']
+        ]
+                    this.setState( { board: sixBoard } );
+            this.setState( { playerOneScore: 0 } );
+            this.setState( { playerTwoScore: 0 } );
+            this.setState( { status: "Click on any box to start" } );
+    }
     squareClick(something, something2){
 
         //console.log( something, something2 );
@@ -45,7 +114,7 @@ class Board extends React.Component {
             playBoard.forEach((row, rowIndex)=>{row.forEach((column,columnIndex)=>{ if(playBoard[rowIndex][columnIndex]!=="i"){
                 drawCount++;
             }})})
-            if(drawCount===9)
+            if(drawCount===Math.pow(board.length, 2))
             {
                 resetBoard();
                 turns = 0;
@@ -202,6 +271,25 @@ class Board extends React.Component {
 
     render() {
         console.log("board", this.state.board);
+        let boxWidthClass="";
+        if(this.state.board.length===3)
+            {
+                console.log("status quo")
+                boxWidthClass = "col-4 text-center pt-4 pb-4 my-auto border"
+            }
+        else
+        if(this.state.board.length===4)
+          {
+                console.log("status quo")
+                boxWidthClass = "col-3 text-center pt-4 pb-4 my-auto border"
+            }
+                    else
+        if(this.state.board.length===5 ||this.state.board.length===6)
+          {
+                console.log("status quo")
+                boxWidthClass = "col-2 text-center pt-4 pb-4 my-auto border"
+            }
+
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -212,7 +300,9 @@ class Board extends React.Component {
             return (
                     <div
                         //className="boo"
-                        className="col-4 text-center pt-4 pb-4 my-auto border"
+
+                        className={boxWidthClass}
+
                         key={colIndex}
 
                         onClick={()=>{
@@ -247,6 +337,11 @@ class Board extends React.Component {
           <div className="item">
             {board}
           </div>
+            <button onClick={()=>{this.resetClick()}}>Reset</button>
+            <button onClick={()=>{this.threeClick()}}>Three Chan</button>
+            <button onClick={()=>{this.fourClick()}}>Four Chan</button>
+            <button onClick={()=>{this.fiveClick()}}>Five Chan</button>
+            <button onClick={()=>{this.sixClick()}}>Six Chan</button>
           </div>
         );
     }
