@@ -1,0 +1,30 @@
+.row {
+  background-color: grey;
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+}
+
+.boo {
+  background-color: white;
+  width: 33%;
+  margin: 5px;
+  font-size: 500%;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.click_disabled {
+  pointer-events: none;
+}
+
+.boo:hover, .clicky:hover {
+  cursor: pointer;
+}
+
+.clicky {
+  margin-top: 20px;
+}
