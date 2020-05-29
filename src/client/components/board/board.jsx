@@ -12,27 +12,103 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        status: "Click on any box to start"
       }
 
     }
 
+
+
     squareClick(something, something2){
+
         console.log( something, something2 );
         var playBoard = this.state.board;
-        console.log(playBoard)
-        console.log(playBoard[something][something2])
+        console.log(playBoard);
+        console.log(playBoard[something][something2]);
+
+        let winningStreak= 'X'.repeat(this.state.board.length);
+        let losingStreak= 'O'.repeat(this.state.board.length);
+        console.log(winningStreak);
+
+        const resetBoard=()=>{
+            console.log("Right here")
+            playBoard.forEach((row, rowIndex)=>{row.map((column,columnIndex)=>{console.log(playBoard[rowIndex][columnIndex]); playBoard[rowIndex][columnIndex]="i";})})
+            console.log(playBoard);
+            this.setState( { board: playBoard } );
+        }
+
+
+        function transpose(a) {
+            return Object.keys(a[0]).map(function(c) {
+                return a.map(function(r) { return r[c]; });
+            });
+        }
+
+        function checkHorizontal(board)
+        {
+                board.forEach(row=>{
+                            console.log(row.join(''));
+                            if(row.join('')===winningStreak)
+                            {
+                                console.log("win liao");
+                                resetBoard();
+                                turns =0;
+                                return;
+                            }
+                            if(row.join('')===losingStreak)
+                                {
+                                    console.log("losingStreak liao");
+                                    resetBoard();
+                                    turns = 0;
+                                    return;
+                                }
+                            })
+        }
+
+        const checkWinningState=()=>{
+                                console.log("something something");
+                                //This is for horizontal
+                                // playBoard.forEach(row=>{
+                                //                         console.log(row.join(''));
+                                //                         if(row.join('')===winningStreak)
+                                //                         {
+                                //                             console.log("win liao");
+                                //                             resetBoard();
+                                //                             return;
+                                //                         }
+                                //                         if(row.join('')===losingStreak)
+                                //                             {
+                                //                                 console.log("losingStreak liao");
+                                //                                 resetBoard();
+                                //                                 return;
+                                //                             }
+                                //                         })
+                                let transposedPlayBoard = transpose(playBoard);
+                                console.log(transposedPlayBoard);
+                                console.log(playBoard)
+                                checkHorizontal(playBoard);
+                                checkHorizontal(transposedPlayBoard);
+
+                                };
+
+
+
         if(playBoard[something2][something] === "i")
         {
         if(turns%2==0)
             {
                 playBoard[something2][something]= "X"
                 turns++;
+                this.setState( { status: "Player 2 turn" } );
+                checkWinningState();
             }
         else
         if(turns%2==1){
                 playBoard[something2][something]= "O"
                 turns++;
+                this.setState( { status: "Player 1 turn" } );
+                checkWinningState();
             }
         }
 
@@ -81,8 +157,15 @@ class Board extends React.Component {
         });
 
         return (
+        <div>
+            <div className ="row">
+                <div className = "col-12">
+                    <p>Status: {this.state.status}</p>
+                </div>
+            </div>
           <div className="item">
             {board}
+          </div>
           </div>
         );
     }
