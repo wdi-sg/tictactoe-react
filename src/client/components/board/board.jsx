@@ -13,7 +13,9 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i']
         ],
-        status: "Click on any box to start"
+        status: "Click on any box to start",
+        playerOneScore: 0,
+        playerTwoScore: 0
       }
 
     }
@@ -37,7 +39,19 @@ class Board extends React.Component {
             //console.log(playBoard);
             this.setState( { board: playBoard } );
         }
+        const checkDraw=(board)=>{
+            console.log("Right here")
+            let drawCount=0;
+            playBoard.forEach((row, rowIndex)=>{row.forEach((column,columnIndex)=>{ if(playBoard[rowIndex][columnIndex]!=="i"){
+                drawCount++;
+            }})})
+            if(drawCount===9)
+            {
+                resetBoard();
+                turns = 0;
+            }
 
+        }
 
         function transpose(a) {
             return Object.keys(a[0]).map(function(c) {
@@ -45,7 +59,25 @@ class Board extends React.Component {
             });
         }
 
+        const playerOneScoreIncrease=(()=>{
+                               resetBoard();
+                turns =0;
+                console.log(this.state.playerOneScore)
+                let currentWinScore = this.state.playerOneScore ;
+                currentWinScore++;
+                console.log(`The current win score is ${currentWinScore}`)
+                this.setState({playerOneScore: currentWinScore});
+                })
 
+        const playerTwoScoreIncrease=(()=>{
+                  resetBoard();
+                    let currentLoseScore = this.state.playerTwoScore ;
+                    currentLoseScore++;
+                    console.log(`The current win score is ${currentLoseScore}`)
+                    this.setState({playerTwoScore: currentLoseScore});
+
+                    turns = 0;
+                })
 
         const diagonalArrayCheck=(board=>{
             let diagonalArray=[]
@@ -57,15 +89,14 @@ class Board extends React.Component {
                         if(diagonalArray.join('')===winningStreak)
             {
                 console.log("win liao");
-                resetBoard();
-                turns =0;
+
+                playerOneScoreIncrease();
                 return;
             }
             if(diagonalArray.join('')===losingStreak)
                 {
                     console.log("losingStreak liao");
-                    resetBoard();
-                    turns = 0;
+                    playerTwoScoreIncrease();
                     return;
                 }
         })
@@ -81,15 +112,13 @@ class Board extends React.Component {
                         if(diagonalArray.join('')===winningStreak)
             {
                 console.log("win liao");
-                resetBoard();
-                turns =0;
+                playerOneScoreIncrease();
                 return;
             }
             if(diagonalArray.join('')===losingStreak)
                 {
                     console.log("losingStreak liao");
-                    resetBoard();
-                    turns = 0;
+                   playerTwoScoreIncrease();
                     return;
                 }
         })
@@ -101,15 +130,13 @@ class Board extends React.Component {
                             if(row.join('')===winningStreak)
                             {
                                 console.log("win liao");
-                                resetBoard();
-                                turns =0;
+                                 playerOneScoreIncrease();
                                 return;
                             }
                             if(row.join('')===losingStreak)
                                 {
                                     console.log("losingStreak liao");
-                                    resetBoard();
-                                    turns = 0;
+                                    playerTwoScoreIncrease();
                                     return;
                                 }
                             })
@@ -141,6 +168,7 @@ class Board extends React.Component {
 
                                 diagonalArrayCheck(playBoard);
                                 reverseDiagonalArrayCheck(playBoard);
+                                checkDraw(playBoard);
 
 
                                 };
@@ -213,7 +241,7 @@ class Board extends React.Component {
         <div>
             <div className ="row">
                 <div className = "col-12">
-                    <p>Status: {this.state.status}</p>
+                    <p>Status: {this.state.status} &nbsp; Player 1 Score: {this.state.playerOneScore}  &nbsp; Player 2 Score: {this.state.playerTwoScore}</p>
                 </div>
             </div>
           <div className="item">
