@@ -242,16 +242,35 @@ class Board extends React.Component {
 
                                 };
 
-
+        const computerMove = () =>{
+            console.log("I am computer")
+            console.log(Math.floor(Math.random()*playBoard.length));
+            for(;;)
+            {
+                let xCoordinate = Math.floor(Math.random()*playBoard.length);
+                let yCoordinate = Math.floor(Math.random()*playBoard.length);
+                if(playBoard[xCoordinate][yCoordinate]==="i")
+                {
+                    console.log("xCoordinate is"+xCoordinate);
+                    console.log("yCoordinate is"+yCoordinate);
+                    playBoard[xCoordinate][yCoordinate]= "O";
+                    this.setState( { board: playBoard } );
+                    checkWinningState();
+                    break;
+                }
+            }
+        }
 
         if(playBoard[something2][something] === "i")
         {
         if(turns%2==0)
             {
                 playBoard[something2][something]= "X"
-                turns++;
+                turns += 2;
                 this.setState( { status: "Player 2 turn" } );
+                this.setState( { board: playBoard } );
                 checkWinningState();
+                computerMove();
             }
         else
         if(turns%2==1){
