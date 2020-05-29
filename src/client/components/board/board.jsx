@@ -22,19 +22,19 @@ class Board extends React.Component {
 
     squareClick(something, something2){
 
-        console.log( something, something2 );
+        //console.log( something, something2 );
         var playBoard = this.state.board;
-        console.log(playBoard);
-        console.log(playBoard[something][something2]);
-
-        let winningStreak= 'X'.repeat(this.state.board.length);
-        let losingStreak= 'O'.repeat(this.state.board.length);
-        console.log(winningStreak);
+        //console.log(playBoard);
+        //console.log(playBoard[something][something2]);
+        let boardWidth = this.state.board.length;
+        let winningStreak= 'X'.repeat(boardWidth);
+        let losingStreak= 'O'.repeat(boardWidth);
+        //console.log(winningStreak);
 
         const resetBoard=()=>{
             console.log("Right here")
             playBoard.forEach((row, rowIndex)=>{row.map((column,columnIndex)=>{console.log(playBoard[rowIndex][columnIndex]); playBoard[rowIndex][columnIndex]="i";})})
-            console.log(playBoard);
+            //console.log(playBoard);
             this.setState( { board: playBoard } );
         }
 
@@ -44,6 +44,55 @@ class Board extends React.Component {
                 return a.map(function(r) { return r[c]; });
             });
         }
+
+
+
+        const diagonalArrayCheck=(board=>{
+            let diagonalArray=[]
+            for(let diagonalCount = 0; diagonalCount < board.length; diagonalCount++)
+            {
+                diagonalArray.push(board[diagonalCount][diagonalCount]);
+            }
+            console.log(diagonalArray);
+                        if(diagonalArray.join('')===winningStreak)
+            {
+                console.log("win liao");
+                resetBoard();
+                turns =0;
+                return;
+            }
+            if(diagonalArray.join('')===losingStreak)
+                {
+                    console.log("losingStreak liao");
+                    resetBoard();
+                    turns = 0;
+                    return;
+                }
+        })
+
+
+            const reverseDiagonalArrayCheck=(board=>{
+            let diagonalArray=[]
+            for(let diagonalCount = 0; diagonalCount < board.length; diagonalCount++)
+            {
+                diagonalArray.push(board[diagonalCount][board.length-1-diagonalCount]);
+            }
+            console.log(diagonalArray);
+                        if(diagonalArray.join('')===winningStreak)
+            {
+                console.log("win liao");
+                resetBoard();
+                turns =0;
+                return;
+            }
+            if(diagonalArray.join('')===losingStreak)
+                {
+                    console.log("losingStreak liao");
+                    resetBoard();
+                    turns = 0;
+                    return;
+                }
+        })
 
         function checkHorizontal(board)
         {
@@ -89,6 +138,10 @@ class Board extends React.Component {
                                 console.log(playBoard)
                                 checkHorizontal(playBoard);
                                 checkHorizontal(transposedPlayBoard);
+
+                                diagonalArrayCheck(playBoard);
+                                reverseDiagonalArrayCheck(playBoard);
+
 
                                 };
 
