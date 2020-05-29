@@ -17,6 +17,10 @@
   align-items: center;
 }
 
-.boo:hover {
+.boo:hover, .clicky:hover {
   cursor: pointer;
+}
+
+.clicky {
+  margin-top: 20px;
 }
