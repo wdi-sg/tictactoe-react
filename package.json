@@ -43,5 +43,16 @@
     "express": ">=4.16.4",
     "react": "^16.8.2",
     "react-dom": "^16.8.2"
-  }
+  },
+  "name": "tictactoe-react",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenneththesheep/tictactoe-react.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/kenneththesheep/tictactoe-react/issues"
+  },
+  "homepage": "https://github.com/kenneththesheep/tictactoe-react#readme"
 }
