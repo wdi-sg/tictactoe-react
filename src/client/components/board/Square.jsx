@@ -6,8 +6,7 @@ class Square extends React.Component {
         super()
 
         this.state = {
-            show: " ",
-            counter: 0
+            show: " "
         }
     }
 
@@ -16,15 +15,15 @@ class Square extends React.Component {
         this.setState({show: "X"});
     }
 
-    sendData(){
-        this.props.callback('hello there');
+    sendData(counter){
+        this.props.callback(counter+1);
     }
 
     render() {
         const col = this.props.col;
         const colIndex = this.props.colIndex;
         const rowIndex = this.props.rowIndex;
-        console.log(this.state)
+        let counter = this.props.counter;
 
         // make each column
         return (
@@ -33,7 +32,7 @@ class Square extends React.Component {
                 key={colIndex}
                 onClick={()=>{
                     this.squareClick(colIndex, rowIndex);
-                    this.sendData();
+                    this.sendData(counter);
                 }}
 
             >

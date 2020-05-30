@@ -4,30 +4,32 @@ import Square from './Square';
 
 
 class Row extends React.Component {
-    constructor(){
-
+    constructor() {
         super()
 
-        this.state = {
-            message: ""
-        }
+        this.sendData = (counter) => {
+            this.props.callback(counter)
+        },
 
-        this.callbackFunction = (childData) => {
-            this.setState({message: childData})
+        // Counter to check which player turn
+        this.rowCallbackFunction = (counter) => {
+            this.sendData(counter)
         }
     }
+
 
 
     render() {
         // make a single row
         const row = this.props.row
         const rowIndex = this.props.rowIndex
+        let counter = this.props.counter
+
         const rows = row.map( (col,colIndex) => {
             // make square
             return (
             <div>
-            <Square col={col} colIndex={colIndex} rowIndex={rowIndex} callback={this.callbackFunction}/>
-            <p>{this.state.message}</p>
+                <Square col={col} colIndex={colIndex} rowIndex={rowIndex} counter={counter} callback={this.rowCallbackFunction}/>
             </div>
             )
         });
