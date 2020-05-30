@@ -7,19 +7,30 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
+          ['','',''],
+          ['','',''],
+          ['','','']
         ]
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(event, colIndex, rowIndex){
+        console.log("event is: " + event);
+        console.log( "column and Index is: " + colIndex + "," + rowIndex );
+
+        let newBoard = this.state.board
+        newBoard[rowIndex][colIndex] = "X"
+
+        this.setState({
+            board: newBoard
+        })
     }
 
+
+
     render() {
+
         console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
@@ -33,11 +44,10 @@ class Board extends React.Component {
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
+                            this.squareClick(event, colIndex, rowIndex);
                         }}
-
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
