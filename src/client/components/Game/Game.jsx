@@ -12,6 +12,7 @@ const Game = () => {
     const squareXO = xIsNext ? "X" : "O";
 
     const clickHandler = (index) => {
+        console.log(index);
         const historyPoint = history.slice(0, stepNumber + 1);
         console.log('History Point:' + ' ' + historyPoint);
         const current = historyPoint[stepNumber];
@@ -26,7 +27,7 @@ const Game = () => {
         squares[index] = squareXO;
         setHistory([...historyPoint, squares]);
         setStepNumber(historyPoint.length);
-        setXIsNext(!xIsNext);
+        setXisNext(!xIsNext);
     };
 
     const jumpTo = (step) => {

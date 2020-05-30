@@ -17,3 +17,5 @@ const calculateWinner = (squares) => {
     }
     return null;
 }
+
+export default calculateWinner;

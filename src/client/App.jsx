@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { hot } from 'react-hot-loader';
 
-import Board from './components/board/board';
+import Game from './components/Game/Game';
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Welcome.</p>
-        <Board/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <p>Tic Tac Toe... again</p>
+                <Game/>
+            </div>
+        );
+    }
 }
 
 export default hot(module)(App);
