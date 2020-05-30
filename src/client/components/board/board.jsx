@@ -1,45 +1,45 @@
 import React from 'react';
 
 class Board extends React.Component {
-    constructor(){
+  constructor(){
 
-      super()
+    super()
 
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+    this.state = {
+      board: [
+        ['i','i','i'],
+        ['i','i','i'],
+        ['i','i','i']
+      ]
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+  }
+
+  squareClick(column, row){
+    console.log( column, row );
+    let editBoard = this.state.board;
+    if(editBoard[row][column] === 'i' || editBoard[row][column] === 'x'){
+      editBoard[row][column] = 'o';
+    }else if(editBoard[row][column] === 'o'){
+      editBoard[row][column] = 'x';
     }
+    this.setState({ board: editBoard })
+  }
 
     render() {
-        console.log("board", this.state.board);
+      console.log("board", this.state.board);
 
-        const board = this.state.board.map( (row,rowIndex) => {
+      const board = this.state.board.map( (row,rowIndex) => {
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+        // make a single row
+        const rows = row.map( (col,colIndex) => {
 
-            // make each column
-            return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
-            );
+        // make each column
+        return (
+          <span className="boo" key={colIndex} onClick={()=>{this.squareClick(colIndex, rowIndex);}}>
+            [ {col} ]
+          </span>
+        );
 
           });
 
