@@ -4,7 +4,7 @@ class Player extends React.Component {
 
         handleForm(e) {
             e.preventDefault();
-            console.log(this.props.player(e.target.player.value));
+            this.props.player(e.target.player.value)
         }
 
 

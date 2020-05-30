@@ -1,5 +1,5 @@
 import React from 'react';
-import Player from './Player';
+import Status from './Status';
 
 class Board extends React.Component {
     constructor(props){
@@ -45,7 +45,9 @@ class Board extends React.Component {
                 board: newBoard,
                 player: this.state.player === "X" ? "O" : "X"
             });
+
             this.checkWinner();
+
           }
         }
 }
@@ -54,23 +56,20 @@ class Board extends React.Component {
         this.setState({ player })
     }
 
-render () {
-    const Box = this.state.board.map((box, index) =>
+    renderBoxes() {
+        return this.state.board.map((box, index) =>
         <div
             className="box"
             key={index} onClick={() =>
                 this.handleClick(index)}>{box}</div>)
+    }
 
-    let status = this.state.player ?
-        <h2>Next Player is {this.state.player}</h2> :
-        <Player player={(e) => this.setPlayer(e)}
-        />
-
+render () {
     return (
         <div>
-        {status}
+        <Status player={this.state.player} setPlayer={(e) => {this.setPlayer(e)}} />
         <div className="board">
-            {Box}
+            {this.renderBoxes()}
         </div>
         </div>
         )
