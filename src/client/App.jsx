@@ -1,14 +1,15 @@
-import React from 'react';
-import { hot } from 'react-hot-loader';
+import React from "react";
+import { hot } from "react-hot-loader";
 
-import Board from './components/board/board';
+import Board from "./components/board/board";
+import Board1 from "./components/board/board1";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Welcome.</p>
-        <Board/>
+        <p>Welcome!!!</p>
+        <Board1 />
       </div>
     );
   }
