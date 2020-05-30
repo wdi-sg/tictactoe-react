@@ -1,0 +1,14 @@
+.board{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    border-style: ridge;
+    border: 2px solid black;
+    border-radius: 10px;
+
+
+}
+
+.boardColumn{
+    border: 2px solid black;
+}
