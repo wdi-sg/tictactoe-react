@@ -1,64 +1,81 @@
 import React from 'react';
+import Player from './Player';
 
 class Board extends React.Component {
-    constructor(){
-
-      super()
+    constructor(props){
+    super(props)
 
       this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+        board: Array(9).fill(null),
+        player: null,
+        winner: null
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    checkWinner() {
+        let winningLines = [
+            ["0", "1", "2"],
+            ["3", "4", "5"],
+            ["6", "7", "8"],
+            ["0", "3", "6"],
+            ["1", "4", "7"],
+            ["2", "5", "8"],
+            ["0", "4", "8"],
+            ["2", "4", "8"]
+        ]
+        for(let index = 0; index < winningLines.length; index++) {
+            const [a, b, c] = winningLines[index];
+            if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]) {
+                alert("You've won");
+                this.setState ({
+                    winner: this.state.player
+                })
+            }
+        }
     }
 
-    render() {
-        console.log("board", this.state.board);
+    handleClick(index) {
+        if(this.state.player && !this.state.winner) {
+            let newBoard = this.state.board
+            if(this.state.board[index] === null) {
+                newBoard[index] = this.state.player
 
-        const board = this.state.board.map( (row,rowIndex) => {
+            this.setState({
+                board: newBoard,
+                player: this.state.player === "X" ? "O" : "X"
+            });
+            this.checkWinner();
+          }
+        }
+}
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+    setPlayer(player) {
+        this.setState({ player })
+    }
 
-            // make each column
-            return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
+render () {
+    const Box = this.state.board.map((box, index) =>
+        <div
+            className="box"
+            key={index} onClick={() =>
+                this.handleClick(index)}>{box}</div>)
 
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
-            );
+    let status = this.state.player ?
+        <h2>Next Player is {this.state.player}</h2> :
+        <Player player={(e) => this.setPlayer(e)}
+        />
 
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
-          );
-
-        });
-
-        return (
-          <div className="item">
-            {board}
-          </div>
-        );
+    return (
+        <div>
+        {status}
+        <div className="board">
+            {Box}
+        </div>
+        </div>
+        )
     }
 }
+
 
 export default Board;

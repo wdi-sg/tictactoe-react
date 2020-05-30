@@ -6,9 +6,11 @@ import Board from './components/board/board';
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <p>Welcome.</p>
+      <div className="container">
+        <p>Tic Tac Toe</p>
+
         <Board/>
+
       </div>
     );
   }
