@@ -1,4 +1,6 @@
 import React from 'react';
+import styles from './board.scss'
+import Row from './Row'
 
 class Board extends React.Component {
     constructor(){
@@ -23,34 +25,9 @@ class Board extends React.Component {
         console.log("board", this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
-
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
-
-            // make each column
             return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
-            );
-
-          });
-
-          // return the complete row
-          return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
-          );
-
+            <Row row={row} rowIndex={rowIndex}/>
+            )
         });
 
         return (
