@@ -1,5 +1,6 @@
 import React from 'react';
 import Status from './Status';
+import Player from './Player';
 
 class Board extends React.Component {
     constructor(props){
@@ -24,9 +25,15 @@ class Board extends React.Component {
             ["0", "4", "8"],
             ["2", "4", "8"]
         ]
+        this.checkMatch(winningLines);
+
+    }
+
+    checkMatch(winningLines) {
         for(let index = 0; index < winningLines.length; index++) {
             const [a, b, c] = winningLines[index];
-            if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]) {
+            let board = this.state.board;
+            if(board[a] && board[a] === board[b] && board[a] === board[c]) {
                 alert("You've won");
                 this.setState ({
                     winner: this.state.player
@@ -34,6 +41,8 @@ class Board extends React.Component {
             }
         }
     }
+
+
 
     handleClick(index) {
         if(this.state.player && !this.state.winner) {
@@ -64,13 +73,26 @@ class Board extends React.Component {
                 this.handleClick(index)}>{box}</div>)
     }
 
+    reset() {
+        this.setState({
+            player: null,
+            board: null,
+            board: Array(9).fill(null)
+        })
+
+    }
+
 render () {
     return (
         <div>
-        <Status player={this.state.player} setPlayer={(e) => {this.setPlayer(e)}} />
+        <Status
+            player={this.state.player} setPlayer={(e) =>
+            {this.setPlayer(e)}}
+            winner={this.state.winner} />
         <div className="board">
             {this.renderBoxes()}
         </div>
+        <button disabled={!this.state.winner} onClick={() => this.reset()}>Reset</button>
         </div>
         )
     }
