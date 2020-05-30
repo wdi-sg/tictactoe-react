@@ -10,9 +10,14 @@ class Square extends React.Component {
         }
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
-        this.setState({show: "X"});
+    squareClick(counter){
+        if (counter%2 === 0) {
+            this.setState({show: "X"});
+        }
+        else{
+            this.setState({show: "O"});
+        }
+
     }
 
     sendData(counter){
@@ -31,7 +36,7 @@ class Square extends React.Component {
                 className={styles.square}
                 key={colIndex}
                 onClick={()=>{
-                    this.squareClick(colIndex, rowIndex);
+                    this.squareClick(counter);
                     this.sendData(counter);
                 }}
 
