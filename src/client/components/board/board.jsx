@@ -10,13 +10,32 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        playerTurn: 1
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(colIndex, rowIndex){
+        const tempBoard = this.state.board;
+
+        if (tempBoard[rowIndex][colIndex] === "i") {
+            if (this.state.playerTurn === 1) {
+                tempBoard[rowIndex][colIndex] = "X";
+
+                this.setState({
+                    board: tempBoard,
+                    playerTurn: 2
+                })
+            } else {
+                tempBoard[rowIndex][colIndex] = "O";
+
+                this.setState({
+                    board: tempBoard,
+                    playerTurn: 1
+                })
+            }
+        }
     }
 
     render() {
@@ -29,16 +48,16 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
-                        className="boo"
+                    <div
+                        className="square"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col === "i" ? "" : col}
+                    </div>
             );
 
           });
