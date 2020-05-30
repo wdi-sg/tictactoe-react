@@ -1,10 +1,16 @@
-.boo{
+.square{
 	border: solid black;
-	display: inline-block;
-	padding: 2px;
-	font-size: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+	width: 50px;
+}
+
+.placement{
+	font-size: 50px;
 }
 
 .row{
-	margin: 0px;
+	display: flex;
 }

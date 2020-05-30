@@ -1,34 +1,24 @@
 import React from 'react';
-import styles from './board.scss'
+import styles from './board.scss';
+import Square from './Square';
 
 
 class Row extends React.Component {
+
     render() {
-        console.log('hello')
         // make a single row
         const row = this.props.row
         const rowIndex = this.props.rowIndex
         const rows = row.map( (col,colIndex) => {
-
-            // make each column
+            // make square
             return (
-                <p
-                    className={styles.boo}
-                    key={colIndex}
-                    onClick={()=>{
-                        this.squareClick(colIndex, rowIndex);
-                    }}
-
-                >
-                    {col} : {colIndex} : {rowIndex}
-                </p>
-            );
-
+            <Square col={col} colIndex={colIndex} rowIndex={rowIndex} />
+            )
         });
 
         // return the complete row
         return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className={styles.row}>
               {rows}
             </div>
 
