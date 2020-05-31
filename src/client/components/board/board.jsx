@@ -10,21 +10,58 @@ class Board extends React.Component {
           ['','',''],
           ['','',''],
           ['','','']
-        ]
+        ],
+        player: "X"
       }
 
     }
 
+    // checkWinner() {
+    //     let winLines =
+    //     [
+    //         ["00", "01", "02"],
+    //         ["01", "11", "21"]
+    //     ]
+
+
+
+    //     for (let i = 0; i < winLines.length; i++) {
+    //         const [a, b, c] = winLines[i];
+    //         if (this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]) {
+    //             console.log("You win!")
+    //         }
+    //     }
+    // }
+
+    checkWin() {
+        let board = this.state.board
+        if((board[0][0] && board[0][1] && board[0][2]) === "X") {
+            alert("player " + this.state.player + "  wins!")
+        }
+    }
+
     squareClick(event, colIndex, rowIndex){
-        console.log("event is: " + event);
-        console.log( "column and Index is: " + colIndex + "," + rowIndex );
+        console.log( "row and col index are: " + rowIndex + "," + colIndex);
 
         let newBoard = this.state.board
-        newBoard[rowIndex][colIndex] = "X"
 
-        this.setState({
-            board: newBoard
+        if (this.state.board[rowIndex][colIndex] === '') {
+                newBoard[rowIndex][colIndex] = this.state.player
+
+                this.setState({
+                    board: newBoard,
+                    player: this.state.player === "X" ? "O" : "X"
         })
+
+        this.checkWin()
+        // this.checkWinner()
+        }
+
+
+
+
+
+
     }
 
 
@@ -32,6 +69,7 @@ class Board extends React.Component {
     render() {
 
         console.log("board", this.state.board);
+        console.log("player turn: " + this.state.player)
 
         const board = this.state.board.map( (row,rowIndex) => {
 
