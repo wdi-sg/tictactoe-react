@@ -700,8 +700,10 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
   }_createClass(Board, [{ key: "squareClick", value: function squareClick(
 
-    something, something2) {
-      console.log(something, something2);
+    yAxis, xAxis) {
+      console.log(yAxis, xAxis);
+      var updateBoard = this.state.board[xAxis][yAxis] = "x";
+      console.log("board", this.state.board);
     } }, { key: "render", value: function render()
 
     {var _this2 = this;
@@ -753,6 +755,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"boo":"_1NKRTSXmRsNUlAqIQNrbOJ"};
 
 /***/ })
 /******/ ]);
