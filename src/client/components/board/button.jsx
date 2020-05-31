@@ -14,14 +14,13 @@ class Button extends React.Component {
 
   render() {
     return (
-      <div className='col border right' style={{marginRight:'20px', padding:'0px'}}>
-        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1'><i className="material-icons right">arrow_drop_down</i>Board Size</a>
+      <div className='col s12 m3 offset-m1 border' style={{padding:'0px', marginBottom:'5px'}}>
+        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1' style={{width:"100%"}}><i className="material-icons right">arrow_drop_down</i>Board</a>
 
         <ul id='dropdown1' className='dropdown-content'>
-          <li><a onClick={this.props.dropdown}>one</a></li>
-          <li><a onClick={this.props.dropdown}>two</a></li>
-          <li className="divider" tabIndex="-1"></li>
-          <li><a onClick={this.props.dropdown}>three</a></li>
+          <li><a onClick={this.props.dropdown}>THREE</a></li>
+          <li><a onClick={this.props.dropdown}>FOUR</a></li>
+          <li><a onClick={this.props.dropdown}>FIVE</a></li>
         </ul>
       </div>
     );
