@@ -7,7 +7,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Welcome.</p>
+        <p>Click on a box to start game.</p>
         <Board/>
       </div>
     );
