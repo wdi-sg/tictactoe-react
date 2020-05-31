@@ -18,9 +18,9 @@ class Button extends React.Component {
         <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1' style={{width:"100%"}}><i className="material-icons right">arrow_drop_down</i>Board</a>
 
         <ul id='dropdown1' className='dropdown-content'>
-          <li><a onClick={this.props.dropdown}>THREE</a></li>
-          <li><a onClick={this.props.dropdown}>FOUR</a></li>
-          <li><a onClick={this.props.dropdown}>FIVE</a></li>
+          <li><a onClick={this.props.dropdown1}>THREE</a></li>
+          <li><a onClick={this.props.dropdown2}>FOUR</a></li>
+          <li><a onClick={this.props.dropdown3}>FIVE</a></li>
         </ul>
       </div>
     );

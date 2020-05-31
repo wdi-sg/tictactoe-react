@@ -19,6 +19,7 @@ class Board extends React.Component {
     }
   }
 
+
   play(){
     this.setState({
       turn: 'Player One\'s Turn'
@@ -240,7 +241,7 @@ class Board extends React.Component {
             </div>
           </div>
 
-            <Button dropdown={this.onBoardSize}/>
+            <Button dropdown1={this.onBoardSize} dropdown2={this.board4}/>
 
         </div>
         <div className='row' style={{padding:'0 20px'}}>

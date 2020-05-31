@@ -703,6 +703,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
   }_createClass(Board, [{ key: "play", value: function play()
 
+
     {
       this.setState({
         turn: 'Player One\'s Turn' });
@@ -924,7 +925,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
 
 
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], { dropdown: this.onBoardSize })),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_button_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], { dropdown1: this.onBoardSize, dropdown2: this.board4 })),
 
 
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "row", style: { padding: '0 20px' } },
@@ -978,9 +979,9 @@ Button = /*#__PURE__*/function (_React$Component) {_inherits(Button, _React$Comp
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { className: "right dropdown-trigger waves-effect waves-black btn-flat", "data-target": "dropdown1", style: { width: "100%" } }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", { className: "material-icons right" }, "arrow_drop_down"), "Board"),
 
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", { id: "dropdown1", className: "dropdown-content" },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown }, "THREE")),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown }, "FOUR")),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown }, "FIVE")))));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown1 }, "THREE")),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown2 }, "FOUR")),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", { onClick: this.props.dropdown3 }, "FIVE")))));
 
 
 
