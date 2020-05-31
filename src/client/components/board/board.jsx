@@ -15,10 +15,11 @@ class Board extends React.Component {
       text: null,
       turn: 'UwU',
       playerOneScore: 0,
-      playerTwoScore: 0
+      playerTwoScore: 0,
+      class: "box3 waves-effect btn-flat col s4",
+      test: 'testing'
     }
   }
-
 
   play(){
     this.setState({
@@ -27,16 +28,18 @@ class Board extends React.Component {
   }
 
   refresh(){
-    this.setState({
-      board: [
-        [null,null,null],
-        [null,null,null],
-        [null,null,null]
-      ],
-      click: 0,
-      text: null,
-      turn: 'Player One\'s Turn'
-    })
+    if (this.state.turn != 'UwU') {
+      this.setState({
+        board: [
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        click: 0,
+        text: null,
+        turn: 'Player One\'s Turn'
+      })
+    }
   }
 
   squareClick(col,row){
@@ -65,7 +68,7 @@ class Board extends React.Component {
       }
 
       let num = this.state.click + 1;
-      if (this.state.click == 8) {
+      if (this.state.click == length*length-1) {
         this.state.turn = 'Game Ended!'
         this.state.text = <div className='row border left-align' style={{padding: '7px 15px 8px 15px',width:'300px'}}>It's a draw!</div>
       }
@@ -90,9 +93,9 @@ class Board extends React.Component {
       }
 
       //check diagonal "/" win
-      if (col+row == 2) {
+      if (col+row == length-1) {
         for(let i=0; i<length; i++){
-          if (tempBoard[i][2-i] == 'X') {
+          if (tempBoard[i][length-1-i] == 'X') {
             matchCount++;
           }
         }
@@ -129,9 +132,9 @@ class Board extends React.Component {
       }
 
       //check diagonal "/" win
-      if (col+row == 2) {
+      if (col+row == length-1) {
         for(let i=0; i<length; i++){
-          if (tempBoard[i][2-i] == 'O') {
+          if (tempBoard[i][length-1-i] == 'O') {
             matchCount++;
           }
         }
@@ -167,7 +170,6 @@ class Board extends React.Component {
       matchCount=0;
     }
 
-    console.log('end of click')
     if (xWin > this.state.playerOneScore) {
       this.setState( {
         playerOneScore: xWin,
@@ -182,11 +184,41 @@ class Board extends React.Component {
         text:  <div className='row border left-align' style={{padding: '7px 15px 8px 15px',width:'300px'}}>Congratulations Player Two !</div>
       });
     }
-    console.log(matchCount)
+    console.log('end of click')
   }
 
-  onBoardSize() {
-    alert("Hello!");
+  board3() {
+    this.setState( {
+      board: [
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+      class: "box3 waves-effect btn-flat col s4"
+    })
+  }
+  board4() {
+    this.setState( {
+      board: [
+          [null,null,null,null],
+          [null,null,null,null],
+          [null,null,null,null],
+          [null,null,null,null]
+        ],
+      class: "box4 waves-effect btn-flat col s3"
+    })
+  }
+  board5() {
+    this.setState( {
+      board: [
+          [null,null,null,null,null],
+          [null,null,null,null,null],
+          [null,null,null,null,null],
+          [null,null,null,null,null],
+          [null,null,null,null,null]
+        ],
+      class: "box5 waves-effect btn-flat col"
+    })
   }
 
   render() {
@@ -200,7 +232,8 @@ class Board extends React.Component {
         // make each column
         return (
           <button
-            className="box waves-effect btn-flat col s4"
+            id="boardSize"
+            className={this.state.class}
             key={colIndex}
             onClick={()=>{
                 this.squareClick(colIndex, rowIndex);
@@ -212,7 +245,7 @@ class Board extends React.Component {
       });
 
       return (
-        <div key={rowIndex} id='board' className="boxrow row">
+        <div key={rowIndex} className="boxrow row center">
           {rows}
         </div>
       );
@@ -241,7 +274,11 @@ class Board extends React.Component {
             </div>
           </div>
 
-            <Button dropdown1={this.onBoardSize} dropdown2={this.board4}/>
+            <Button
+            dropdown1={this.board3.bind(this)}
+            dropdown2={this.board4.bind(this)}
+            dropdown3={this.board5.bind(this)}
+            />
 
         </div>
         <div className='row' style={{padding:'0 20px'}}>
