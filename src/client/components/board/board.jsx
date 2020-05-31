@@ -40,14 +40,14 @@ class Board extends React.Component {
       let winner;
       let playerOne = "O"
       let playerTwo = "X"
-      let player = '';
+      let player;
       let message;
       //check occurrence of each row and column for each player if equal to 3.
       const countOcc = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
       //display winner found.
       const winnerFound = (player) => {
         message = player + " wins!";
-        alert(message)
+        alert(message);
       };
       //check who is the winner by row.
       const whichPlayerWinRow = (rowIndex) => {
