@@ -45,7 +45,6 @@ class Board extends React.Component {
           player = "Player Two";
           winnerFound(player);
         }
-        console.log(stateBoard[rowIndex][0]);
       }
       //check who is the winner by column.
       const whichPlayerWinCol = (colIndex) => {
@@ -56,7 +55,6 @@ class Board extends React.Component {
           player = "Player Two";
           winnerFound(player);
         }
-        console.log(stateBoard[rowIndex][0]);
       }
       //check which row and column has 3 occurrence for the same symbol.
       const checkCountOcc = (arrRow, arrCol) => {
@@ -88,10 +86,6 @@ class Board extends React.Component {
         this.state.playerOneCol.push(colIndex);
         let playerOneRow = this.state.playerOneRow;
         let playerOneCol = this.state.playerOneCol;
-        console.log("playerOneRow:   " + playerOneRow);
-        console.log("playerOneCol:   " + playerOneCol);
-        console.log("currentCount playerOne: " +currentCount)
-        console.log("playerOne: " +player)
         //check diagonally for same symbol first. Then check rows and columns.
         if (stateBoard[0][0] === playerOne && stateBoard[0][0] === stateBoard[1][1] && stateBoard[1][1] === stateBoard[2][2] ){
           player = "Player One"
@@ -100,12 +94,11 @@ class Board extends React.Component {
           player = "Player One"
           winnerFound(player);
         } else if (currentCount === 8 && player === '') {
-          console.log(currentCount)
-          console.log(player)
           alert("It is a tie!")
         } else {
           checkCountOcc(playerOneRow, playerOneCol);
         }
+
       //Player two is when currentCount is not divisible by 2.
       } else if (currentCount%2 === 1 && stateBoard[rowIndex][colIndex] === " ") {
         stateBoard[rowIndex][colIndex] = playerTwo;
@@ -114,10 +107,6 @@ class Board extends React.Component {
         this.state.playerTwoCol.push(colIndex);
         let playerTwoRow = this.state.playerTwoRow;
         let playerTwoCol = this.state.playerTwoCol;
-        console.log("playerTwoRow:   " + playerTwoRow);
-        console.log("playerTwoCol:   " + playerTwoCol);
-        console.log("currentCount playerTwo: " +currentCount)
-        console.log("playerTwo: " +player)
         if (stateBoard[0][0] === playerTwo && stateBoard[0][0] === stateBoard[1][1] && stateBoard[1][1] === stateBoard[2][2] ){
           player = "Player Two"
           winnerFound(player);
@@ -125,8 +114,7 @@ class Board extends React.Component {
           player = "Player Two"
           winnerFound(player);
         } else if (currentCount === 8 && player === '') {
-          console.log(currentCount)
-          console.log(player)
+          //display tie
           alert("It is a tie!")
         } else {
           checkCountOcc(playerTwoRow, playerTwoCol)
@@ -135,8 +123,6 @@ class Board extends React.Component {
         this.setState( { counter: currentCount } );
       };
     };
-
-
 
     render() {
         // console.log("board", this.state.board);
