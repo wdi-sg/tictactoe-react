@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
 
 
@@ -14,18 +15,19 @@
         background-color:pink;
         font-family: 'Nunito Sans', sans-serif;
       }
-      .row{
-        border: 1px solid black;
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        height:100px;
-        width: 300px;
+      .boxrow{
+        width:300px;
+        margin-bottom: 0px;
+      }
+      .turn {
+        margin-left: 20px;
+        padding: 7px 15px 8px 15px;
+        width: 150px;
       }
       .box{
         font-size: 40px;
         padding: 0;
-        height:100%;
+        height:100px;
         border: 2px solid black;
         text-decoration:none;
       }
@@ -35,16 +37,20 @@
       .container {
         margin-top: 70px;
         border: 2px solid black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
       }
       .dropdown-content li>a {
         color:black;
       }
+      .border {
+        border: 2px solid black;
+      }
+      .border-b {
+        border-bottom: 2px solid black;
+      }
     </style>
 </head>
 <body>
+    <h1 style="text-align: center;">TIC TAC TOE</h1>
 <div id="app"></div>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>

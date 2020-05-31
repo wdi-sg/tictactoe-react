@@ -14,8 +14,8 @@ class Button extends React.Component {
 
   render() {
     return (
-      <div className='col right'>
-        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1'>Board Size</a>
+      <div className='col border right' style={{marginRight:'20px', padding:'0px'}}>
+        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1'><i className="material-icons right">arrow_drop_down</i>Board Size</a>
 
         <ul id='dropdown1' className='dropdown-content'>
           <li><a onClick={this.props.dropdown}>one</a></li>

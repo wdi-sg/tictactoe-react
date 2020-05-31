@@ -12,7 +12,8 @@ class Board extends React.Component {
         [null,null,null]
       ],
       click: 0,
-      win: ''
+      win: null,
+      turn: 'Player One\'s Turn'
     }
   }
 
@@ -29,14 +30,16 @@ class Board extends React.Component {
     let oWin = 0;
 
     //easy null check
-    if (this.state.board[row][col] == null){
+    if (this.state.board[row][col] == null && this.state.turn != 'Game Ended!'){
       console.log('this is null')
 
       if (this.state.click%2 == 0) {
         this.state.board[row][col] = 'X';
+        this.state.turn = 'Player Two\'s Turn';
         checkX();
       } else {
         this.state.board[row][col] = 'O';
+        this.state.turn = 'Player One\'s Turn';
         checkO();
       }
 
@@ -142,10 +145,16 @@ class Board extends React.Component {
 
     console.log('end of click')
     if (xWin == 1) {
-      this.setState( { win: "Congratulations Player One !" } )
+      this.setState( {
+        turn: 'Game Ended!',
+        win: <div className='row border left-align' style={{padding: '7px 15px 8px 15px',width:'300px'}}>Congratulations Player One !</div>
+      } )
     }
     if (oWin == 1) {
-      this.setState( { win: "Congratulations Player Two !" } )
+      this.setState( {
+        turn: 'Game Ended!',
+        win:  <div className='row border left-align' style={{padding: '7px 15px 8px 15px',width:'300px'}}>Congratulations Player Two !</div>
+      } )
     }
   }
 
@@ -176,7 +185,7 @@ class Board extends React.Component {
       });
 
       return (
-        <div key={rowIndex} className="row">
+        <div key={rowIndex} id='board' className="boxrow row">
           {rows}
         </div>
       );
@@ -184,14 +193,15 @@ class Board extends React.Component {
 
     return (
       <div className="container">
-        <div className='row'>
-          <div className='col-4-offset'>
-            <Button dropdown={this.onBoardSize}/>
-          </div>
+        <div className='row' style={{marginTop:'20px'}}>
+          <Button dropdown={this.onBoardSize}/>
+          <div className='turn border'>{this.state.turn}</div>
         </div>
-          {board}
         <div className='row'>
-          <div>{this.state.win}</div>
+          {board}
+        </div>
+        <div className='row center' style={{marginTop:'20px'}}>
+          {this.state.win}
         </div>
       </div>
     );
