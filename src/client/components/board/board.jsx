@@ -10,13 +10,16 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        turn: 1
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(yAxis, xAxis){
+        console.log( yAxis, xAxis );
+            var updateBoard = this.state.board[xAxis][yAxis] = "x";
+            console.log("board", this.state.board);
     }
 
     render() {
@@ -30,7 +33,7 @@ class Board extends React.Component {
             // make each column
             return (
                     <p
-                        className="boo"
+                        className="boo col"
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
