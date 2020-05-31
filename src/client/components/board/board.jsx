@@ -39,12 +39,25 @@ class Board extends React.Component {
             const board = this.state.board;
             board.forEach((row) => {
                 if (row.join() === "X,X,X") {
-                    console.log('player X wins')
+                    this.props.addScore(1)
                 }
                 else if (row.join() === "O,O,O") {
                     console.log('player O wins')
                 }
             })
+
+            if (board[0][0] + board[1][1] + board[2][2] === "X,X,X") {
+                console.log('player X wins')
+            }
+            else if (board[0][2] + board[1][1] + board[2][0] === "X,X,X") {
+                console.log('player X wins')
+            }
+            else if (board[0][0] + board[1][1] + board[2][2] === "O,O,O"){
+                console.log('player O wins')
+            }
+            else if (board[0][2] + board[1][1] + board[2][0] === "O,O,O") {
+                console.log('player O wins')
+            }
         }
     }
 

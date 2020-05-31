@@ -10,11 +10,29 @@ class Game extends React.Component{
             playerTwoScore: 0
         }
 
+        this.addScore = (player) => {
+            if (player === 1) {
+                this.setState({
+                    playerOneScore: this.state.playerOneScore + 1
+                })
+            }
+            else if (player === 2) {
+                this.setState({
+                    playerTwoScore: this.state.playerTwoScore + 1
+                })
+            }
+        }
+
     }
 
     render() {
+        console.log(this.state.playerOneScore)
         return(
-            <Board />
+            <div>
+                <p>Player 1 Score: {this.state.playerOneScore}</p>
+                <p>Player 2 Score: {this.state.playerTwoScore}</p>
+                <Board addScore = {this.addScore}/>
+            </div>
         )
     }
 }
