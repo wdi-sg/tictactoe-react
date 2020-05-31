@@ -102,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_3__);
 
 
@@ -646,7 +646,6 @@ App = /*#__PURE__*/function (_React$Component) {_inherits(App, _React$Component)
     {
       return (
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Welcome."),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_board_board__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 
 
@@ -683,9 +682,15 @@ function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.defaul
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) {if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {_typeof = function _typeof(obj) {return typeof obj;};} else {_typeof = function _typeof(obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;};}return _typeof(obj);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (_typeof(call) === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+/* harmony import */ var _winmessage_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+/* harmony import */ var _Board_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
+/* harmony import */ var _Board_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_Board_css__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) {if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {_typeof = function _typeof(obj) {return typeof obj;};} else {_typeof = function _typeof(obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;};}return _typeof(obj);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (_typeof(call) === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}
+
+var
 
 Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Component);
+  //Constructor for initial state - Set initial player and blank board
   function Board() {var _this;_classCallCheck(this, Board);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Board).call(this));
@@ -694,17 +699,85 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
       board: [
       ['i', 'i', 'i'],
       ['i', 'i', 'i'],
-      ['i', 'i', 'i']] };return _this;
+      ['i', 'i', 'i']],
+
+      player: "X",
+      winmessage: "" };return _this;
 
 
+  }
+  //Win condition
+  _createClass(Board, [{ key: "someoneHasWon", value: function someoneHasWon() {
+      var matchCounterDiagonal = 0;
+      var matchCounterReverseDiagonal = 0;
+      var boardSize = 3;
+      var winLength = 3;
 
-  }_createClass(Board, [{ key: "squareClick", value: function squareClick(
+      for (var i = 0; i < boardSize; i++) {
+        var matchCounterRow = 0;
+        var matchCounterColumn = 0;
+        //Diagonals
+        if (this.state.board[i][i] === this.state.player) {
+          matchCounterDiagonal++;
+        }
+        if (this.state.board[boardSize - i - 1][i] === this.state.player) {
+          matchCounterReverseDiagonal++;
+        }
+        //Rows and Columns
+        for (var k = 0; k < boardSize; k++) {
+          if (this.state.board[i][k] === this.state.player) {
+            matchCounterRow++;
+          }
+          if (this.state.board[k][i] === this.state.player) {
+            matchCounterColumn++;
+          }
+        }
+        //Check for matches
+        if (matchCounterRow === winLength || matchCounterColumn === winLength || matchCounterDiagonal === winLength || matchCounterReverseDiagonal === winLength) {
+          return true;
+        }
+      }
 
-    something, something2) {
-      console.log(something, something2);
-    } }, { key: "render", value: function render()
+    }
 
-    {var _this2 = this;
+    //Click Handler 
+  }, { key: "squareClick", value: function squareClick(event, colIndex, rowIndex) {
+      console.log(colIndex, rowIndex);
+      console.log(event.target);
+      var updatedObj = this.state;
+      //Update board
+      updatedObj.board[rowIndex][colIndex] = updatedObj.player;
+      //Check Win
+      if (this.someoneHasWon()) {
+        console.log("win!");
+        updatedObj.winmessage = "You win young fella";
+      }
+      //Player switch
+      if (updatedObj.player === "X") {
+        updatedObj.player = "O";
+      } else {
+        updatedObj.player = "X";
+      }
+      //Update state and re-render board
+      this.setState(updatedObj);
+    }
+
+    //Reset Game Click Handler
+  }, { key: "resetClick", value: function resetClick() {
+      var resetObj = {
+        board: [
+        ['i', 'i', 'i'],
+        ['i', 'i', 'i'],
+        ['i', 'i', 'i']],
+
+        player: "X",
+        winmessage: "" };
+
+      this.setState(resetObj);
+    }
+
+    //Render Board
+  }, { key: "render", value: function render() {var _this2 = this;
       console.log("board", this.state.board);
 
       var board = this.state.board.map(function (row, rowIndex) {
@@ -714,15 +787,16 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
           // make each column
           return (
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-              className: "boo",
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+              type: "checkbox",
+              className: "hellomyfriend",
               key: colIndex,
-              onClick: function onClick() {
-                _this2.squareClick(colIndex, rowIndex);
+              onClick: function onClick(ev) {
+                _this2.squareClick(ev, colIndex, rowIndex);
               } },
 
 
-            col, " : ", colIndex, " : ", rowIndex));
+            col, " - ", colIndex, " : ", rowIndex));
 
 
 
@@ -730,7 +804,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
         // return the complete row
         return (
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { key: rowIndex, className: "row" },
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { key: rowIndex, className: "hellomyfriend" },
           rows));
 
 
@@ -740,7 +814,9 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
       return (
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "item" },
-        board));
+        board,
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_winmessage_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], { message: this.state.winmessage }),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: function onClick() {_this2.resetClick();} }, "Reset Game")));
 
 
     } }]);return Board;}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
@@ -748,8 +824,42 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
 /* harmony default export */ __webpack_exports__["default"] = (Board);
 
+//To do - Add css
+//To do - make board and winning state dynamic
+//Maybe - Nest board component in a game component (for practice)
+
 /***/ }),
 /* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) {if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {_typeof = function _typeof(obj) {return typeof obj;};} else {_typeof = function _typeof(obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;};}return _typeof(obj);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (_typeof(call) === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+
+Winmessage = /*#__PURE__*/function (_React$Component) {_inherits(Winmessage, _React$Component);function Winmessage() {_classCallCheck(this, Winmessage);return _possibleConstructorReturn(this, _getPrototypeOf(Winmessage).apply(this, arguments));}_createClass(Winmessage, [{ key: "render", value: function render()
+    {
+      return (
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.message));
+
+    } }]);return Winmessage;}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Winmessage);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+module.exports = {"hellomyfriend":"_27c8nH-o5m_x_UmGO9NHTv"};
+
+/***/ }),
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
