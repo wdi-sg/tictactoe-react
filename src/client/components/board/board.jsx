@@ -7,52 +7,72 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ['','',''],
+          ['','',''],
+          ['','','']
+        ],
+        turn: 0
       }
 
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    squareClick(colIndex, rowIndex){
+        // console.log( something, something2 );
+        let newBoard = this.state.board;
+        let newTurn = this.state.turn;
+
+
+        if (newTurn % 2 == 0){
+            newBoard[rowIndex][colIndex] = 'X';
+            newTurn += 1;
+        } else {
+            newBoard[rowIndex][colIndex] = 'O',
+            newTurn -= 1;
+        }
+
+        this.setState({
+          board: newBoard,
+          turn: newTurn
+        })
+
     }
 
     render() {
-        console.log("board", this.state.board);
 
+        // mapping over each row in the board
         const board = this.state.board.map( (row,rowIndex) => {
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+          // mapping over each column in a row
+          const row_columns = row.map( (col,colIndex) => {
 
-            // make each column
+            // render each column
             return (
-                    <p
+                    <span
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
+                            // change state and change player
                             this.squareClick(colIndex, rowIndex);
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col}
+                    </span>
             );
 
           });
 
-          // return the complete row
+          // render the complete row
           return (
             <div key={rowIndex} className="row">
-              {rows}
+              {row_columns}
             </div>
 
           );
 
         });
 
+        // render the board
         return (
           <div className="item">
             {board}
