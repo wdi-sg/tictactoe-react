@@ -31,6 +31,20 @@ class Board extends React.Component {
                 counter: counter,
                 board: board
             })
+
+            this.checkWin()
+        }
+
+        this.checkWin = () => {
+            const board = this.state.board;
+            board.forEach((row) => {
+                if (row.join() === "X,X,X") {
+                    console.log('player X wins')
+                }
+                else if (row.join() === "O,O,O") {
+                    console.log('player O wins')
+                }
+            })
         }
     }
 
