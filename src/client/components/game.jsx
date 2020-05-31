@@ -31,7 +31,7 @@ class Game extends React.Component{
             <div>
                 <p>Player 1 Score: {this.state.playerOneScore}</p>
                 <p>Player 2 Score: {this.state.playerTwoScore}</p>
-                <Board addScore = {this.addScore}/>
+                <Board addScore = {this.addScore} scoreChange={this.state}/>
             </div>
         )
     }

@@ -17,6 +17,18 @@ class Board extends React.Component {
             counter: 0
         }
 
+        this.reset = () => {
+            this.setState({
+                board: [
+                    ['i','i','i'],
+                    ['i','i','i'],
+                    ['i','i','i']
+                ],
+
+                counter: 0
+            });
+        }
+
         // Counter to check which player turn
         this.addCounter = (counter, colIndex, rowIndex) => {
             let board = this.state.board
@@ -40,23 +52,29 @@ class Board extends React.Component {
             board.forEach((row) => {
                 if (row.join() === "X,X,X") {
                     this.props.addScore(1)
+                    this.reset();
                 }
                 else if (row.join() === "O,O,O") {
-                    console.log('player O wins')
+                    this.props.addScore(2)
+                    this.reset();
                 }
             })
 
             if (board[0][0] + board[1][1] + board[2][2] === "X,X,X") {
-                console.log('player X wins')
+                this.props.addScore(1)
+                this.reset();
             }
             else if (board[0][2] + board[1][1] + board[2][0] === "X,X,X") {
-                console.log('player X wins')
+                this.props.addScore(1)
+                this.reset();
             }
             else if (board[0][0] + board[1][1] + board[2][2] === "O,O,O"){
-                console.log('player O wins')
+                this.props.addScore(2)
+                this.reset();
             }
             else if (board[0][2] + board[1][1] + board[2][0] === "O,O,O") {
-                console.log('player O wins')
+                this.props.addScore(2)
+                this.reset();
             }
         }
     }
@@ -66,7 +84,7 @@ class Board extends React.Component {
 
         const board = this.state.board.map( (row,rowIndex) => {
             return (
-            <Row row={row} rowIndex={rowIndex} counter={this.state.counter} callback={this.addCounter}/>
+            <Row row={row} rowIndex={rowIndex} counter={this.state.counter} callback={this.addCounter} board={this.state.board} scoreChange={this.props.scoreChange}/>
             )
         });
 

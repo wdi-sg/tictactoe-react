@@ -9,13 +9,12 @@ class Row extends React.Component {
         // make a single row
         const row = this.props.row
         const rowIndex = this.props.rowIndex
-        let counter = this.props.counter
 
         const rows = row.map( (col,colIndex) => {
             // make square
             return (
             <div>
-                <Square col={col} colIndex={colIndex} rowIndex={rowIndex} counter={counter} callback={this.props.callback}/>
+                <Square col={col} colIndex={colIndex} rowIndex={rowIndex} counter={this.props.counter} callback={this.props.callback} scoreChange={this.props.scoreChange}/>
             </div>
             )
         });

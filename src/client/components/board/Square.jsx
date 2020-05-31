@@ -24,11 +24,20 @@ class Square extends React.Component {
         this.props.callback(counter+1, colIndex, rowIndex);
     }
 
+    componentDidUpdate(prevProps){
+        if (this.props.scoreChange.playerOneScore !== prevProps.scoreChange.playerOneScore || this.props.scoreChange.playerTwoScore !== prevProps.scoreChange.playerTwoScore) {
+            this.setState({
+                show: " "
+            })
+        }
+    }
+
     render() {
         const col = this.props.col;
         const colIndex = this.props.colIndex;
         const rowIndex = this.props.rowIndex;
         let counter = this.props.counter;
+        console.log(this.props.scoreChange.playerOneScore)
 
         // make each column
         return (
