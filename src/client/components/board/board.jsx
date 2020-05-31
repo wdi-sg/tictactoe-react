@@ -15,6 +15,21 @@ class Board extends React.Component {
         playerTwoRow: [],
         playerTwoCol: []
       }
+    };
+
+    resetState(){
+      this.setState({
+        board: [
+          [' ',' ',' '],
+          [' ',' ',' '],
+          [' ',' ',' ']
+        ],
+        counter: 0,
+        playerOneRow: [],
+        playerOneCol: [],
+        playerTwoRow: [],
+        playerTwoCol: []
+      })
     }
 
     squareClick(colIndex, rowIndex){
@@ -26,15 +41,13 @@ class Board extends React.Component {
       let playerOne = "O"
       let playerTwo = "X"
       let player = '';
+      let message;
       //check occurrence of each row and column for each player if equal to 3.
       const countOcc = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
       //display winner found.
       const winnerFound = (player) => {
-        if (player) {
-          alert(player +" wins!")
-        } else {
-          alert("It's a tie!")
-        }
+        message = player + " wins!";
+        alert(message)
       };
       //check who is the winner by row.
       const whichPlayerWinRow = (rowIndex) => {
@@ -60,19 +73,14 @@ class Board extends React.Component {
       const checkCountOcc = (arrRow, arrCol) => {
         if (countOcc(arrRow, 0) === 3) {
           whichPlayerWinRow(0);
-          // stateBoard[0].;
         } else if (countOcc(arrRow, 1) === 3) {
           whichPlayerWinRow(1);
-
         } else if (countOcc(arrRow, 2) === 3) {
           whichPlayerWinRow(2);
-
         } else if (countOcc(arrCol, 0) === 3) {
           whichPlayerWinCol(0);
-
         } else if (countOcc(arrCol, 1) === 3) {
           whichPlayerWinCol(1);
-
         } else if (countOcc(arrCol, 2) === 3) {
           whichPlayerWinCol(2);
         };
@@ -94,7 +102,9 @@ class Board extends React.Component {
           player = "Player One"
           winnerFound(player);
         } else if (currentCount === 8 && player === '') {
-          alert("It is a tie!")
+          //display tie
+          message = "It is a tie!";
+          alert(message)
         } else {
           checkCountOcc(playerOneRow, playerOneCol);
         }
@@ -115,7 +125,8 @@ class Board extends React.Component {
           winnerFound(player);
         } else if (currentCount === 8 && player === '') {
           //display tie
-          alert("It is a tie!")
+          message = "It is a tie!";
+          alert(message)
         } else {
           checkCountOcc(playerTwoRow, playerTwoCol)
         }
@@ -123,7 +134,6 @@ class Board extends React.Component {
         this.setState( { counter: currentCount } );
       };
     };
-
     render() {
         // console.log("board", this.state.board);
         const board = this.state.board.map( (row,rowIndex) => {
@@ -144,6 +154,7 @@ class Board extends React.Component {
         return (
             <div className="item">
               {board}
+              <button onClick={()=>{this.resetState();}}>Reset</button>
             </div>
         );
     }
