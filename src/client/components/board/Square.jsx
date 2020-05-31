@@ -20,8 +20,8 @@ class Square extends React.Component {
 
     }
 
-    sendData(counter){
-        this.props.callback(counter+1);
+    sendData(counter, colIndex, rowIndex){
+        this.props.callback(counter+1, colIndex, rowIndex);
     }
 
     render() {
@@ -37,7 +37,7 @@ class Square extends React.Component {
                 key={colIndex}
                 onClick={()=>{
                     this.squareClick(counter);
-                    this.sendData(counter);
+                    this.sendData(counter, colIndex, rowIndex);
                 }}
 
             >

@@ -18,15 +18,24 @@ class Board extends React.Component {
         }
 
         // Counter to check which player turn
-        this.addCounter = (counter) => {
+        this.addCounter = (counter, colIndex, rowIndex) => {
+            let board = this.state.board
+            if (counter%2 === 0) {
+                board[rowIndex][colIndex] = "O"
+            }
+            else{
+                board[rowIndex][colIndex] = "X"
+            }
+
             this.setState({
-                counter: counter
+                counter: counter,
+                board: board
             })
         }
     }
 
     render() {
-        console.log("board", this.state.counter);
+        console.log("board", this.state.counter, this.state.board);
 
         const board = this.state.board.map( (row,rowIndex) => {
             return (
