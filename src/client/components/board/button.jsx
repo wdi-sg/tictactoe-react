@@ -23,9 +23,9 @@ class Button extends React.Component {
           <li><a onClick={this.props.dropdown3}>FIVE</a></li>
         </ul>
 
-        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown1' style={{width:"100%"}}><i className="material-icons right">arrow_drop_down</i>Win cond</a>
+        <a className='right dropdown-trigger waves-effect waves-black btn-flat' data-target='dropdown2' style={{width:"100%"}}><i className="material-icons right">arrow_drop_down</i>Win cond</a>
 
-        <ul id='dropdown1' className='dropdown-content'>
+        <ul id='dropdown2' className='dropdown-content'>
           <li><a onClick={this.props.dropdown4}>match three</a></li>
           <li><a onClick={this.props.dropdown5}>match four</a></li>
           <li><a onClick={this.props.dropdown6}>match five</a></li>
