@@ -18,7 +18,7 @@ class Board extends React.Component {
         }
 
         // Counter to check which player turn
-        this.boardCallbackFunction = (counter) => {
+        this.addCounter = (counter) => {
             this.setState({
                 counter: counter
             })
@@ -30,7 +30,7 @@ class Board extends React.Component {
 
         const board = this.state.board.map( (row,rowIndex) => {
             return (
-            <Row row={row} rowIndex={rowIndex} counter={this.state.counter} callback={this.boardCallbackFunction}/>
+            <Row row={row} rowIndex={rowIndex} counter={this.state.counter} callback={this.addCounter}/>
             )
         });
 
