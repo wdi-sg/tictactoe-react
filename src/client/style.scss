@@ -6,8 +6,15 @@ html, body {
 }
 body{
   padding:20px;
-
 }
-p{
-	color:red;
+.square {
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  display: inline-block;
+  font-size: 3rem;
+  margin-bottom: -2px;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align:top;
 }
