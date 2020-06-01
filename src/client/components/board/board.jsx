@@ -12,19 +12,28 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+        player: 1
       }
 
     }
 
     squareClick(something, something2){
         console.log( something, something2 );
-        var updatedBoard = this.state.board;
-        updatedBoard[something2][something] = 'X'; 
-      
-        // this.state.board[something2][something] = 'X';
-        console.log(updatedBoard);
-        this.setState({board: updatedBoard});
+        if (this.state.player == 1) {
+          var updatedBoard = this.state.board;
+          updatedBoard[something2][something] = 'X'; 
+          this.setState({board: updatedBoard});
+          this.setState({player: 2});
+        }
+        else {
+          var updatedBoard = this.state.board;
+          updatedBoard[something2][something] = 'O'; 
+          this.setState({board: updatedBoard});
+          this.setState({player: 1});
+
+        }
+       
 
     }
     
