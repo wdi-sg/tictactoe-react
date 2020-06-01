@@ -700,8 +700,8 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
   }_createClass(Board, [{ key: "squareClick", value: function squareClick(
 
-    something, something2) {
-      console.log(something, something2);
+    colIndex, rowIndex) {
+      console.log(colIndex, rowIndex);
     } }, { key: "render", value: function render()
 
     {var _this2 = this;
@@ -714,7 +714,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 
           // make each column
           return (
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
               className: "boo",
               key: colIndex,
               onClick: function onClick() {
@@ -722,7 +722,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
               } },
 
 
-            col, " : ", colIndex, " : ", rowIndex));
+            col));
 
 
 
@@ -753,6 +753,7 @@ Board = /*#__PURE__*/function (_React$Component) {_inherits(Board, _React$Compon
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+module.exports = {"boo":"_1NKRTSXmRsNUlAqIQNrbOJ"};
 
 /***/ })
 /******/ ]);

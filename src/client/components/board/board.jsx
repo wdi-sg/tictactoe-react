@@ -7,16 +7,35 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          ["","",""],
+          ["","",""],
+          ["","",""]
+        ],
+        lastMove: []
       }
 
     }
 
     squareClick(colIndex, rowIndex){
         console.log( colIndex, rowIndex );
+
+        let lastMove = this.state.lastMove;
+        let currentBoard= this.state.board;
+
+        //check current player and prevents clicking on already clicked box
+
+        if (lastMove.length === 0) {
+          currentBoard[rowIndex][colIndex] = "O";
+          lastMove.push("O");
+        } else if (lastMove[lastMove.length - 1] === "O" && currentBoard[rowIndex][colIndex] === "") {
+          currentBoard[rowIndex][colIndex] = "X";
+          lastMove.push("X");
+        } else if (lastMove[lastMove.length - 1] === "X" && currentBoard[rowIndex][colIndex] === "") {
+          currentBoard[rowIndex][colIndex] = "O";
+          lastMove.push("O");
+        } 
+    
+        this.setState({ board: currentBoard, lastMove: lastMove });
     }
 
     render() {
@@ -29,7 +48,7 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
+                    <span
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
@@ -37,8 +56,8 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        [ {col} ] 
+                    </span>
             );
 
           });
