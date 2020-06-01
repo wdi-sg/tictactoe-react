@@ -10,18 +10,22 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i'],
           ['i','i','i']
-        ]
+        ],
+
       }
 
     }
-
+    
     squareClick(something, something2){
         console.log( something, something2 );
     }
-
+     handleClick (event, colIndex){
+      // access to event.target here
+      console.log(colIndex);
+    }
     render() {
         console.log("board", this.state.board);
-
+        let innerText = "";
         const board = this.state.board.map( (row,rowIndex) => {
 
           // make a single row
@@ -29,23 +33,33 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <p
+              <div className="border border-dark" >
+                    <button
                         className="boo"
-                        key={colIndex}
+                        key={rowIndex+"|"+colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
+                            // this.handleClick(event, colIndex);
+                            this.disabled=true;
                         }}
-
+                        onMouseOver={()=>{
+                          console.log(event)
+                            this.innerText = "hovered"
+                        }}
+                        style={{height: 200 , width: 200}}
+                        
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+trest                    </button>
+                    </div>
             );
 
           });
 
           // return the complete row
           return (
-            <div key={rowIndex} className="row">
+            <div key={rowIndex} className="row d-flex justify-content-center m-0 p-0"                         
+            style={{width: 610}}
+            >
               {rows}
             </div>
 
