@@ -2,45 +2,80 @@ import React from 'react';
 
 class Board extends React.Component {
     constructor(){
-
       super()
-
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+        turn: 0,
+        player: 'X'
       }
-
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+    checkWinState() {
+        let winState = [
+        [[0,0],[1,0],[2,0]],
+        [[0,1],[1,1],[2,1]],
+        [[0,2],[1,2],[2,2]],
+        [[0,0],[1,0],[2,0]],
+        [[1,0],[1,1],[2,1]],
+        [[2,0],[2,1],[2,2]],
+        [[0,0],[1,1],[2,2]],
+        [[2,0],[1,1],[0,2]]
+        ]
+
+        // for (let i=0; i<winState.length; i++) {
+        //     for (let j=0; j<winState[i].length; j++) {
+        //         const [[a,b],[c,d],[e,f]] = winState[i][j]
+
+        //             if (this.state.board[a,b] === this.state.board[c,d] && this.state.board[c,d] === this.state.board[e,f]) {
+        //                 alert('You won!')
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    handleClick(colIndex, rowIndex){
+        console.log( colIndex, rowIndex );
+
+        let newBoard = this.state.board;
+        let nextPlayer = this.state.player;
+        let nextTurn = this.state.turn;
+
+        if (this.state.board[rowIndex][colIndex] === null) {
+            newBoard[rowIndex][colIndex] = this.state.player;
+            nextTurn += 1;
+            (nextPlayer === 'X') ? nextPlayer = 'O' : nextPlayer = 'X';
+            this.checkWinState()
+        }
+
+        this.setState({
+            board: newBoard,
+            turn: nextTurn,
+            player: nextPlayer
+        })
     }
 
     render() {
-        console.log("board", this.state.board);
-
-        const board = this.state.board.map( (row,rowIndex) => {
+        const board = this.state.board.map( (row, rowIndex) => {
 
           // make a single row
-          const rows = row.map( (col,colIndex) => {
+          const rows = row.map( (col, colIndex) => {
 
             // make each column
             return (
-                    <p
+                    <button
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
-
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                            this.handleClick(colIndex, rowIndex);
+                        }}>
+                        {col}
+                    </button>
             );
-
           });
 
           // return the complete row
@@ -48,9 +83,7 @@ class Board extends React.Component {
             <div key={rowIndex} className="row">
               {rows}
             </div>
-
           );
-
         });
 
         return (
