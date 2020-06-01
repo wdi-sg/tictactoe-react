@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 class Board extends React.Component {
     constructor(){
 
@@ -17,7 +19,15 @@ class Board extends React.Component {
 
     squareClick(something, something2){
         console.log( something, something2 );
+        var updatedBoard = this.state.board;
+        updatedBoard[something2][something] = 'X'; 
+      
+        // this.state.board[something2][something] = 'X';
+        console.log(updatedBoard);
+        this.setState({board: updatedBoard});
+
     }
+    
 
     render() {
         console.log("board", this.state.board);
@@ -27,9 +37,16 @@ class Board extends React.Component {
           // make a single row
           const rows = row.map( (col,colIndex) => {
 
+            if (col === 'i') {
+              console.log('ITS I')
+            }
+            else {
+              console.log("its been clicked before")
+            }; 
+
             // make each column
             return (
-                    <p
+                    <span
                         className="boo"
                         key={colIndex}
                         onClick={()=>{
@@ -37,8 +54,8 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
+                        {col} : {colIndex} : {rowIndex} | 
+                     </span>
             );
 
           });
