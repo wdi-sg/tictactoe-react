@@ -1,7 +1,10 @@
 import React from 'react';
 
+import Start from '../buttons/start';
+import Reset from '../buttons/reset';
+
 class Board extends React.Component {
-    constructor(){
+    constructor() {
 
       super()
 
@@ -11,31 +14,53 @@ class Board extends React.Component {
           ['i','i','i'],
           ['i','i','i']
         ],
-        playerTurn: 1
+        playerTurn: 1,
+        start: false
       }
+
+      this.startButton = this.startButton.bind(this)
+      this.resetButton = this.resetButton.bind(this)
 
     }
 
-    squareClick(colIndex, rowIndex){
-        const tempBoard = this.state.board;
+    squareClick(colIndex, rowIndex) {
+        if (this.state.start) {
+            const tempBoard = this.state.board;
 
-        if (tempBoard[rowIndex][colIndex] === "i") {
-            if (this.state.playerTurn === 1) {
-                tempBoard[rowIndex][colIndex] = "X";
+            if (tempBoard[rowIndex][colIndex] === "i") {
+                if (this.state.playerTurn === 1) {
+                    tempBoard[rowIndex][colIndex] = "X";
 
-                this.setState({
-                    board: tempBoard,
-                    playerTurn: 2
-                })
-            } else {
-                tempBoard[rowIndex][colIndex] = "O";
+                    this.setState({
+                        board: tempBoard,
+                        playerTurn: 2
+                    })
+                } else {
+                    tempBoard[rowIndex][colIndex] = "O";
 
-                this.setState({
-                    board: tempBoard,
-                    playerTurn: 1
-                })
+                    this.setState({
+                        board: tempBoard,
+                        playerTurn: 1
+                    })
+                }
             }
         }
+    }
+
+    startButton() {
+        this.setState({
+            start: true
+        })
+    }
+
+    resetButton() {
+        this.setState({
+            board: [
+              ['i','i','i'],
+              ['i','i','i'],
+              ['i','i','i']
+            ]
+        })
     }
 
     render() {
@@ -75,6 +100,11 @@ class Board extends React.Component {
         return (
           <div className="item">
             {board}
+            <div>
+                <Start startButton={this.startButton} />
+                <br/>
+                <Reset resetButton={this.resetButton} />
+            </div>
           </div>
         );
     }
