@@ -46,16 +46,18 @@ class Board extends React.Component {
 
             // make each column
             return (
-                    <span
-                        className="boo"
+                    
+                        <button type="checkbox"
+                        style={{width: 50, height: 50}}
                         key={colIndex}
                         onClick={()=>{
                             this.squareClick(colIndex, rowIndex);
-                        }}
+                        }}> {col}
 
-                    >
-                        {col} : {colIndex} : {rowIndex} | 
-                     </span>
+                    
+                        
+                        </button>
+                     
             );
 
           });
