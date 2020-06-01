@@ -19,9 +19,9 @@ export default class Square extends React.Component {
         
         return (
             <button 
-                className={`${this.props.id} ${winner}`}
+                className={`btn btn-outline-warning ${this.props.id} ${winner}`}
                 style={{width:"150px", height:"150px",
-                background: "white", border:"1px solid black" , fontSize: '80px',
+                border:"1px solid black" , fontSize: '80px',
                 fontWeight: '800', cursor: 'pointer',
                 color: this.props.value=="X" ? 'red':'blue'}}
                 onClick={() => this.props.onClick()}
