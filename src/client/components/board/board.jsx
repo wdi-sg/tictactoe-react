@@ -14,6 +14,30 @@ class Board extends React.Component {
       }
     }
 
+    checkWinState() {
+        let winState = [
+        [[0,0],[1,0],[2,0]],
+        [[0,1],[1,1],[2,1]],
+        [[0,2],[1,2],[2,2]],
+        [[0,0],[1,0],[2,0]],
+        [[1,0],[1,1],[2,1]],
+        [[2,0],[2,1],[2,2]],
+        [[0,0],[1,1],[2,2]],
+        [[2,0],[1,1],[0,2]]
+        ]
+
+        // for (let i=0; i<winState.length; i++) {
+        //     for (let j=0; j<winState[i].length; j++) {
+        //         const [[a,b],[c,d],[e,f]] = winState[i][j]
+
+        //             if (this.state.board[a,b] === this.state.board[c,d] && this.state.board[c,d] === this.state.board[e,f]) {
+        //                 alert('You won!')
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
     handleClick(colIndex, rowIndex){
         console.log( colIndex, rowIndex );
 
@@ -25,6 +49,7 @@ class Board extends React.Component {
             newBoard[rowIndex][colIndex] = this.state.player;
             nextTurn += 1;
             (nextPlayer === 'X') ? nextPlayer = 'O' : nextPlayer = 'X';
+            this.checkWinState()
         }
 
         this.setState({
@@ -33,8 +58,6 @@ class Board extends React.Component {
             player: nextPlayer
         })
     }
-
-
 
     render() {
         const board = this.state.board.map( (row, rowIndex) => {
