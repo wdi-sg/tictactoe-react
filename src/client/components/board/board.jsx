@@ -19,6 +19,7 @@ class Board extends React.Component {
         console.log( something, something2 );
     }
 
+
     render() {
         console.log("board", this.state.board);
 
@@ -26,6 +27,7 @@ class Board extends React.Component {
 
           // make a single row
           const rows = row.map( (col,colIndex) => {
+
 
             // make each column
             return (
@@ -37,7 +39,10 @@ class Board extends React.Component {
                         }}
 
                     >
+
                         {col} : {colIndex} : {rowIndex}
+
+
                     </p>
             );
 
