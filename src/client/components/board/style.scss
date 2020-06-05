@@ -1,0 +1,26 @@
+p{
+  color:red;
+
+}
+
+.boo{
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  max-width: 50vw;
+  min-width: 5vw;
+  min-height: 5vh;
+  max-height: 50vh;
+  background-color:white;
+  text-align: center;
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+  background-color:grey;
+  max-width: 25vw;
+  max-height: 50vh;
+  padding: 5px;
+  margin: 5px;
+}
