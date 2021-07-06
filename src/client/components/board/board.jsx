@@ -1,64 +1,75 @@
 import React from 'react';
 
 class Board extends React.Component {
-    constructor(){
+  constructor(){
 
-      super()
+    super()
 
-      this.state = {
-        board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
-      }
-
+    this.state = {
+      board: [
+        [null,null,null],
+        [null,null,null],
+        [null,null,null]
+      ],
+      counter: 0,
     }
 
-    squareClick(something, something2){
-        console.log( something, something2 );
+  }
+
+  handleClick(event, colIndex, rowIndex) {
+    let counter = this.state.counter;
+    let board = this.state.board;
+    let playturn;
+
+    if (counter % 2 === 0) {
+      playturn = "X";
+    } else {
+      playturn = "O";
     }
 
-    render() {
-        console.log("board", this.state.board);
+    counter++;
 
-        const board = this.state.board.map( (row,rowIndex) => {
+    if (board[rowIndex][colIndex] === null) {
+      board[rowIndex][colIndex] = playturn;
+    }
 
-          // make a single row
-          const rows = row.map( (col,colIndex) => {
+    event.target.disabled = true;
 
-            // make each column
-            return (
-                    <p
-                        className="boo"
-                        key={colIndex}
-                        onClick={()=>{
-                            this.squareClick(colIndex, rowIndex);
-                        }}
+    this.setState({board, counter});
+  }
 
-                    >
-                        {col} : {colIndex} : {rowIndex}
-                    </p>
-            );
+  render() {
+      const board = this.state.board.map( (row,rowIndex) => {
 
-          });
-
-          // return the complete row
+        // make a single row
+        const rows = row.map( (col,colIndex) => {
+          console.log("*** colIndex ***", colIndex);
+          // make each column
           return (
-            <div key={rowIndex} className="row">
-              {rows}
-            </div>
-
+                  <button className="btn btn-primary" onClick={(e)=>{this.handleClick(e, colIndex, rowIndex)}} key={colIndex}>
+                    {col}
+                  </button>
           );
-
         });
 
+        // return the complete row
         return (
-          <div className="item">
-            {board}
+          <div key={rowIndex} className="row">
+            {rows}
           </div>
         );
-    }
+
+      });
+      return (
+        <div className="item">
+          <div className="container-fluid d-flex flex-column justify-content-center align-items-center">
+            {board}
+          </div>
+
+        </div>
+      );
+  }
 }
+
 
 export default Board;
