@@ -18,7 +18,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.7.0",
     "babel-loader": ">=8.0.5",
-    "babel-watch": ">=7.0.0",
+    "babel-watch": "^7.0.0",
     "cross-env": ">=5.2.0",
     "css-loader": ">=2.1.0",
     "extract-text-webpack-plugin": ">=4.0.0-beta.0",
@@ -39,9 +39,15 @@
     "webpack-merge": ">=4.2.1"
   },
   "dependencies": {
+    "@hot-loader/react-dom": "^16.11.0",
+    "@material-ui/core": "^4.6.1",
+    "@material-ui/icons": "^4.5.1",
+    "@types/react": "^16.9.11",
+    "braces": "^2.3.2",
     "classnames": "^2.2.6",
     "express": ">=4.16.4",
     "react": "^16.8.2",
-    "react-dom": "^16.8.2"
+    "react-dom": "^16.8.2",
+    "upgrade": "^1.1.0"
   }
 }
