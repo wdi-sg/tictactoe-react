@@ -7,20 +7,60 @@ class Board extends React.Component {
 
       this.state = {
         board: [
-          ['i','i','i'],
-          ['i','i','i'],
-          ['i','i','i']
-        ]
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ],
+
+        player: false
       }
 
     }
 
     squareClick(something, something2){
-        console.log( something, something2 );
-    }
+
+        let newBoard = this.state.board
+        var clickX = "X"
+        var clickO = "O"
+
+        if (newBoard[something2][something] === null){
+             newBoard[something2][something] = this.state.player? clickX : clickO;
+        } else {
+            alert ("Hey, that's taken!")
+        }
+
+
+        console.log( something2, something );
+
+        let newValues = {
+            board: newBoard,
+            player: !this.state.player
+        }
+
+        this.setState(newValues)
+
+        let checkStr = this.state.board.toString();
+
+    if (/XXX|X...X...X|X.....X.....X|X..X...X|X.X.X/.test(checkStr)) {
+        let playerXwins = alert("Player X won!")
+        setTimeout(playerXwins,5000) ;
+      } else if (/OOO|O.....O.....O|O..O...O|O.O.O/.test(checkStr)) {
+        let playerOwins = alert("Player O won!")
+        setTimeout(playerOwins,5000);
+      }
+
+}
+
+
+
+
+
+
+
 
     render() {
         console.log("board", this.state.board);
+         console.log("board string", this.state.board.toString());
 
         const board = this.state.board.map( (row,rowIndex) => {
 
@@ -37,7 +77,7 @@ class Board extends React.Component {
                         }}
 
                     >
-                        {col} : {colIndex} : {rowIndex}
+                        {col}
                     </p>
             );
 
